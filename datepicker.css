@@ -1,0 +1,48 @@
+
+._datepicker_style {
+    display: flex;
+    flex-wrap: wrap;
+    width: 280px;
+    padding: 10px;
+}
+
+._datepicker_style span {
+    display: flex;
+    justify-content: center;
+    flex-basis: 13%;
+    align-content: space-between;
+    align-items: center;
+}
+
+#_datepicker_body {
+    height: 180px;
+    background: antiquewhite;
+    color: grey;
+    pointer-events: none;
+}
+
+._datepicker_active {
+    pointer-events: initial;
+    color: black;
+    cursor: pointer;
+}
+
+._datepicker_selectedDay {
+    background-color: red;
+    color: #ffffff!important;
+}
+
+._datepicker_unactive {
+    color: grey !important;
+}
+
+._datepicker_select {
+    background: red;
+    color: #fff;
+}
+
+._datepicker_style span:nth-child(7n+1),
+._datepicker_style span:nth-child(7n) {
+    color: #ff0000;
+}
+

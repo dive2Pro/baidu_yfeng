@@ -62,4 +62,7 @@
     opacity: 1;
 
 }
-
+._datepicker_range_item{
+    background-color: #ff6159;
+    color: #ffffff;
+}

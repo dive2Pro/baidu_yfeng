@@ -1,15 +1,18 @@
-*:before,*:after,*{
+*:before, *:after, * {
     box-sizing: border-box;
 }
-._datepicker{
+
+._datepicker {
     position: inherit;
-    width: 280px;
+    width: 240px;
 }
+
 ._datepicker_style {
     display: flex;
     flex-wrap: wrap;
-    width: 280px;
+    width: 100%;
     padding: 10px;
+    justify-content: center;
 }
 
 ._datepicker_style span {
@@ -35,7 +38,7 @@
 
 ._datepicker_selectedDay {
     background-color: red;
-    color: #ffffff!important;
+    color: #ffffff !important;
 }
 
 ._datepicker_unactive {
@@ -52,17 +55,43 @@
     color: #ff0000;
 }
 
-._datepicker_main{
+._datepicker_main {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.5s;
 }
-._datepicker_visible{
+
+._datepicker_visible {
     visibility: visible;
     opacity: 1;
 
 }
-._datepicker_range_item{
+
+._datepicker_range_item {
     background-color: #ff6159;
     color: #ffffff;
+}
+
+._datepicker_op {
+    display: flex;
+    background-color: #ff6159;
+    padding: 10px;
+}
+
+._datepicker_op i {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+._datepicker_op #_datepicker_fulldate {
+    display: flex;
+    flex: 3;
+    justify-content: center;
+}
+#_datepicker_show_container{
+}
+#_datepicker_show {
+    width: 100%;
+    display: flex;
 }

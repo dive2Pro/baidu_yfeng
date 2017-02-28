@@ -3,4 +3,4 @@ dpv.addSelectedListener(function () {
     console.log('addSele-------', arguments)
 });
 
-new MultiDatePickerView(document,'multidatePiker');
+new MultiDatePickerView(document.getElementById('multidatePiker'), true, 30);

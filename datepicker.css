@@ -1,4 +1,10 @@
-
+*:before,*:after,*{
+    box-sizing: border-box;
+}
+._datepicker{
+    position: inherit;
+    width: 280px;
+}
 ._datepicker_style {
     display: flex;
     flex-wrap: wrap;
@@ -44,5 +50,16 @@
 ._datepicker_style span:nth-child(7n+1),
 ._datepicker_style span:nth-child(7n) {
     color: #ff0000;
+}
+
+._datepicker_main{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+._datepicker_visible{
+    visibility: visible;
+    opacity: 1;
+
 }
 

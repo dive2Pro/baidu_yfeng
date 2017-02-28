@@ -1,22 +1,24 @@
-const datePickerView = (function () {
+const DatePickerView = (function () {
 
     function defDate() {
         return new Date();
     }
 
-    const defdate = defDate();
+    const tempDate = defDate();
+    const defdate = {
+        year: tempDate.getFullYear()
+        , month: tempDate.getUTCMonth()
+        , day: tempDate.getDate()
+    };
 // model
     function model(changeListener) {
 
 
-        const selected_Date = {
-            year: defdate.getFullYear()
-            , month: defdate.getUTCMonth()
-            , day: defdate.getDate()
-            , toString: function () {
+        const selected_Date = Object.assign({}, defdate, {
+            toString: function () {
                 return this.year + '' + this.month + '' + this.day
             }
-        };
+        });
         let choice_date = Object.assign({}, selected_Date);
 
         function selectYear(year) {
@@ -32,6 +34,10 @@ const datePickerView = (function () {
         function selectDay(day) {
             selected_Date.day = day;
             choice_date = Object.assign({}, selected_Date)
+        }
+
+        function getChoiceDate() {
+            return Object.assign({}, selected_Date)
         }
 
         function selectDateChanged(newDate) {
@@ -50,7 +56,7 @@ const datePickerView = (function () {
             , selectMonth: selectMonth
             , selectDay: selectDay
             , selected_Date: selected_Date
-            , choice_date: choice_date
+            , getChoiceDate: getChoiceDate
         }
 
     }
@@ -78,7 +84,7 @@ const datePickerView = (function () {
         function addMonth() {
             const m_month = m.month;
             if (m_month == 11) {
-                m = mo.selectYear(m.year + 1);
+                mo.selectYear(m.year + 1);
                 m = mo.selectMonth(0);
             } else {
                 m = mo.selectMonth(m_month + 1)
@@ -88,7 +94,7 @@ const datePickerView = (function () {
         function decMonth() {
             const m_month = m.month;
             if (m_month == 0) {
-                m = mo.selectYear(m.year - 1);
+                mo.selectYear(m.year - 1);
                 m = mo.selectMonth(11);
             } else {
                 m = mo.selectMonth(m_month - 1)
@@ -97,7 +103,7 @@ const datePickerView = (function () {
 
         function selectDay(day) {
             mo.selectDay(day);
-            changeDayListener(mo.choice_date);
+            changeDayListener(mo.getChoiceDate());
         }
 
         changeDayListener(m);
@@ -139,29 +145,49 @@ const datePickerView = (function () {
         })
     }
 
-    function datePickerView(doc, id, listener) {
+    function geneFullDate(year, month) {
+        return `${year}年${month + 1}月`
+    }
+
+    function showFullDate(date) {
+        return `${date.year}-${date.month + 1}-${date.day}`
+    }
+
+
+    function DatePickerView(doc, id, listener) {
+        let mainIsVisible = false;
         const datePiker = doc.getElementById(id);
 
-        function geneFullDate(year, month) {
-            return `${year}年${month + 1}月`
+
+        function showFullDateInput(date) {
+            return `<input type="text" value="${showFullDate(date)}" id="_datepicker_show" readonly>`
         }
 
         const body = `
-    <div class="_datepicker_op">
-        <i id="_datepicker_decmonth"><-</i>
-        <span id="_datepicker_fulldate">
-        ${geneFullDate(defdate.getFullYear(), defdate.getUTCMonth())}
-        </span>
-        <i id="_datepicker_addmonth">-></i>
-    </div>
-    <div class="_datepicker_style">
-        <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
-        </div>
-    <div id="_datepicker_body" class="_datepicker_style"></div>`
-            ;
+                    <div class="_datepicker">
+                        <div id="_datepicker_show_container">
+                        ${showFullDateInput(defdate)}
+                        </div>
+                        <div class="_datepicker_main">
+                            <div class="_datepicker_op">
+                                <i id="_datepicker_decmonth"><-</i>
+                                <span id="_datepicker_fulldate">
+                                ${geneFullDate(defdate.year, defdate.month)}
+                                </span>
+                                <i id="_datepicker_addmonth">-></i>
+                            </div>
+                            <div class="_datepicker_style">
+                                <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+                                </div>
+                            <div id="_datepicker_body" class="_datepicker_style"></div>
+                        </div>
+                    </div>`;
         datePiker.innerHTML = body;
         const fulldate_view = doc.getElementById('_datepicker_fulldate');
         const datepicker_body = doc.getElementById('_datepicker_body');
+        const datepicker_main = doc.getElementsByClassName('_datepicker_main')[0];
+        const datepicker_show_container = doc.getElementById('_datepicker_show_container');
+        const datepicker_show = doc.getElementById('_datepicker_show');
 
         function geneBody(newDate, body, dayIndex, choice_date) {
             console.info('dayIndex = ', dayIndex);
@@ -194,7 +220,7 @@ const datePickerView = (function () {
         }
 
         let prevTargetDayView;
-
+        let that = this;
         const c = controller(function (newDate, dayIndex, choice_date) {
             console.info(newDate);
             fulldate_view.innerHTML = geneFullDate(newDate.year, newDate.month);
@@ -204,19 +230,32 @@ const datePickerView = (function () {
 
         }, function (choicedate) {
             if (prevTargetDayView == null) {
-                console.info('prevTargetDayView = ' + prevTargetDayView)
+                console.info('prevTargetDayView = ' + prevTargetDayView);
                 prevTargetDayView = doc.querySelector('._datepicker_selectedDay');
             }
+            console.info(choicedate, datepicker_show);
+            datepicker_show.value = showFullDate(choicedate);
+            listener && listener(choicedate);
+            console.info('that = ', that);
+            that.allListener && that.allListener.forEach(lis => {
+                lis(choicedate)
+            })
+        });
 
-            listener && listener(choicedate)
+        datepicker_show_container.addEventListener('click', (event) => {
+            console.log(event);
+            if (!mainIsVisible) {
+                datepicker_main.classList.add('_datepicker_visible')
+            } else {
+                datepicker_main.classList.remove('_datepicker_visible')
+            }
+            mainIsVisible = !mainIsVisible;
         });
 
         datepicker_body.addEventListener('click', function (event) {
             const target = event.target;
             prevTargetDayView = doc.querySelector('._datepicker_selectedDay');
-            if (prevTargetDayView == null) {
-                prevTargetDayView = target;
-            } else {
+            if (prevTargetDayView != null) {
                 prevTargetDayView.classList.remove('_datepicker_selectedDay')
             }
             prevTargetDayView = target;
@@ -235,5 +274,11 @@ const datePickerView = (function () {
         })
     }
 
-    return datePickerView
+    DatePickerView.prototype.addSelectedListener = function () {
+        this.allListener = this.addListener || [];
+        const args = [].slice.apply(arguments).filter(e => typeof e == 'function');
+        this.allListener = this.allListener.concat(args)
+    };
+
+    return DatePickerView
 }());

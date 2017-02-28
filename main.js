@@ -1,4 +1,4 @@
-/**
- * Created by hyc on 2017/2/27.
- */
-datePickerView(document,'datePiker');
+const dpv = new DatePickerView(document, 'datePiker');
+dpv.addSelectedListener(function () {
+    console.log('addSele-------', arguments)
+});

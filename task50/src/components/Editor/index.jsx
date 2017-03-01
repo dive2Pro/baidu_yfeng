@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/index';
 import * as topicTypes from '../../constants/topicType';
-import { ADD_QUESTION } from '../../constants/toggleTypes';
+import { ADD_QUESTION, SELECT_DATE } from '../../constants/toggleTypes';
 import classnames from 'classnames';
 import Modal from '../Modal/index';
+import DatePiker from '../../assets/multidatepiker';
 class Editor extends Component {
   componentDidUpdate() {
-    console.log(this.addDiv.style);
     this.addDiv.addEventListener('transitionend', _ => {
       this.transform = '';
     });
@@ -93,11 +93,27 @@ class Editor extends Component {
           </div>
 
         </Modal>
+        <Modal
+          cancelFunc={() => toggleFunc(topicTypes.TEXT_TYPE)}
+          active={toggle[topicTypes.TEXT_TYPE]}
+        >
+          <div>
+            <div>请输入问题题目（文字题）</div>
+
+          </div>
+
+        </Modal>
+        <Modal
+          cancelFunc={() => toggleFunc(topicTypes.TEXT_TYPE)}
+          active={toggle[SELECT_DATE]}
+        />
       </div>
     );
   }
 }
-const mapStateToProps = state => ({ toggle: state.toggle });
+const mapStateToProps = state => ({
+  toggle: state.toggle
+});
 const mapDispatchToProps = dispatch => {
   return { toggleFunc: bindActionCreators(actions.toggle, dispatch) };
 };

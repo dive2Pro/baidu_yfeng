@@ -1,0 +1,51 @@
+.inputitem {
+  // height: $selectItemHeight;
+  width: 100%;
+  & .edit {
+    display: none;
+    border: 0;
+    outline: none;
+    padding: ($padding/2) $padding;
+    background: inherit;
+    height: 100%;
+    margin-left: $marginToggle;
+    width: 88%;
+    margin-left: 45px;
+    box-shadow: inset 0px 0px 2px 2px #c5baba;
+    line-height: 1.4em;
+  }
+  & .view {
+    display: block;
+    position: relative;
+    & .toggle {
+      text-align: center;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      margin: auto 0;
+      border: 0;
+      background: red;
+    }
+  }
+  & label {
+    height: 100%;
+    white-space: pre-line;
+    word-break: break-all;
+    padding: ($padding/2) $padding;
+    line-height: 1.2;
+    margin-left: $marginToggle;
+    display: block;
+  }
+}
+
+.editing {
+  & .edit {
+    display: block;
+    border: 1px solid $backgroundSecondary;
+    box-shadow: 1px;
+  }
+  & .view {
+    display: none;
+  }
+}

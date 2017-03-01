@@ -1,0 +1,34 @@
+body {
+  background: $background;
+  font: 400 13px 'Coresans', Arial, sans-serif;
+  color: $fontColor;
+  letter-spacing: 0.02em;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  ul,
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+a {
+  color: $fontColor;
+  text-decoration: none;
+  &:hover {
+    color: $hyperlinkHover;
+  }
+  &:active {
+    color: $hyperlinkActive;
+  }
+  &:visited {
+    color: $hyperlinkVisited;
+  }
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}

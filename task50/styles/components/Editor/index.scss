@@ -1,0 +1,52 @@
+.editor {
+  margin: auto ($padding);
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: ($padding*2);
+  &-title {}
+  &-questions {}
+  &-addquestion {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    & div {
+      text-align: center;
+      justify-content: center;
+      align-content: space-between;
+      align-items: center;
+      transition: transform .5s;
+      flex: 1;
+    }
+    &-items {
+      background: #a03737;
+      transform: translateY(-100%);
+      display: none;
+      &.active {
+        display: flex;
+        transform: translateY(0);
+      }
+    }
+    &-add {
+      background: grey;
+      color: white;
+      height: 100%;
+      display: flex;
+      &.active {}
+    }
+  }
+  &-bottom {
+    display: flex;
+    align-content: space-between;
+    padding: ($padding);
+    & div {
+      display: flex;
+      flex: 1;
+      align-content: space-between;
+      justify-content: center;
+      &::first-child {
+        margin-right: $padding;
+      }
+    }
+  }
+}

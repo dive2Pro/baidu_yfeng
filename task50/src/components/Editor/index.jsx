@@ -6,6 +6,7 @@ import * as actions from '../../actions/index';
 import * as topicTypes from '../../constants/topicType';
 import { ADD_QUESTION } from '../../constants/toggleTypes';
 import classnames from 'classnames';
+import Modal from '../Modal/index';
 class Editor extends Component {
   componentDidUpdate() {
     console.log(this.addDiv.style);
@@ -24,16 +25,20 @@ class Editor extends Component {
       active: toggle[ADD_QUESTION]
     });
 
+    const topicArr = topicTypes.arr;
+
     return (
       <div className="editor">
         <div className="editor-title" />
-        <div className="editor-questions" />
+        <div className="editor-questions">
+          <SingleChoice />
+        </div>
         <div className="editor-addquestion">
           <div className={itemsClazz} ref={p => this.addItemsDiv = p}>
-            {Object.keys(topicTypes.arr).map((type, index) => {
+            {Object.keys(topicArr).map((type, index) => {
               return (
                 <button key={index} onClick={() => toggleFunc(type)}>
-                  {topicTypes.arr[type]}
+                  {topicArr[type]}
                 </button>
               );
             })}
@@ -46,7 +51,6 @@ class Editor extends Component {
             {' '}＋　添加问题
           </div>
         </div>
-        <SingleChoice />
         <div className="editor-bottom">
           <div>
             <span>问卷截止日期</span>
@@ -58,14 +62,43 @@ class Editor extends Component {
             <button>发布问卷</button>
           </div>
         </div>
+
+        <Modal
+          cancelFunc={() => toggleFunc(topicTypes.SINGLE_TYPE)}
+          active={toggle[topicTypes.SINGLE_TYPE]}
+        >
+          <div>
+            <div>请输入问题题目（单选）</div>
+            <input type="text" />
+          </div>
+
+        </Modal>
+        <Modal
+          cancelFunc={() => toggleFunc(topicTypes.MULTI_TYPE)}
+          active={toggle[topicTypes.MULTI_TYPE]}
+        >
+          <div>
+            <div>请输入问题题目（多选）</div>
+            <input type="text" />
+          </div>
+
+        </Modal>
+        <Modal
+          cancelFunc={() => toggleFunc(topicTypes.TEXT_TYPE)}
+          active={toggle[topicTypes.TEXT_TYPE]}
+        >
+          <div>
+            <div>请输入问题题目（文字题）</div>
+
+          </div>
+
+        </Modal>
       </div>
     );
   }
 }
 const mapStateToProps = state => ({ toggle: state.toggle });
 const mapDispatchToProps = dispatch => {
-  return {
-    toggleFunc: bindActionCreators(actions.toggle, dispatch)
-  };
+  return { toggleFunc: bindActionCreators(actions.toggle, dispatch) };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

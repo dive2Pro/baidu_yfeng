@@ -1,0 +1,28 @@
+.modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(53, 51, 51, 0.4);
+  vertical-align: middle;
+  left: 0;
+  right: 0;
+  align-items: flex-start;
+  text-align: center;
+  justify-content: center;
+  opacity: 0;
+  display: none;
+  &-mask {
+    position: relative;
+    margin-top: 100px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px -1px 8px 2px rgba(255, 255, 255, 0.5);
+  }
+  &.active {
+    opacity: 1;
+    display: flex;
+  }
+}

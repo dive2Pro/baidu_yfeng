@@ -2,10 +2,15 @@ import * as actionTypes from '../constants/actionType';
 import * as topicTypes from '../constants/topicType';
 import * as utils from '../constants/utils';
 import { saveMessage } from './message';
-
+import { changeExamQuestions } from './exam';
 export function addQuestion(title = '请输入', type, optionsIdCount = 3) {
-  return dispatch => {
+  return (dispatch, getState) => {
     //todo 生成题时生成各个选项和标题的messageId
+    const exam = getState().exam;
+    const currentExamId = exam.currentExamId;
+    if (!currentExamId) {
+      throw 'currentExamId equal null';
+    }
     const question = {
       id: String(parseInt(new Date().getTime()) + '_mock'),
       type: type,
@@ -20,6 +25,15 @@ export function addQuestion(title = '请输入', type, optionsIdCount = 3) {
         return id;
       })
     };
+    const specExam = exam[currentExamId];
+    let questionsId;
+    if (specExam && specExam.questionsId) {
+      specExam.questionsId.push(question.id);
+      questionsId = specExam.questionsId;
+    } else {
+      questionsId = [question.id];
+    }
+    dispatch(changeExamQuestions(currentExamId, questionsId));
     dispatch(
       saveMessage({
         [question.titleId]: title

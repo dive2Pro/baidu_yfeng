@@ -4,11 +4,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/index';
 import * as topicTypes from '../../constants/topicType';
+import * as examStateTypes from '../../constants/examStateType';
 import { ADD_QUESTION, SELECT_DATE } from '../../constants/toggleTypes';
 import classnames from 'classnames';
 import Modal from '../Modal/index';
 import TextQuestion from '../TextQuestion/index';
+
 class Editor extends Component {
+  componentDidMount() {
+    const { setCurrentExamIdFunc, examId } = this.props;
+    //TODO alternate with trueId
+    setCurrentExamIdFunc(examId);
+  }
   componentDidUpdate() {
     this.addDiv.addEventListener('transitionend', _ => {
       this.transform = '';
@@ -52,8 +59,8 @@ class Editor extends Component {
     addQuestionFunc('title', type);
   };
   render() {
-    const { toggleFunc, toggle } = this.props;
-
+    const { toggleFunc, toggle, saveExamFunc, exam } = this.props;
+    const { currentExamId } = exam;
     const itemsClazz = classnames('editor-addquestion-items', {
       active: toggle[ADD_QUESTION]
     });
@@ -97,7 +104,12 @@ class Editor extends Component {
           </div>
 
           <div>
-            <button>保存问卷</button>
+            <button
+              onClick={() =>
+                saveExamFunc(currentExamId, examStateTypes.UN_RELEASE)}
+            >
+              保存问卷
+            </button>
             <button>发布问卷</button>
           </div>
         </div>
@@ -152,13 +164,16 @@ class Editor extends Component {
 const mapStateToProps = state => ({
   toggle: state.toggle,
   message: state.message,
-  question: state.question
+  question: state.question,
+  exam: state.exam
 });
 const mapDispatchToProps = dispatch => {
   return {
     toggleFunc: bindActionCreators(actions.toggle, dispatch),
     addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch),
-    saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch)
+    saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch),
+    saveExamFunc: bindActionCreators(actions.saveExam, dispatch),
+    setCurrentExamIdFunc: bindActionCreators(actions.setCurrentExamId, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

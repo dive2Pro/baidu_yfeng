@@ -49,3 +49,12 @@
     display: none;
   }
 }
+
+.question-title {
+  & label {
+    margin-left: ($padding/2);
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

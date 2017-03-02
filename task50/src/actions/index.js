@@ -1,9 +1,5 @@
 import { toggle } from './toggle';
 import { addQuestion } from './question';
-function test() {
-  return {
-    type: 'TEST'
-  };
-}
+import { saveMessage } from './message';
 
-export { test, toggle, addQuestion };
+export { saveMessage, toggle, addQuestion };

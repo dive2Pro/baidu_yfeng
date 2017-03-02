@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SingleChoice from '../SingleChoice/index';
+import ChoiceQuestion from '../ChoiceQuestion/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/index';
@@ -7,6 +7,7 @@ import * as topicTypes from '../../constants/topicType';
 import { ADD_QUESTION, SELECT_DATE } from '../../constants/toggleTypes';
 import classnames from 'classnames';
 import Modal from '../Modal/index';
+import TextQuestion from '../TextQuestion/index';
 class Editor extends Component {
   componentDidUpdate() {
     this.addDiv.addEventListener('transitionend', _ => {
@@ -15,25 +16,40 @@ class Editor extends Component {
   }
 
   geneQuestionsView() {
-    const { question, message } = this.props;
+    const { question, message, saveMessageFunc } = this.props;
     console.info(this.props);
     return Object.keys(question).map((q, i) => {
       const ques = question[q];
       switch (ques.type) {
         case topicTypes.SINGLE_TYPE:
-          return <SingleChoice key={ques.id} question={ques} />;
         case topicTypes.MULTI_TYPE:
-          return;
+          return (
+            <ChoiceQuestion
+              index={i}
+              saveMessageFunc={saveMessageFunc}
+              key={ques.id}
+              question={ques}
+              message={message}
+            />
+          );
         case topicTypes.TEXT_TYPE:
-          return;
+          return (
+            <TextQuestion
+              index={i}
+              saveMessageFunc={saveMessageFunc}
+              key={ques.id}
+              question={ques}
+              message={message}
+            />
+          );
         default:
           return '';
       }
     });
   }
-  mockSingle = () => {
-    const { addQuestionFunc } = this.props;
-    addQuestionFunc();
+  mockSingle = type => {
+    const { addQuestionFunc, saveMessageFunc } = this.props;
+    addQuestionFunc('title', type);
   };
   render() {
     const { toggleFunc, toggle } = this.props;
@@ -141,7 +157,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     toggleFunc: bindActionCreators(actions.toggle, dispatch),
-    addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch)
+    addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch),
+    saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

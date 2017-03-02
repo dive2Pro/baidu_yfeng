@@ -18,7 +18,6 @@ class InputItem extends Component {
 
   componentDidUpdate(prevProps) {
     console.log(this.state);
-    this.inp.focus();
   }
 
   handleSubmit = () => {

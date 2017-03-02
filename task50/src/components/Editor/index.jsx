@@ -7,13 +7,34 @@ import * as topicTypes from '../../constants/topicType';
 import { ADD_QUESTION, SELECT_DATE } from '../../constants/toggleTypes';
 import classnames from 'classnames';
 import Modal from '../Modal/index';
-import DatePiker from '../../assets/multidatepiker';
 class Editor extends Component {
   componentDidUpdate() {
     this.addDiv.addEventListener('transitionend', _ => {
       this.transform = '';
     });
   }
+
+  geneQuestionsView() {
+    const { question, message } = this.props;
+    console.info(this.props);
+    return Object.keys(question).map((q, i) => {
+      const ques = question[q];
+      switch (ques.type) {
+        case topicTypes.SINGLE_TYPE:
+          return <SingleChoice key={ques.id} question={ques} />;
+        case topicTypes.MULTI_TYPE:
+          return;
+        case topicTypes.TEXT_TYPE:
+          return;
+        default:
+          return '';
+      }
+    });
+  }
+  mockSingle = () => {
+    const { addQuestionFunc } = this.props;
+    addQuestionFunc();
+  };
   render() {
     const { toggleFunc, toggle } = this.props;
 
@@ -31,13 +52,15 @@ class Editor extends Component {
       <div className="editor">
         <div className="editor-title" />
         <div className="editor-questions">
-          <SingleChoice />
+          {this.geneQuestionsView()}
         </div>
         <div className="editor-addquestion">
           <div className={itemsClazz} ref={p => this.addItemsDiv = p}>
             {Object.keys(topicArr).map((type, index) => {
               return (
-                <button key={index} onClick={() => toggleFunc(type)}>
+                <button key={index} onClick={() => this.mockSingle(type)}>
+
+                  {/*<button key={index} onClick={() => toggleFunc(type)}>*/}
                   {topicArr[type]}
                 </button>
               );
@@ -62,7 +85,6 @@ class Editor extends Component {
             <button>发布问卷</button>
           </div>
         </div>
-
         <Modal
           cancelFunc={() => toggleFunc(topicTypes.SINGLE_TYPE)}
           active={toggle[topicTypes.SINGLE_TYPE]}
@@ -112,9 +134,14 @@ class Editor extends Component {
   }
 }
 const mapStateToProps = state => ({
-  toggle: state.toggle
+  toggle: state.toggle,
+  message: state.message,
+  question: state.question
 });
 const mapDispatchToProps = dispatch => {
-  return { toggleFunc: bindActionCreators(actions.toggle, dispatch) };
+  return {
+    toggleFunc: bindActionCreators(actions.toggle, dispatch),
+    addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch)
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

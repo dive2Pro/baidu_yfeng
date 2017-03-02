@@ -1,6 +1,53 @@
 import * as actionTypes from '../../constants/actionType';
 import message from './index';
 
+/*describe('message reducer ', () => {
+  test('messagereducer changeStatus with {} ', () => {
+    const initialState = {};
+    const expectState = {
+      a1: {
+        b1: '123'
+      }
+    };
+    const action = {
+      type: actionTypes.SAVE_MESSAGE,
+      id: 'a1',
+      message: {
+        b1: '123'
+      }
+    };
+    expect(message(initialState, action)).toEqual(expectState);
+  });
+  test('messagereducer changeStatus with oldState', () => {
+    const initialState = {
+      a1: {
+        b1: '123'
+      },
+      a2: {
+        b2: '222',
+        b22: '333'
+      }
+    };
+    const expectState = {
+      a1: {
+        b1: '123'
+      },
+      a2: {
+        b2: '222',
+        b22: 'qwe'
+      }
+    };
+    const action = {
+      type: actionTypes.SAVE_MESSAGE,
+      id: 'a2',
+      message: {
+        b22: 'qwe'
+      }
+    };
+    expect(message(initialState, action)).toEqual(expectState);
+  });
+});*/
+
 describe('message reducer ', () => {
   test('messagereducer changeStatus with {} ', () => {
     const initialState = {};
@@ -9,8 +56,8 @@ describe('message reducer ', () => {
     };
     const action = {
       type: actionTypes.SAVE_MESSAGE,
-      id: 'a1',
-      message: 'ing'
+
+      message: { a1: 'ing' }
     };
     expect(message(initialState, action)).toEqual(expectState);
   });
@@ -25,8 +72,9 @@ describe('message reducer ', () => {
     };
     const action = {
       type: actionTypes.SAVE_MESSAGE,
-      id: 'a1',
-      message: 'ebd'
+      message: {
+        a1: 'ebd'
+      }
     };
     expect(message(initialState, action)).toEqual(expectState);
   });

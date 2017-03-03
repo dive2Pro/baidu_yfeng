@@ -3,6 +3,15 @@ import * as topicTypes from '../constants/topicType';
 import * as utils from '../constants/utils';
 import { saveMessage } from './message';
 import { changeExamQuestions } from './exam';
+
+export function setRequire(quesId, require = true) {
+  return {
+    type: actionTypes.CHANGE_QUESTION_REQUIRE,
+    id: quesId,
+    require
+  };
+}
+
 export function addQuestion(title = '请输入', type, optionsIdCount = 3) {
   return (dispatch, getState) => {
     //todo 生成题时生成各个选项和标题的messageId

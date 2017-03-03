@@ -29,7 +29,8 @@ class Editor extends Component {
       message,
       saveMessageFunc,
       opeExamQuestionsFunc,
-      exam
+      exam,
+      setRequireFunc
     } = this.props;
     const currentExamId = exam.currentExamId;
     const quesIds = exam[currentExamId] ? exam[currentExamId].questionsId : [];
@@ -61,6 +62,8 @@ class Editor extends Component {
               question={ques}
               message={message}
               currentExamId={currentExamId}
+              requireable={true}
+              setRequireFunc={setRequireFunc}
             />
           );
         default:
@@ -196,7 +199,11 @@ const mapDispatchToProps = dispatch => {
       actions.setCurrentExamId,
       dispatch
     ),
-    opeExamQuestionsFunc: bindActionCreators(actions.opeExamQuestions, dispatch)
+    opeExamQuestionsFunc: bindActionCreators(
+      actions.opeExamQuestions,
+      dispatch
+    ),
+    setRequireFunc: bindActionCreators(actions.setRequire, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

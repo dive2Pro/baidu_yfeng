@@ -117,4 +117,29 @@ describe('question reducer ', () => {
     };
     expect(question(initialState, action)).toEqual(expectState);
   });
+  test('questionreducer CHANGE_QUESTION_REQUIRE ', () => {
+    const initialState = {
+      a2: {
+        state: 'ing222',
+        title: 'tahao',
+        optionsId: [1, 2, 3, 4, 5],
+        require: 'on'
+      }
+    };
+    const expectState = {
+      a2: {
+        state: 'ing222',
+        title: 'tahao',
+        optionsId: [1, 2, 3, 4, 5],
+
+        require: 'off'
+      }
+    };
+    const action = {
+      type: actionTypes.CHANGE_QUESTION_REQUIRE,
+      id: 'a2',
+      require: 'off'
+    };
+    expect(question(initialState, action)).toEqual(expectState);
+  });
 });

@@ -1,5 +1,5 @@
 import { toggle } from './toggle';
-import { addQuestion } from './question';
+import { addQuestion, setRequire } from './question';
 import { saveMessage } from './message';
 import {
   saveExam,
@@ -14,5 +14,6 @@ export {
   saveExam,
   changeExamState,
   setCurrentExamId,
-  opeExamQuestions
+  opeExamQuestions,
+  setRequire
 };

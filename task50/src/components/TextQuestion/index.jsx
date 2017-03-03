@@ -32,6 +32,7 @@ class TextQuestion extends Component {
     const editing = editId === contentId;
     return (
       <div>
+
         <textarea
           onBlur={this.handleSubmit}
           onFocus={() => setEdit(contentId)}
@@ -39,6 +40,7 @@ class TextQuestion extends Component {
           value={editing ? this.state.temp_value : message[contentId]}
           ref={o => this.inp = o}
         />
+
       </div>
     );
   }

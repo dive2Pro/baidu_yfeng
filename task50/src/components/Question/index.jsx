@@ -1,6 +1,7 @@
 import React from 'react';
 import InputItem from '../InputItem/index';
 import { questionActs } from '../../constants/questionActType';
+import classnames from 'classnames';
 export default function(Component) {
   class Question extends React.Component {
     state = {};
@@ -31,7 +32,9 @@ export default function(Component) {
         index,
         isLast,
         opeExamQuestionsFunc,
-        currentExamId
+        currentExamId,
+        requireable,
+        setRequireFunc
       } = this.props;
       const {
         titleId
@@ -39,6 +42,9 @@ export default function(Component) {
       const {
         editId
       } = this.state;
+      const requireClazz = classnames('question-title-require', {
+        visible: requireable
+      });
       return (
         <div className="question">
           <div className="question-title">
@@ -51,6 +57,19 @@ export default function(Component) {
               msg={message[titleId]}
               editing={titleId === editId}
             />
+            <div className={requireClazz}>
+              <input
+                type="checkbox"
+                id={question.id + ' - label'}
+                checked={question.require}
+              />
+              <label
+                htmlFor={question.id + ' - label'}
+                onClick={() => setRequireFunc(question.id, !question.require)}
+              >
+                此题是否必选
+              </label>
+            </div>
           </div>
           <div className="question-items">
             <Component

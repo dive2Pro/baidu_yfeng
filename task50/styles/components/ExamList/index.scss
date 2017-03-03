@@ -13,7 +13,9 @@
     min-height: 30px;
     & div {
       padding: ($padding/8) ($padding/2);
-
+    }
+    &:hover{
+      background:$backgroundSecondary;
     }
     &>:first-child {
       flex: 2;
@@ -33,6 +35,12 @@
     }
     &>:last-child {
       flex: 2;
+      justify-content: space-around;
+      display: flex;
+      & button{
+        flex:1;
+        margin-right: ($padding/4);
+      }
     }
   }
   & .listtitle {

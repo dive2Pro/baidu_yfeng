@@ -3,6 +3,19 @@
   color: $fontColor;
   font-size: $fontSize;
 }
+button{
+  border-radius: 5px;
+  background:white;
+  outline:none;
+  border:1px solid #999;
+  padding:($padding/6) ($padding/2);
+
+}
+
+button:hover{
+  background:$backgroundSecondary;
+  color:white;
+}
 
 .newlistLarge {
   @include fillButton($backgroundSecondary, white, 16px);
@@ -13,5 +26,9 @@
 .newlistMini {
   @extend .newlistLarge;
   font-size: 12px;
-  padding: ($padding/6)
+
+}
+
+.checked{
+
 }

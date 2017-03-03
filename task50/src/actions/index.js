@@ -6,7 +6,8 @@ import {
   changeExamState,
   setCurrentExamId,
   opeExamQuestions,
-  changeExamTime
+  changeExamTime,
+  geneExam
 } from './exam';
 export {
   saveMessage,
@@ -17,5 +18,6 @@ export {
   setCurrentExamId,
   opeExamQuestions,
   setRequire,
-  changeExamTime
+  changeExamTime,
+  geneExam
 };

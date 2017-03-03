@@ -21,17 +21,22 @@
     }
     &-act {
       display: flex;
-      background: red;
       justify-content: flex-end;
+      transition: opacity 0.5s;
+      opacity: 0;
       &-item {
         width: 50px;
         padding: 5px 10px;
-        background: blue;
-        color: white;
         &:hover {
           cursor: pointer;
           box-shadow: 1px -1px 5px rgba(255, 255, 255, 0.5);
         }
+      }
+    }
+    &:hover {
+      background: $backgroundSecondary;
+      .question-act {
+        opacity: 1;
       }
     }
   }

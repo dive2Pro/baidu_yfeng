@@ -9,25 +9,41 @@ import { ADD_QUESTION, SELECT_DATE } from '../../constants/toggleTypes';
 import classnames from 'classnames';
 import Modal from '../Modal/index';
 import TextQuestion from '../TextQuestion/index';
-
+import EditorTitle from './title';
 var DatePicker = require('react-datepicker');
 var moment = require('moment');
 require('react-datepicker/dist/react-datepicker.css');
 
 class Editor extends Component {
   componentDidMount() {
-    const { setCurrentExamIdFunc, examId } = this.props;
+    const {
+      setCurrentExamIdFunc,
+      examId,
+      exam,
+      changeExamTimeFunc,
+      geneExamFunc
+    } = this.props;
     //TODO alternate with trueId
-    setCurrentExamIdFunc(examId);
+    if (exam[examId]) {
+      this.setState(
+        {
+          startDate: moment(exam[examId].time || {})
+        },
+        () => {
+          changeExamTimeFunc(examId, this.state.startDate.format('Y-M-D'));
+        }
+      );
+      setCurrentExamIdFunc(examId);
+    } else {
+      geneExamFunc();
+      this.setState({
+        startDate: moment()
+      });
+    }
   }
-  state = {
-    startDate: moment()
-  };
-  componentDidUpdate() {
-    this.addDiv.addEventListener('transitionend', _ => {
-      this.transform = '';
-    });
-  }
+
+  state = {};
+
   handleDateChange = date => {
     this.setState({
       startDate: date
@@ -102,7 +118,7 @@ class Editor extends Component {
       saveExamFunc,
       exam
     } = this.props;
-    const { currentExamId, time } = exam;
+    const { currentExamId } = exam;
     const itemsClazz = classnames('editor-addquestion-items', {
       active: toggle[ADD_QUESTION]
     });
@@ -112,7 +128,7 @@ class Editor extends Component {
     const topicArr = topicTypes.arr;
     return (
       <div className="editor">
-        <div className="editor-title" />
+        <EditorTitle currentExam={exam[currentExamId]} {...this.props} />
         <div className="editor-questions">
           {this.geneQuestionsView()}
         </div>
@@ -232,7 +248,8 @@ const mapDispatchToProps = dispatch => {
     ),
     setRequireFunc: bindActionCreators(actions.setRequire, dispatch),
     changeExamStateFunc: bindActionCreators(actions.changeExamState, dispatch),
-    changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch)
+    changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
+    geneExamFunc: bindActionCreators(actions.geneExam, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

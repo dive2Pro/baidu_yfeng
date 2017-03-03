@@ -16,7 +16,7 @@ class InputItem extends Component {
     if (val) {
       save(id, val);
     } else {
-      setDestory(id);
+      setDestory && setDestory(id);
     }
   };
 
@@ -35,22 +35,25 @@ class InputItem extends Component {
       msg,
       editing,
       id,
-      unCheckable
+      unCheckable,
+      defStr
     } = this.props;
     const { temp_value } = this.state;
     const clazz = classnames({ editing: editing }, 'inputitem');
     return (
       <div className={clazz}>
         <div className="view">
+          {/*//todo name */}
           {unCheckable ||
             <input
               type={inputType || 'radio'}
               className="toggle"
               checked={checked}
               onChange={onToggle}
+              name="asd"
             />}
           <label onDoubleClick={() => setEdit(id)}>
-            {msg}
+            {msg || defStr}
           </label>
         </div>
         {/*Warning: InputItem is changing a controlled input of type text to be uncontrolled. 

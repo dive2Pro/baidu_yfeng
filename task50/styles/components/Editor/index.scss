@@ -3,7 +3,11 @@
   border: 1px solid #999;
   border-radius: 5px;
   padding: ($padding*2);
-  &-title {}
+  &-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
   &-questions {}
   &-addquestion {
     overflow: hidden;

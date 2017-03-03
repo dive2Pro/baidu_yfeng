@@ -2,7 +2,7 @@ import * as actionTypes from '../constants/actionType';
 import * as utils from '../constants/utils';
 import { saveMessage } from './message';
 import { addQuestion } from './question';
-
+import { NEW_GENE } from '../constants/examStateType';
 export function changeExamState(id, examState) {
   return {
     type: actionTypes.CHANGE_EXAM_STATE,
@@ -21,36 +21,44 @@ export const saveExamAction = exam => ({
   id: exam.id,
   exam
 });
-
-export function saveExam(
-  currentExamId,
-  examState,
-  title = '等待填写',
-  time = new Date()
-) {
+const setCurrentExamIdAct = examId => ({
+  type: actionTypes.SET_CURRENTEXAM_ID,
+  examId: examId || utils.guid()
+});
+export function saveExam(currentExamId, examState, time = new Date()) {
   return (dispatch, getState) => {
+    dispatch(
+      saveExamAction({
+        examState,
+        time,
+        id: currentExamId
+      })
+    );
+  };
+}
+
+export function geneExam(title = '请填写') {
+  return dispatch => {
     const titleId = utils.guid(); // const exam = getState().exam; // const currentExamId = exam.currentExamId;
     dispatch(
       saveMessage({
         [titleId]: title
       })
     );
+    const examId = utils.guid();
     dispatch(
       saveExamAction({
-        examState,
-        time,
-        id: currentExamId,
+        id: examId,
+        examState: NEW_GENE,
         titleId
       })
     );
+    dispatch(setCurrentExamIdAct(examId));
   };
 }
 export function setCurrentExamId(examId) {
   return dispatch => {
-    dispatch({
-      type: actionTypes.SET_CURRENTEXAM_ID,
-      examId: examId || utils.guid()
-    });
+    dispatch(setCurrentExamIdAct(examId));
   };
 }
 export function changeExamQuestions(id, questionsId = []) {
@@ -72,12 +80,10 @@ export function opeExamQuestions(examId, question, actType) {
         const quesCount = optionsId.length;
         dispatch(addQuestion('duplicateQuestion', type, quesCount));
         return;
-      case 1:
-        // down
+      case 1: // down
         sortedQuestionsId = utils.moveElementInArray(questionsId, id, 1);
         break;
-      case -1:
-        //upper
+      case -1: //upper
         sortedQuestionsId = utils.moveElementInArray(questionsId, id, -1);
         break;
       case 2: // delete

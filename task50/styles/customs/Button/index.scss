@@ -1,0 +1,17 @@
+@mixin fillButton($backColor, $fontColor, $fontSize) {
+  background-color: $backColor;
+  color: $fontColor;
+  font-size: $fontSize;
+}
+
+.newlistLarge {
+  @include fillButton($backgroundSecondary, white, 16px);
+  font-size: 20px;
+  padding: ($padding/4) ($padding/2)
+}
+
+.newlistMini {
+  @extend .newlistLarge;
+  font-size: 12px;
+  padding: ($padding/6)
+}

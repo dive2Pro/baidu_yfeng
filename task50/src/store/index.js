@@ -14,17 +14,17 @@ const initialState = {
   },
   exam: {
     e1: {
-      state: examStateTypes.UN_RELEASE,
+      examState: examStateTypes.UN_RELEASE,
       titleId: 't1',
       time: '2016-9-10'
     },
     e2: {
-      state: examStateTypes.RELEASED,
+      examState: examStateTypes.RELEASED,
       titleId: 't2',
       time: '2016-9-10'
     },
     e3: {
-      state: examStateTypes.OUT_DATE,
+      examState: examStateTypes.OUT_DATE,
       titleId: 't3',
       time: '2016-9-10'
     }

@@ -5,7 +5,11 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions/index';
 import * as topicTypes from '../../constants/topicType';
 import * as examStateTypes from '../../constants/examStateType';
-import { ADD_QUESTION, SELECT_DATE } from '../../constants/toggleTypes';
+import {
+  ADD_QUESTION,
+  SELECT_DATE,
+  CURRENT_EXAM
+} from '../../constants/toggleTypes';
 import classnames from 'classnames';
 import Modal from '../Modal/index';
 import TextQuestion from '../TextQuestion/index';
@@ -17,7 +21,7 @@ require('react-datepicker/dist/react-datepicker.css');
 class Editor extends Component {
   componentDidMount() {
     const {
-      setCurrentExamIdFunc,
+      setToggleIdFunc,
       examId,
       exam,
       changeExamTimeFunc,
@@ -33,7 +37,7 @@ class Editor extends Component {
           changeExamTimeFunc(examId, this.state.startDate.format('Y-M-D'));
         }
       );
-      setCurrentExamIdFunc(examId);
+      setToggleIdFunc(CURRENT_EXAM, examId);
     } else {
       geneExamFunc();
       this.setState({
@@ -50,9 +54,9 @@ class Editor extends Component {
     });
     const {
       changeExamTimeFunc,
-      exam
+      toggle
     } = this.props;
-    changeExamTimeFunc(exam.currentExamId, date.format('Y-M-D'));
+    changeExamTimeFunc(toggle[CURRENT_EXAM], date.format('Y-M-D'));
   };
   geneQuestionsView() {
     //todo 现在是所以question都被渲染，应该是exam所属的question
@@ -62,9 +66,10 @@ class Editor extends Component {
       saveMessageFunc,
       opeExamQuestionsFunc,
       exam,
-      setRequireFunc
+      setRequireFunc,
+      toggle
     } = this.props;
-    const currentExamId = exam.currentExamId;
+    const currentExamId = toggle[CURRENT_EXAM];
     const quesIds = exam[currentExamId] ? exam[currentExamId].questionsId : [];
     return quesIds &&
       quesIds.map((q, i) => {
@@ -106,8 +111,7 @@ class Editor extends Component {
   }
   mockSingle = type => {
     const {
-      addQuestionFunc,
-      saveMessageFunc
+      addQuestionFunc
     } = this.props;
     addQuestionFunc('title', type);
   };
@@ -155,7 +159,6 @@ class Editor extends Component {
         <div className="editor-bottom">
           <div>
             <span>问卷截止日期</span>
-            <input type="text" ref={r => this.selectDate = r} />
             <DatePicker
               dateFormat="YYYY-MM-DD"
               selected={this.state.startDate}
@@ -238,10 +241,7 @@ const mapDispatchToProps = dispatch => {
     addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch),
     saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch),
     saveExamFunc: bindActionCreators(actions.saveExam, dispatch),
-    setCurrentExamIdFunc: bindActionCreators(
-      actions.setCurrentExamId,
-      dispatch
-    ),
+    setToggleIdFunc: bindActionCreators(actions.setToggleId, dispatch),
     opeExamQuestionsFunc: bindActionCreators(
       actions.opeExamQuestions,
       dispatch

@@ -14,6 +14,11 @@ export default function(state = initialState, action) {
         ...state,
         [action.toggleType]: false
       };
+    case actionTypes.SET_CURRENTEXAM_ID:
+      return {
+        ...state,
+        [action.toggleType]: action.id
+      };
     default:
       return state;
   }

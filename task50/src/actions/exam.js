@@ -1,8 +1,10 @@
 import * as actionTypes from '../constants/actionType';
+import { CURRENT_EXAM } from '../constants/toggleTypes';
 import * as utils from '../constants/utils';
 import { saveMessage } from './message';
 import { addQuestion } from './question';
 import { NEW_GENE } from '../constants/examStateType';
+import { setToggleId } from './toggle';
 export function changeExamState(id, examState) {
   return {
     type: actionTypes.CHANGE_EXAM_STATE,
@@ -21,10 +23,7 @@ export const saveExamAction = exam => ({
   id: exam.id,
   exam
 });
-const setCurrentExamIdAct = examId => ({
-  type: actionTypes.SET_CURRENTEXAM_ID,
-  examId: examId || utils.guid()
-});
+
 export function saveExam(currentExamId, examState, time = new Date()) {
   return (dispatch, getState) => {
     dispatch(
@@ -53,12 +52,7 @@ export function geneExam(title = '请填写') {
         titleId
       })
     );
-    dispatch(setCurrentExamIdAct(examId));
-  };
-}
-export function setCurrentExamId(examId) {
-  return dispatch => {
-    dispatch(setCurrentExamIdAct(examId));
+    dispatch(setToggleId(CURRENT_EXAM, examId));
   };
 }
 export function changeExamQuestions(id, questionsId = []) {

@@ -1,10 +1,9 @@
-import { toggle } from './toggle';
+import { toggle, setToggleId } from './toggle';
 import { addQuestion, setRequire } from './question';
 import { saveMessage } from './message';
 import {
   saveExam,
   changeExamState,
-  setCurrentExamId,
   opeExamQuestions,
   changeExamTime,
   geneExam
@@ -15,7 +14,7 @@ export {
   addQuestion,
   saveExam,
   changeExamState,
-  setCurrentExamId,
+  setToggleId,
   opeExamQuestions,
   setRequire,
   changeExamTime,

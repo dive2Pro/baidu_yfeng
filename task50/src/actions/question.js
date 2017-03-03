@@ -1,5 +1,6 @@
 import * as actionTypes from '../constants/actionType';
 import * as topicTypes from '../constants/topicType';
+import { CURRENT_EXAM } from '../constants/toggleTypes';
 import * as utils from '../constants/utils';
 import { saveMessage } from './message';
 import { changeExamQuestions } from './exam';
@@ -15,8 +16,11 @@ export function setRequire(quesId, require = true) {
 export function addQuestion(title = '请输入', type, optionsIdCount = 3) {
   return (dispatch, getState) => {
     //todo 生成题时生成各个选项和标题的messageId
-    const exam = getState().exam;
-    const currentExamId = exam.currentExamId;
+    const {
+      exam,
+      toggle
+    } = getState();
+    const currentExamId = toggle[CURRENT_EXAM];
     if (!currentExamId) {
       throw 'currentExamId equal null';
     }

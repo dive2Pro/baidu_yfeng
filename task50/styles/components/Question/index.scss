@@ -1,0 +1,25 @@
+  .question {
+    &-title {
+      & label {
+        margin-left: ($padding/2);
+      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &-act {
+      display: flex;
+      background: red;
+      justify-content: flex-end;
+      &-item {
+        width: 50px;
+        padding: 5px 10px;
+        background: blue;
+        color: white;
+        &:hover {
+          cursor: pointer;
+          box-shadow: 1px -1px 5px rgba(255, 255, 255, 0.5);
+        }
+      }
+    }
+  }

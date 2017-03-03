@@ -1,6 +1,6 @@
 import React from 'react';
 import InputItem from '../InputItem/index';
-
+import { questionActs } from '../../constants/questionActType';
 export default function(Component) {
   class Question extends React.Component {
     state = {};
@@ -28,7 +28,10 @@ export default function(Component) {
       const {
         question,
         message,
-        index
+        index,
+        isLast,
+        opeExamQuestionsFunc,
+        currentExamId
       } = this.props;
       const {
         titleId
@@ -58,6 +61,30 @@ export default function(Component) {
               onToggle={this.onToggle}
               {...this.props}
             />
+          </div>
+          <div className="question-act">
+            {Object.keys(questionActs).map((act, i) => {
+              let content;
+              if (index === 0 && i === 0 || isLast && i === 1) {
+                return '';
+              } else {
+                content = act;
+              }
+              return (
+                <div
+                  key={i}
+                  onClick={() =>
+                    opeExamQuestionsFunc(
+                      currentExamId,
+                      question,
+                      questionActs[act]
+                    )}
+                  className="question-act-item"
+                >
+                  {content}
+                </div>
+              );
+            })}
           </div>
         </div>
       );

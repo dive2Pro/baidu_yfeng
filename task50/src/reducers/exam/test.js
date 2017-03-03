@@ -147,6 +147,11 @@ describe('exam reducer ', () => {
         state: 'ing222',
         title: 'tahao',
         questionsId: [1, 2, 3, 4, 5]
+      },
+      a1: {
+        state: 'ing222',
+        title: 'tahao',
+        questionsId: [1, 2, 3, 4, 5]
       }
     };
     const expectState = {
@@ -154,6 +159,11 @@ describe('exam reducer ', () => {
         state: 'ing222',
         title: 'tahao',
         questionsId: [5, 5, 3, 4, 5]
+      },
+      a1: {
+        state: 'ing222',
+        title: 'tahao',
+        questionsId: [1, 2, 3, 4, 5]
       }
     };
     const action = {

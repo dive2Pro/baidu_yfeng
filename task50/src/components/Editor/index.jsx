@@ -23,9 +23,17 @@ class Editor extends Component {
   }
 
   geneQuestionsView() {
-    const { question, message, saveMessageFunc } = this.props;
-    console.info(this.props);
-    return Object.keys(question).map((q, i) => {
+    //todo 现在是所以question都被渲染，应该是exam所属的question
+    const {
+      question,
+      message,
+      saveMessageFunc,
+      opeExamQuestionsFunc,
+      exam
+    } = this.props;
+    const currentExamId = exam.currentExamId;
+    const quesIds = exam[currentExamId] ? exam[currentExamId].questionsId : [];
+    return quesIds.map((q, i) => {
       const ques = question[q];
       switch (ques.type) {
         case topicTypes.SINGLE_TYPE:
@@ -33,20 +41,26 @@ class Editor extends Component {
           return (
             <ChoiceQuestion
               index={i}
+              isLast={i === quesIds.length - 1}
               saveMessageFunc={saveMessageFunc}
+              opeExamQuestionsFunc={opeExamQuestionsFunc}
               key={ques.id}
               question={ques}
               message={message}
+              currentExamId={currentExamId}
             />
           );
         case topicTypes.TEXT_TYPE:
           return (
             <TextQuestion
               index={i}
+              isLast={i === quesIds.length - 1}
               saveMessageFunc={saveMessageFunc}
+              opeExamQuestionsFunc={opeExamQuestionsFunc}
               key={ques.id}
               question={ques}
               message={message}
+              currentExamId={currentExamId}
             />
           );
         default:
@@ -55,22 +69,27 @@ class Editor extends Component {
     });
   }
   mockSingle = type => {
-    const { addQuestionFunc, saveMessageFunc } = this.props;
+    const {
+      addQuestionFunc,
+      saveMessageFunc
+    } = this.props;
     addQuestionFunc('title', type);
   };
   render() {
-    const { toggleFunc, toggle, saveExamFunc, exam } = this.props;
+    const {
+      toggleFunc,
+      toggle,
+      saveExamFunc,
+      exam
+    } = this.props;
     const { currentExamId } = exam;
     const itemsClazz = classnames('editor-addquestion-items', {
       active: toggle[ADD_QUESTION]
     });
-
     const addDivClazz = classnames('editor-addquestion-add', {
       active: toggle[ADD_QUESTION]
     });
-
     const topicArr = topicTypes.arr;
-
     return (
       <div className="editor">
         <div className="editor-title" />
@@ -173,7 +192,11 @@ const mapDispatchToProps = dispatch => {
     addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch),
     saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch),
     saveExamFunc: bindActionCreators(actions.saveExam, dispatch),
-    setCurrentExamIdFunc: bindActionCreators(actions.setCurrentExamId, dispatch)
+    setCurrentExamIdFunc: bindActionCreators(
+      actions.setCurrentExamId,
+      dispatch
+    ),
+    opeExamQuestionsFunc: bindActionCreators(actions.opeExamQuestions, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

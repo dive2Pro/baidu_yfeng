@@ -1,6 +1,8 @@
 import * as actionTypes from '../constants/actionType';
 import * as utils from '../constants/utils';
 import { saveMessage } from './message';
+import { addQuestion } from './question';
+
 export function changeExamState(id, examState) {
   return {
     type: actionTypes.CHANGE_EXAM_STATE,
@@ -46,10 +48,38 @@ export function setCurrentExamId(examId) {
     });
   };
 }
-export function changeExamQuestions(id, questionsId) {
+export function changeExamQuestions(id, questionsId = []) {
   return {
     type: actionTypes.CHANGE_EXAM_QUESTIONS,
     id,
     questionsId
+  };
+}
+export function opeExamQuestions(examId, question, actType) {
+  return (dispatch, getState) => {
+    const state = getState();
+    const exam = state.exam[examId];
+    const questionsId = exam.questionsId;
+    const { id, type, optionsId } = question;
+    let sortedQuestionsId;
+    switch (actType) {
+      case 0: //duplicate
+        const quesCount = optionsId.length;
+        dispatch(addQuestion('duplicateQuestion', type, quesCount));
+        return;
+      case 1:
+        // down
+        sortedQuestionsId = utils.moveElementInArray(questionsId, id, 1);
+        break;
+      case -1:
+        //upper
+        sortedQuestionsId = utils.moveElementInArray(questionsId, id, -1);
+        break;
+      case 2: // delete
+        sortedQuestionsId = utils.deleteElementFromArray(questionsId, id);
+        break;
+      default:
+    }
+    dispatch(changeExamQuestions(examId, sortedQuestionsId));
   };
 }

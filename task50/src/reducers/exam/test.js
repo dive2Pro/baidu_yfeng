@@ -127,6 +127,27 @@ describe('exam reducer ', () => {
     };
     expect(exam(initialState, action)).toEqual(expectState);
   });
+  test('examreducer CHANGE_EXAM_TIME ', () => {
+    const initialState = {
+      a2: {
+        state: 'ing222',
+        title: 'tahao'
+      }
+    };
+    const expectState = {
+      a2: {
+        state: 'ing222',
+        title: 'tahao',
+        time: '2017-12-12'
+      }
+    };
+    const action = {
+      type: actionTypes.CHANGE_EXAM_TIME,
+      id: 'a2',
+      time: '2017-12-12'
+    };
+    expect(exam(initialState, action)).toEqual(expectState);
+  });
   test('examreducer CHANGE_EXAM_QUESTIONS　when initialState =  {} ', () => {
     const initialState = {};
     const expectState = {

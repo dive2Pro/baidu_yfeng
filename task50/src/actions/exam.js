@@ -10,6 +10,11 @@ export function changeExamState(id, examState) {
     examState
   };
 }
+export const changeExamTime = (id, time) => ({
+  type: actionTypes.CHANGE_EXAM_TIME,
+  id,
+  time
+});
 
 export const saveExamAction = exam => ({
   type: actionTypes.SAVE_EXAM,

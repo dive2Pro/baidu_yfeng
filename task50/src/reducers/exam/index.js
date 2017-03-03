@@ -24,6 +24,12 @@ const changeExamTitle = (state, id, title) => {
     [id]: { ...state[id], title }
   };
 };
+const changeExamTime = (state, id, time) => {
+  return {
+    ...state,
+    [id]: { ...state[id], time }
+  };
+};
 const changeQuestions = (state, id, questionsId) => {
   return {
     ...state,
@@ -40,6 +46,8 @@ export default function exam(state = initialState, action) {
       return changeExamTitle(state, action.id, action.title);
     case actionTypes.CHANGE_EXAM_QUESTIONS:
       return changeQuestions(state, action.id, action.questionsId);
+    case actionTypes.CHANGE_EXAM_TIME:
+      return changeExamTime(state, action.id, action.time);
     case actionTypes.SET_CURRENTEXAM_ID:
       return { ...state, currentExamId: action.examId };
     default:

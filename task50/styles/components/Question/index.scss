@@ -7,10 +7,16 @@
       align-items: center;
       justify-content: center;
       &-require {
-        display: none;
+        visibility: hidden;
+        display: flex;
+        font-size: 10px;
+        align-items: center;
       }
       .visible {
-        display: block;
+        visibility: visible;
+      }
+      & .inputitem {
+        flex: 2;
       }
     }
     &-act {

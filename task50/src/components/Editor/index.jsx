@@ -10,18 +10,34 @@ import classnames from 'classnames';
 import Modal from '../Modal/index';
 import TextQuestion from '../TextQuestion/index';
 
+var DatePicker = require('react-datepicker');
+var moment = require('moment');
+require('react-datepicker/dist/react-datepicker.css');
+
 class Editor extends Component {
   componentDidMount() {
     const { setCurrentExamIdFunc, examId } = this.props;
     //TODO alternate with trueId
     setCurrentExamIdFunc(examId);
   }
+  state = {
+    startDate: moment()
+  };
   componentDidUpdate() {
     this.addDiv.addEventListener('transitionend', _ => {
       this.transform = '';
     });
   }
-
+  handleDateChange = date => {
+    this.setState({
+      startDate: date
+    });
+    const {
+      changeExamTimeFunc,
+      exam
+    } = this.props;
+    changeExamTimeFunc(exam.currentExamId, date.format('Y-M-D'));
+  };
   geneQuestionsView() {
     //todo 现在是所以question都被渲染，应该是exam所属的question
     const {
@@ -34,42 +50,43 @@ class Editor extends Component {
     } = this.props;
     const currentExamId = exam.currentExamId;
     const quesIds = exam[currentExamId] ? exam[currentExamId].questionsId : [];
-    return quesIds.map((q, i) => {
-      const ques = question[q];
-      switch (ques.type) {
-        case topicTypes.SINGLE_TYPE:
-        case topicTypes.MULTI_TYPE:
-          return (
-            <ChoiceQuestion
-              index={i}
-              isLast={i === quesIds.length - 1}
-              saveMessageFunc={saveMessageFunc}
-              opeExamQuestionsFunc={opeExamQuestionsFunc}
-              key={ques.id}
-              question={ques}
-              message={message}
-              currentExamId={currentExamId}
-            />
-          );
-        case topicTypes.TEXT_TYPE:
-          return (
-            <TextQuestion
-              index={i}
-              isLast={i === quesIds.length - 1}
-              saveMessageFunc={saveMessageFunc}
-              opeExamQuestionsFunc={opeExamQuestionsFunc}
-              key={ques.id}
-              question={ques}
-              message={message}
-              currentExamId={currentExamId}
-              requireable={true}
-              setRequireFunc={setRequireFunc}
-            />
-          );
-        default:
-          return '';
-      }
-    });
+    return quesIds &&
+      quesIds.map((q, i) => {
+        const ques = question[q];
+        switch (ques.type) {
+          case topicTypes.SINGLE_TYPE:
+          case topicTypes.MULTI_TYPE:
+            return (
+              <ChoiceQuestion
+                index={i}
+                isLast={i === quesIds.length - 1}
+                saveMessageFunc={saveMessageFunc}
+                opeExamQuestionsFunc={opeExamQuestionsFunc}
+                key={ques.id}
+                question={ques}
+                message={message}
+                currentExamId={currentExamId}
+              />
+            );
+          case topicTypes.TEXT_TYPE:
+            return (
+              <TextQuestion
+                index={i}
+                isLast={i === quesIds.length - 1}
+                saveMessageFunc={saveMessageFunc}
+                opeExamQuestionsFunc={opeExamQuestionsFunc}
+                key={ques.id}
+                question={ques}
+                message={message}
+                currentExamId={currentExamId}
+                requireable={true}
+                setRequireFunc={setRequireFunc}
+              />
+            );
+          default:
+            return '';
+        }
+      });
   }
   mockSingle = type => {
     const {
@@ -85,7 +102,7 @@ class Editor extends Component {
       saveExamFunc,
       exam
     } = this.props;
-    const { currentExamId } = exam;
+    const { currentExamId, time } = exam;
     const itemsClazz = classnames('editor-addquestion-items', {
       active: toggle[ADD_QUESTION]
     });
@@ -123,6 +140,11 @@ class Editor extends Component {
           <div>
             <span>问卷截止日期</span>
             <input type="text" ref={r => this.selectDate = r} />
+            <DatePicker
+              dateFormat="YYYY-MM-DD"
+              selected={this.state.startDate}
+              onChange={this.handleDateChange}
+            />
           </div>
 
           <div>
@@ -132,7 +154,12 @@ class Editor extends Component {
             >
               保存问卷
             </button>
-            <button>发布问卷</button>
+            <button
+              onClick={() =>
+                saveExamFunc(currentExamId, examStateTypes.RELEASED)}
+            >
+              发布问卷
+            </button>
           </div>
         </div>
         <Modal
@@ -203,7 +230,9 @@ const mapDispatchToProps = dispatch => {
       actions.opeExamQuestions,
       dispatch
     ),
-    setRequireFunc: bindActionCreators(actions.setRequire, dispatch)
+    setRequireFunc: bindActionCreators(actions.setRequire, dispatch),
+    changeExamStateFunc: bindActionCreators(actions.changeExamState, dispatch),
+    changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

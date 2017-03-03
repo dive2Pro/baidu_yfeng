@@ -5,7 +5,8 @@ import {
   saveExam,
   changeExamState,
   setCurrentExamId,
-  opeExamQuestions
+  opeExamQuestions,
+  changeExamTime
 } from './exam';
 export {
   saveMessage,
@@ -15,5 +16,6 @@ export {
   changeExamState,
   setCurrentExamId,
   opeExamQuestions,
-  setRequire
+  setRequire,
+  changeExamTime
 };

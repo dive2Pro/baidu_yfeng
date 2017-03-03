@@ -1,8 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "../../actions/index";
+import { EXAM_DELETED } from "../../constants/examStateType";
+import classnames from "classnames";
 class ExamList extends Component {
+  deleteExam = (...ids) => {
+    const { changeExamStateFunc } = this.props;
+    ids.forEach(id => changeExamStateFunc(id, EXAM_DELETED));
+  };
   render() {
-    const { exam, toggle, message } = this.props;
+    const {
+      setExamCheckedFunc,
+      exam,
+      toggle,
+      message
+    } = this.props;
 
     return (
       <div className="examlist">
@@ -28,37 +41,63 @@ class ExamList extends Component {
         </div>
         <div className="listcontent">
           <div className="listitems">
-            {Object.keys(exam).map((e, i) => {
-              const {
-                titleId,
-                time,
-                examState,
-                id
-              } = exam[e];
-              const title = message[titleId];
-              return (
-                <div key={id} className="itemcontainer">
-                  <div>
-                    <input type="checkbox" />
-                    {title}
+            {Object.keys(exam)
+              .filter(key => exam[key].examState !== EXAM_DELETED)
+              .map((key, i) => {
+                const {
+                  titleId,
+                  time,
+                  examState,
+                  id,
+                  checked
+                } = exam[key];
+                const title = message[titleId];
+                return (
+                  <div key={id} className="itemcontainer">
+                    <div>
+                      <input
+                        onChange={() => setExamCheckedFunc(!checked, key)}
+                        type="checkbox"
+                        checked={checked}
+                        id={key}
+                      />
+                      <label htmlFor={key}>
+                        {title}
+                      </label>
+                    </div>
+                    <div>{time}</div>
+                    <div>
+                      {examState}
+                    </div>
+                    <div>
+                      <button>编辑</button>
+                      <button onClick={() => this.deleteExam(key)}>删除</button>
+                      <button>查看数据</button>
+                    </div>
                   </div>
-                  <div>{time}</div>
-                  <div>
-                    {examState}
-                  </div>
-                  <div>
-                    <button>编辑</button>
-                    <button>删除</button>
-                    <button>查看数据</button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
           <div className="listbottom">
-            <input type="checkbox" id="all_check" />
+            <input
+              onClick={() => {
+                setExamCheckedFunc(this.allInp.checked, ...Object.keys(exam));
+              }}
+              ref={i => this.allInp = i}
+              type="checkbox"
+              id="all_check"
+            />
             <label htmlFor="all_check">全选</label>
-            <button>删除</button>
+            <button
+              onClick={() => {
+                this.deleteExam(
+                  ...Object.keys(exam).filter(key => exam[key].checked)
+                );
+                this.allInp.checked = false;
+              }}
+            >
+              删除
+            </button>
           </div>
         </div>
       </div>
@@ -72,5 +111,9 @@ const mapStateToProps = state => {
     toggle: state.toggle
   };
 };
-const mapDispatchToProps = dispatch => {};
+const mapDispatchToProps = dispatch => ({
+  setExamCheckedFunc: bindActionCreators(actions.setExamChecked, dispatch),
+  changeExamStateFunc: bindActionCreators(actions.changeExamState, dispatch),
+  geneExamFunc: bindActionCreators(actions.geneExam, dispatch)
+});
 export default connect(mapStateToProps, mapDispatchToProps)(ExamList);

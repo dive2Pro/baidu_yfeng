@@ -1,4 +1,4 @@
-import * as actionTypes from '../../constants/actionType';
+import * as actionTypes from "../../constants/actionType";
 const initialState = {};
 const changeStatus = (state, id, examState) => {
   return {
@@ -36,6 +36,12 @@ const changeQuestions = (state, id, questionsId) => {
     [id]: { ...state[id], questionsId }
   };
 };
+const changeExamChecked = (state, id, checked) => {
+  return {
+    ...state,
+    [id]: { ...state[id], checked }
+  };
+};
 export default function exam(state = initialState, action) {
   switch (action.type) {
     case actionTypes.CHANGE_EXAM_STATE:
@@ -50,6 +56,8 @@ export default function exam(state = initialState, action) {
       return changeExamTime(state, action.id, action.time);
     case actionTypes.SET_CURRENTEXAM_ID:
       return { ...state, currentExamId: action.examId };
+    case actionTypes.CHANGE_EXAM_CHECKED:
+      return changeExamChecked(state, action.id, action.checked);
     default:
       return state;
   }

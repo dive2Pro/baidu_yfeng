@@ -12,10 +12,16 @@
     position: relative;
     min-height: 30px;
     & div {
-      padding: ($padding/8) ($padding/2)
+      padding: ($padding/8) ($padding/2);
+
     }
     &>:first-child {
       flex: 2;
+      display: flex;
+      & label{
+        display:block;
+        width:100%;
+      }
     }
     &>:nth-child(2) {
       flex: 1;
@@ -23,7 +29,7 @@
     }
     &>:nth-child(3) {
       flex: 1;
-      background: bl;
+      background: lightblue;
     }
     &>:last-child {
       flex: 2;

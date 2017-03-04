@@ -53,7 +53,7 @@ class ExamList extends Component {
                 } = exam[key];
                 const title = message[titleId];
                 return (
-                  <div key={id} className="itemcontainer">
+                  <div key={key} className="itemcontainer">
                     <div>
                       <input
                         onChange={() => setExamCheckedFunc(!checked, key)}

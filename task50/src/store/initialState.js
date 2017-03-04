@@ -63,8 +63,8 @@ const initialState = {
     e1: {
       userIds: ["u1", "u2"],
       questions: {
-        q1: { t5: 2 },
-        q2: { t7: 2, an1: 2 },
+        q1: { t5: 2, t1: 4 },
+        q2: { t6: 2, t7: 2, an1: 1, t5: 6 },
         q3: { t6: 1 }
       }
     },
@@ -72,7 +72,7 @@ const initialState = {
       userIds: ["u2", "u3"],
       questions: {
         q1: { t5: 2 },
-        q2: { t6: 2, t7: 2 }
+        q2: { t6: 2, t7: 2, an1: 1, t5: 6 }
       }
     },
     e3: {

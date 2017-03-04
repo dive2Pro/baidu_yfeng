@@ -26,7 +26,9 @@ a {
     color: $hyperlinkVisited;
   }
 }
-
+path:hover{
+  background: yellow;
+}
 *,
 *:before,
 *:after {

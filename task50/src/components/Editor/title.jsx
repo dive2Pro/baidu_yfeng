@@ -34,4 +34,5 @@ class EditorTitle extends Component {
     );
   }
 }
+
 export default EditorTitle;

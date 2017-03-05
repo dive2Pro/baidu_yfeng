@@ -14,6 +14,8 @@ import classnames from "classnames";
 import Modal from "../Modal/index";
 import TextQuestion from "../TextQuestion/index";
 import EditorTitle from "./title";
+// import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
+import { spring, TransitionMotion, Motion } from "react-motion";
 var DatePicker = require("react-datepicker");
 var moment = require("moment");
 require("react-datepicker/dist/react-datepicker.css");
@@ -61,7 +63,6 @@ class Editor extends Component {
     changeExamTimeFunc(toggle[CURRENT_EXAM], date.format("Y-M-D"));
   };
   geneQuestionsView() {
-    //todo 现在是所以question都被渲染，应该是exam所属的question
     const {
       question,
       message,
@@ -82,10 +83,10 @@ class Editor extends Component {
             return (
               <ChoiceQuestion
                 index={i}
+                key={q}
                 isLast={i === quesIds.length - 1}
                 saveMessageFunc={saveMessageFunc}
                 opeExamQuestionsFunc={opeExamQuestionsFunc}
-                key={ques.id}
                 question={ques}
                 message={message}
                 currentExamId={currentExamId}
@@ -98,7 +99,7 @@ class Editor extends Component {
                 isLast={i === quesIds.length - 1}
                 saveMessageFunc={saveMessageFunc}
                 opeExamQuestionsFunc={opeExamQuestionsFunc}
-                key={ques.id}
+                key={q}
                 question={ques}
                 message={message}
                 currentExamId={currentExamId}
@@ -117,6 +118,20 @@ class Editor extends Component {
     } = this.props;
     addQuestionFunc("title", type);
   };
+  willEnter = () => {
+    return {
+      height: 0,
+      opacity: 1
+    };
+  };
+
+  willLeave = () => {
+    return {
+      height: spring(0),
+      opacity: spring(0)
+    };
+  };
+
   render() {
     const {
       toggleFunc,
@@ -125,42 +140,59 @@ class Editor extends Component {
       exam
     } = this.props;
     const { currentExamId } = exam;
-    const itemsClazz = classnames("editor-addquestion-items", {
-      active: toggle[ADD_QUESTION]
-    });
-    const addDivClazz = classnames("editor-addquestion-add", {
-      active: toggle[ADD_QUESTION]
-    });
+    const itemsClazz = classnames("editor-addquestion-items");
+
     const topicArr = topicTypes.arr;
+    const itemsActive = toggle[ADD_QUESTION];
     return (
       <div className="editor">
         <EditorTitle currentExam={exam[currentExamId]} {...this.props} />
         <div className="editor-questions">
           {this.geneQuestionsView()}
         </div>
-        <div className="editor-addquestion">
-          <div className={itemsClazz} ref={p => this.addItemsDiv = p}>
-            {Object.keys(topicArr).map((type, index) => {
-              return (
-                <button key={index} onClick={() => this.mockSingle(type)}>
 
-                  {/*<button key={index} onClick={() => toggleFunc(type)}>*/}
-                  {topicArr[type]}
-                </button>
-              );
-            })}
-          </div>
+        <div className="editor-addquestion">
+          <Motion
+            defaultStyle={{ op: 0, display: 0 }}
+            style={{
+              op: spring(itemsActive ? 1 : 0),
+              display: spring(itemsActive ? 1 : 0)
+            }}
+          >
+            {({ op, display }) => (
+              <div
+                style={{
+                  opacity: op,
+                  flex: op,
+                  display: display ? "flex" : "none"
+                }}
+                className={itemsClazz}
+                ref={p => this.addItemsDiv = p}
+              >
+                {Object.keys(topicArr).map((type, index) => {
+                  return (
+                    <button key={index} onClick={() => this.mockSingle(type)}>
+                      {/*<button key={index} onClick={() => toggleFunc(type)}>*/
+                      }
+                      {topicArr[type]}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </Motion>
           <div
+            key="editor-AddQuestion"
             ref={d => this.addDiv = d}
-            className={addDivClazz}
+            className="editor-addquestion-add"
             onClick={() => toggleFunc(ADD_QUESTION)}
           >
-            {" "}＋　添加问题
+            ＋　添加问题
           </div>
         </div>
         <div className="editor-bottom">
-          <div>
-            <span>问卷截止日期</span>
+          <div className="editor-bottom-left">
+            <span>问卷截止日期:</span>
             <DatePicker
               dateFormat="YYYY-MM-DD"
               selected={this.state.startDate}

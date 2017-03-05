@@ -86,16 +86,23 @@ const initialState = {
   },
   question: {
     q1: {
+      id: "q1",
       titleId: "t1",
       type: topicTypes.SINGLE_TYPE,
       optionsId: ["t5", "t6", "t7"]
     },
     q2: {
+      id: "q2",
       titleId: "t2",
       type: topicTypes.MULTI_TYPE,
       optionsId: ["t5", "t6", "t7", "an1"]
     },
-    q3: { titleId: "t3", type: topicTypes.TEXT_TYPE, optionsId: "t5" }
+    q3: {
+      id: "q3",
+      titleId: "t3",
+      type: topicTypes.TEXT_TYPE,
+      optionsId: "t5"
+    }
   }
 };
 

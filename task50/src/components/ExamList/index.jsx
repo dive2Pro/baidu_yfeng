@@ -5,11 +5,20 @@ import * as actions from "../../actions/index";
 import { EXAM_DELETED } from "../../constants/examStateType";
 import classnames from "classnames";
 import { Link } from "react-router";
+
+const CreateExamButton = ({ classname, onClick, text = "新建问卷" }) => {
+  return <button className={classname} onClick={onClick}>{text}</button>;
+};
 class ExamList extends Component {
   deleteExam = (...ids) => {
     const { changeExamStateFunc } = this.props;
     ids.forEach(id => changeExamStateFunc(id, EXAM_DELETED));
   };
+  createNewExam = () => {
+    const { router } = this.props;
+    router.push(`/edit/new`);
+  };
+
   render() {
     const {
       setExamCheckedFunc,
@@ -21,9 +30,10 @@ class ExamList extends Component {
     return (
       <div className="examlist">
         <div className="newlist">
-          <button className="newlistLarge">
-            新建问卷
-          </button>
+          <CreateExamButton
+            classname="newlistLarge"
+            onClick={() => this.createNewExam()}
+          />
         </div>
         <div className="listtitle">
           <div className="itemcontainer">
@@ -34,9 +44,10 @@ class ExamList extends Component {
               <span>
                 操作
               </span>
-              <button className="newlistMini">
-                新建问卷
-              </button>
+              <CreateExamButton
+                classname="newlistMini"
+                onClick={() => this.createNewExam()}
+              />
             </div>
           </div>
         </div>
@@ -107,11 +118,12 @@ class ExamList extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state, routerState) => {
   return {
     exam: state.exam,
     message: state.message,
-    toggle: state.toggle
+    toggle: state.toggle,
+    router: routerState.router
   };
 };
 const mapDispatchToProps = dispatch => ({

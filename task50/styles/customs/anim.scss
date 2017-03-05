@@ -1,0 +1,19 @@
+.anims{
+  &-addquestion{
+    &-enter{
+      opacity: 0.1;
+      &-active{
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+      }
+    }
+    &-leave{
+      opacity: 1;
+      &-active{
+        opacity: 0.01;
+        transition: opacity 0.3s ease-in;
+      }
+    }
+
+  }
+}

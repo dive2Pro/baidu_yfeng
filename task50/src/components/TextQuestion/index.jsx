@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import Question from '../Question/index';
+import React, { Component } from "react";
+import Question from "../Question/index";
 
 class TextQuestion extends Component {
   state = {};
   handleSubmit = () => {
     const { save, setDestory, id } = this.props;
-    console.log('eee');
+    console.log("eee");
     const val = this.inp.value.trim();
     if (val) {
       save(id, val);
@@ -32,15 +32,15 @@ class TextQuestion extends Component {
     const editing = editId === contentId;
     return (
       <div>
-
         <textarea
+          rows="10"
+          cols="80"
           onBlur={this.handleSubmit}
           onFocus={() => setEdit(contentId)}
           onChange={this.handleChange}
           value={editing ? this.state.temp_value : message[contentId]}
           ref={o => this.inp = o}
         />
-
       </div>
     );
   }

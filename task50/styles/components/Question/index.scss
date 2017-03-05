@@ -3,6 +3,7 @@
       & label {
         margin-left: ($padding/2);
       }
+      font-size: $bigIcon;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -17,6 +18,7 @@
       }
       & .inputitem {
         flex: 2;
+        font-size: $mediumIcon;
       }
     }
     &-act {
@@ -38,5 +40,8 @@
       .question-act {
         opacity: 1;
       }
+    }
+    &-items{
+      margin-left: $padding;
     }
   }

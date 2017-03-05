@@ -45,3 +45,7 @@ path:hover{
     box-shadow: $solidBackgroundShadow;
   }
 }
+
+textarea{
+  resize: none;
+}

@@ -1,4 +1,5 @@
 $background:#e4e4e4;
+$baseEm:0.2em;
 $padding:20px;
 $fontColor:#777;
 $hyperlinkHover: rgba(140, 140, 140, .8);
@@ -10,9 +11,11 @@ $marginToggle:45px;
 $backgroundSecondary:#ffff66;
 $backgroundContent:#fff;
 $borderColor:#999;
+$backgroundGrey:#999999;
 $solidBackgroundShadow: -3px -3px 5px 0px rgba(140, 140, 140, 0.8),
-
 3px 3px 5px 0px rgba(140, 140, 140, 0.8);
+$bigIcon:2em;
+$mediumIcon:1.2em;
 @mixin border($color,$size){
   border:$size solid $color;
 }

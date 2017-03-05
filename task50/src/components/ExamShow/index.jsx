@@ -41,7 +41,6 @@ class ExamShow extends Component {
   }
   render() {
     const { newExamId, exam, message } = this.props;
-
     const currentExam = exam[newExamId];
     return currentExam
       ? <div className="examshow">

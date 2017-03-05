@@ -9,4 +9,10 @@
   .showContent{
     padding: $padding;
   }
+  .showBottom{
+    text-align: center;
+    &-button{
+      padding:($padding/6) ($padding);
+    }
+  }
 }

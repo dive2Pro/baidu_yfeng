@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as topicTypes from "../../constants/topicType";
-import Chart from "../Chart/Chart";
 const defaultExamId = "e1";
 import * as actions from "../../actions/index";
 import ChoiceChart from "../ChoiceChart/index";
@@ -35,40 +33,51 @@ class ExamShow extends Component {
       );
     });
   };
+  componentDidMount() {
+    const { newExamId, router, exam } = this.props;
+    if (!newExamId || !exam[newExamId]) {
+      router.push("/list");
+    }
+  }
   render() {
-    const { exam, message } = this.props;
-    const { titleId } = exam[defaultExamId];
-    return (
-      <div className="examshow">
-        <div className="title">
-          <h1>
-            {message[titleId]}
-          </h1>
-          <div className="title-subtitle">
-            <h4>此统计分析只包含完整回收的数据</h4>
+    const { newExamId, exam, message } = this.props;
+
+    const currentExam = exam[newExamId];
+    return currentExam
+      ? <div className="examshow">
+          <div className="title">
+            <h1>
+              {message[currentExam.titleId]}
+            </h1>
+            <div className="title-subtitle">
+              <h4>此统计分析只包含完整回收的数据</h4>
+            </div>
+          </div>
+          <div className="showContent">
+            {this.geneContent()}
+          </div>
+          <div className="showBottom">
+            <button className="showBottom-button">
+              返回
+            </button>
           </div>
         </div>
-        <div className="showContent">
-          {this.geneContent()}
-        </div>
-        <div className="showBottom">
-          <button>
-            返回
-          </button>
-        </div>
-      </div>
-    );
+      : <div />;
   }
 }
 
-const mapStateToProps = state => ({
-  toggle: state.toggle,
-  message: state.message,
-  question: state.question,
-  exam: state.exam,
-  answer: state.answer,
-  user: state.user
-});
+const mapStateToProps = (state, routerState) => {
+  return {
+    toggle: state.toggle,
+    message: state.message,
+    question: state.question,
+    exam: state.exam,
+    answer: state.answer,
+    user: state.user,
+    newExamId: routerState.params.examId,
+    router: routerState.router
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
     toggleFunc: bindActionCreators(actions.toggle, dispatch),

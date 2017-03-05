@@ -1,11 +1,12 @@
-import { combineReducers } from 'redux';
-import topic from './topic';
-import toggle from './toggle';
-import exam from './exam/index';
-import message from './message/index';
-import question from './question/index';
-import answer from './answer/index'
-import user from './user/index'
+import { combineReducers } from "redux";
+import topic from "./topic";
+import toggle from "./toggle";
+import exam from "./exam/index";
+import message from "./message/index";
+import question from "./question/index";
+import answer from "./answer/index";
+import user from "./user/index";
+import { routerReducer } from "react-router-redux";
 export default combineReducers({
   topic,
   toggle,
@@ -13,5 +14,6 @@ export default combineReducers({
   message,
   question,
   answer,
-  user
+  user,
+  routing: routerReducer
 });

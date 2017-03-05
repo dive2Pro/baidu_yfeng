@@ -54,8 +54,6 @@ export default function exam(state = initialState, action) {
       return changeQuestions(state, action.id, action.questionsId);
     case actionTypes.CHANGE_EXAM_TIME:
       return changeExamTime(state, action.id, action.time);
-    case actionTypes.SET_CURRENTEXAM_ID:
-      return { ...state, currentExamId: action.examId };
     case actionTypes.CHANGE_EXAM_CHECKED:
       return changeExamChecked(state, action.id, action.checked);
     default:

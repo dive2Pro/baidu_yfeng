@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Header from "./components/Header/index";
-import Editor from "./components/Editor/index";
-import ExamList from "./components/ExamList/index";
-import ExamShow from "./components/ExamShow/index";
+import { connect } from "react-redux";
 
 // <Editor />
 class App extends Component {
@@ -13,11 +11,18 @@ class App extends Component {
           <Header />
         </div>
         <div id="app-content">
-          <ExamShow />
+          {this.props.children}
         </div>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state, ownState) => {
+  console.info(state, ownState);
+  return {
+    state,
+    children: ownState.children
+  };
+};
+export default connect(mapStateToProps)(App);

@@ -1,48 +1,50 @@
-import React, { Component } from 'react';
-import ChoiceQuestion from '../ChoiceQuestion/index';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/index';
-import * as topicTypes from '../../constants/topicType';
-import * as examStateTypes from '../../constants/examStateType';
+import React, { Component } from "react";
+import ChoiceQuestion from "../ChoiceQuestion/index";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "../../actions/index";
+import * as topicTypes from "../../constants/topicType";
+import * as examStateTypes from "../../constants/examStateType";
 import {
   ADD_QUESTION,
   SELECT_DATE,
   CURRENT_EXAM
-} from '../../constants/toggleTypes';
-import classnames from 'classnames';
-import Modal from '../Modal/index';
-import TextQuestion from '../TextQuestion/index';
-import EditorTitle from './title';
-var DatePicker = require('react-datepicker');
-var moment = require('moment');
-require('react-datepicker/dist/react-datepicker.css');
+} from "../../constants/toggleTypes";
+import classnames from "classnames";
+import Modal from "../Modal/index";
+import TextQuestion from "../TextQuestion/index";
+import EditorTitle from "./title";
+var DatePicker = require("react-datepicker");
+var moment = require("moment");
+require("react-datepicker/dist/react-datepicker.css");
 
 class Editor extends Component {
   componentDidMount() {
     const {
       setToggleIdFunc,
-      examId,
       exam,
       changeExamTimeFunc,
-      geneExamFunc
+      geneExamFunc,
+      newExamId,
+      router
     } = this.props;
-    //TODO alternate with trueId
-    if (exam[examId]) {
+    if (exam[newExamId]) {
       this.setState(
         {
-          startDate: moment(exam[examId].time || {})
+          startDate: moment(exam[newExamId].time || {})
         },
         () => {
-          changeExamTimeFunc(examId, this.state.startDate.format('Y-M-D'));
+          changeExamTimeFunc(newExamId, this.state.startDate.format("Y-M-D"));
         }
       );
-      setToggleIdFunc(CURRENT_EXAM, examId);
-    } else {
+      setToggleIdFunc(CURRENT_EXAM, newExamId);
+    } else if (newExamId === "new") {
       geneExamFunc();
       this.setState({
         startDate: moment()
       });
+    } else {
+      router.push("/list");
     }
   }
 
@@ -56,7 +58,7 @@ class Editor extends Component {
       changeExamTimeFunc,
       toggle
     } = this.props;
-    changeExamTimeFunc(toggle[CURRENT_EXAM], date.format('Y-M-D'));
+    changeExamTimeFunc(toggle[CURRENT_EXAM], date.format("Y-M-D"));
   };
   geneQuestionsView() {
     //todo 现在是所以question都被渲染，应该是exam所属的question
@@ -105,7 +107,7 @@ class Editor extends Component {
               />
             );
           default:
-            return '';
+            return "";
         }
       });
   }
@@ -113,7 +115,7 @@ class Editor extends Component {
     const {
       addQuestionFunc
     } = this.props;
-    addQuestionFunc('title', type);
+    addQuestionFunc("title", type);
   };
   render() {
     const {
@@ -123,10 +125,10 @@ class Editor extends Component {
       exam
     } = this.props;
     const { currentExamId } = exam;
-    const itemsClazz = classnames('editor-addquestion-items', {
+    const itemsClazz = classnames("editor-addquestion-items", {
       active: toggle[ADD_QUESTION]
     });
-    const addDivClazz = classnames('editor-addquestion-add', {
+    const addDivClazz = classnames("editor-addquestion-add", {
       active: toggle[ADD_QUESTION]
     });
     const topicArr = topicTypes.arr;
@@ -153,7 +155,7 @@ class Editor extends Component {
             className={addDivClazz}
             onClick={() => toggleFunc(ADD_QUESTION)}
           >
-            {' '}＋　添加问题
+            {" "}＋　添加问题
           </div>
         </div>
         <div className="editor-bottom">
@@ -207,7 +209,6 @@ class Editor extends Component {
         >
           <div>
             <div>请输入问题题目（文字题）</div>
-
           </div>
 
         </Modal>
@@ -217,7 +218,6 @@ class Editor extends Component {
         >
           <div>
             <div>请输入问题题目（文字题）</div>
-
           </div>
 
         </Modal>
@@ -229,12 +229,17 @@ class Editor extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  toggle: state.toggle,
-  message: state.message,
-  question: state.question,
-  exam: state.exam
-});
+const mapStateToProps = (state, routerState) => {
+  console.log(routerState);
+  return {
+    toggle: state.toggle,
+    message: state.message,
+    question: state.question,
+    exam: state.exam,
+    newExamId: routerState.params.examId,
+    router: routerState.router
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
     toggleFunc: bindActionCreators(actions.toggle, dispatch),

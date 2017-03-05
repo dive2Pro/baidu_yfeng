@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as actions from "../../actions/index";
 import { EXAM_DELETED } from "../../constants/examStateType";
 import classnames from "classnames";
+import { Link } from "react-router";
 class ExamList extends Component {
   deleteExam = (...ids) => {
     const { changeExamStateFunc } = this.props;
@@ -42,7 +43,9 @@ class ExamList extends Component {
         <div className="listcontent">
           <div className="listitems">
             {Object.keys(exam)
-              .filter(key => exam[key].examState !== EXAM_DELETED)
+              .filter(key => {
+                return exam[key].examState !== EXAM_DELETED;
+              })
               .map((key, i) => {
                 const {
                   titleId,
@@ -61,8 +64,8 @@ class ExamList extends Component {
                         checked={checked}
                         id={key}
                       />
-                      <label htmlFor={key}>
-                        {title}
+                      <label>
+                        <Link to={`/edit/${key}`}>{title}</Link>
                       </label>
                     </div>
                     <div>{time}</div>
@@ -70,9 +73,9 @@ class ExamList extends Component {
                       {examState}
                     </div>
                     <div>
-                      <button>编辑</button>
+                      <button><Link to={`/edit/${key}`}>编辑</Link></button>
                       <button onClick={() => this.deleteExam(key)}>删除</button>
-                      <button>查看数据</button>
+                      <button> <Link to={`/show/${key}`}>查看数据</Link></button>
                     </div>
                   </div>
                 );

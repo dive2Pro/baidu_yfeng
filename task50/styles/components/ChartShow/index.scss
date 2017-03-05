@@ -1,0 +1,22 @@
+.choicechart{
+  background: $backgroundContent;
+  padding: $padding;
+  border: 1px solid #999;
+  margin-bottom: 1.6rem;
+  border-radius: 0.5em;
+  @include border($borderColor,1px);
+  & .charttitle{
+
+  }
+  .chartshow{
+    display: flex;
+    padding-left:($padding);
+    &-message{
+      flex-basis: 30%;
+
+    }
+    .chart{
+      flex:1;
+    }
+  }
+}

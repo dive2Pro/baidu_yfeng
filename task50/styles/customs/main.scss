@@ -34,3 +34,14 @@ path:hover{
 *:after {
   box-sizing: border-box;
 }
+
+#app{
+  &-title{
+
+  }
+  &-content{
+    margin:$padding*2;
+    border-radius: 0.2rem!important;
+    box-shadow: $solidBackgroundShadow;
+  }
+}

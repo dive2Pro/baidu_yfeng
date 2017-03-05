@@ -43,3 +43,6 @@ export function deleteElementFromArray(arr, v) {
   newArr.splice(position, 1);
   return newArr;
 }
+export function fromCharCode(code) {
+  return String.fromCharCode(code)
+}

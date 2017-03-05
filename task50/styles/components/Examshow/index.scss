@@ -1,0 +1,12 @@
+.examshow{
+  background: $backgroundContent;
+  padding: $padding;
+  .title{
+    text-align: center;
+    padding-top:($padding/4);
+    border-bottom:0.2rem solid $borderColor;
+  }
+  .showContent{
+    padding: $padding;
+  }
+}

@@ -5,6 +5,7 @@ import * as topicTypes from "../../constants/topicType";
 import Chart from "../Chart/Chart";
 const defaultExamId = "e1";
 import * as actions from "../../actions/index";
+import ChoiceChart from "../ChoiceChart/index";
 class ExamShow extends Component {
   geneContent = () => {
     const { answer, exam, message, question } = this.props;
@@ -12,70 +13,26 @@ class ExamShow extends Component {
     const currentExam = exam[defaultExamId];
     const currentAllQuestions = currentExam.questionsId;
     const questionsAnswerInfo = currentAnswer.questions;
-
     const answerInfo = {};
     currentAllQuestions.forEach((q, i) => {
       answerInfo[q] = questionsAnswerInfo[q] || 0;
     });
     const answerCount = currentAnswer.userIds.length;
+
     return currentAllQuestions.map((q, i) => {
       const fullQuestionInfo = question[q];
       const { type } = fullQuestionInfo;
       const answerWithThisQuestion = questionsAnswerInfo[q];
-      switch (type) {
-        case topicTypes.SINGLE_TYPE:
-          const pieData = answerWithThisQuestion;
-          return (
-            <Chart
-              key={i}
-              type={"pie"}
-              width={300}
-              height={300}
-              showTooltips={true}
-              data={pieData}
-            />
-          );
-        case topicTypes.MULTI_TYPE:
-          const barData = [];
-          console.log(questionsAnswerInfo);
-          for (let i in answerWithThisQuestion) {
-            barData.push({ xValue: i, yValue: answerWithThisQuestion[i] });
-          }
-          console.log(barData);
-
-          return (
-            <Chart
-              key={i}
-              type={"bar"}
-              width={500}
-              height={500}
-              margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-              showTooltips={true}
-              data={barData}
-            />
-          );
-        case topicTypes.TEXT_TYPE:
-          const key = Object.keys(answerWithThisQuestion)[0];
-          console.log(key);
-          const dogutData = {
-            有效回答: answerWithThisQuestion[key],
-            无效填写: answerCount - answerWithThisQuestion[key]
-          };
-          console.log(dogutData);
-          return (
-            <Chart
-              key={i}
-              type={"pie"}
-              width={300}
-              height={300}
-              showTooltips={true}
-              data={dogutData}
-              innerRadius={80}
-            />
-          );
-        default:
-          return <div key={i} />;
-      }
+      return (
+        <ChoiceChart
+          key={i}
+          index={i}
+          answer={answerWithThisQuestion}
+          question={fullQuestionInfo}
+          message={message}
+          answerCount={answerCount}
+        />
+      );
     });
   };
   render() {
@@ -84,9 +41,11 @@ class ExamShow extends Component {
     return (
       <div className="examshow">
         <div className="title">
-          {message[titleId]}
+          <h1>
+            {message[titleId]}
+          </h1>
           <div className="title-subtitle">
-            此统计分析只包含完整回收的数据
+            <h4>此统计分析只包含完整回收的数据</h4>
           </div>
         </div>
         <div className="showContent">

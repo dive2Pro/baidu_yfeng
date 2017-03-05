@@ -16,6 +16,8 @@ import TextQuestion from "../TextQuestion/index";
 import EditorTitle from "./title";
 // import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
 import { spring, TransitionMotion, Motion } from "react-motion";
+import DeleteModal from "../Modal/deleteModal";
+
 var DatePicker = require("react-datepicker");
 var moment = require("moment");
 require("react-datepicker/dist/react-datepicker.css");
@@ -238,19 +240,15 @@ class Editor extends Component {
           </div>
 
         </Modal>
-        <Modal
-          cancelFunc={() => toggleFunc(topicTypes.TEXT_TYPE)}
-          active={toggle[topicTypes.TEXT_TYPE]}
-        >
-          <div>
-            <div>请输入问题题目（文字题）</div>
-          </div>
-
-        </Modal>
+        <DeleteModal confirmFunc={this.handleDeleteConfirm} />
         <Modal
           cancelFunc={() => toggleFunc(topicTypes.TEXT_TYPE)}
           active={toggle[SELECT_DATE]}
-        />
+        >
+          <div>
+            确定要删除此问卷?
+          </div>
+        </Modal>
       </div>
     );
   }

@@ -8,7 +8,8 @@ import {
   TEXT_BY_STATE
 } from "../../constants/examStateType";
 import { Link } from "react-router";
-
+import DeleteModal from "../Modal/deleteModal";
+import { DELETE_MODAL } from "../../constants/toggleTypes";
 const CreateExamButton = ({ classname, onClick, text = "新建问卷" }) => {
   return <button className={classname} onClick={onClick}>{text}</button>;
 };
@@ -27,13 +28,18 @@ class ExamList extends Component {
     const { router } = this.props;
     router.push(`/edit/new`);
   };
-
+  state = {};
+  handleDeleteConfirm = () => {
+    const deletingExamId = this.state.deletingExamId;
+    deletingExamId && this.deleteExam(deletingExamId);
+  };
   render() {
     const {
       setExamCheckedFunc,
       exam,
       toggle,
-      message
+      message,
+      toggleFunc
     } = this.props;
     const haveExam = exam && Object.keys(exam).length > 0;
     return (
@@ -96,7 +102,14 @@ class ExamList extends Component {
                           </div>
                           <div>
                             <button><Link to={`/edit/${key}`}>编辑</Link></button>
-                            <button onClick={() => this.deleteExam(key)}>
+                            <button
+                              onClick={() => {
+                                this.setState({
+                                  deletingExamId: key
+                                });
+                                toggleFunc(DELETE_MODAL);
+                              }}
+                            >
                               删除
                             </button>
                             <button>
@@ -133,6 +146,7 @@ class ExamList extends Component {
                 </div>
               </div>
             </div>}
+        <DeleteModal confirmFunc={this.handleDeleteConfirm} />
       </div>
     );
   }
@@ -148,6 +162,7 @@ const mapStateToProps = (state, routerState) => {
 const mapDispatchToProps = dispatch => ({
   setExamCheckedFunc: bindActionCreators(actions.setExamChecked, dispatch),
   changeExamStateFunc: bindActionCreators(actions.changeExamState, dispatch),
-  geneExamFunc: bindActionCreators(actions.geneExam, dispatch)
+  geneExamFunc: bindActionCreators(actions.geneExam, dispatch),
+  toggleFunc: bindActionCreators(actions.toggle, dispatch)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ExamList);

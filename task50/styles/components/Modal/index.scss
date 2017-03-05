@@ -17,9 +17,44 @@
     position: relative;
     margin-top: 100px;
     background: white;
-    padding: 10px;
     border-radius: 5px;
     box-shadow: 1px -1px 8px 2px rgba(255, 255, 255, 0.5);
+  }
+  &-content{
+    &-title{
+      display: flex;
+      background: $dashWhite;
+      align-items: center;
+      &>*{
+        &:last-child{
+          margin-right: $padding;
+          color: white;
+        }
+        &:first-child{
+        flex:1;
+        text-align: left;
+        margin-left:($padding);
+        }
+      }
+
+    }
+    &-main{
+      padding: $padding;
+      min-width: 350px;
+      min-height: 120px;
+      font-size: 1rem;
+      text-align: left;
+    }
+    &-bottom{
+      margin-bottom: ($padding);
+      &>* {
+        padding-left: $padding;
+        padding-right: $padding;
+        &:first-child {
+          margin-right: $padding;
+        }
+      }
+    }
   }
   &.active {
     opacity: 1;

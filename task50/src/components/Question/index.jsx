@@ -1,12 +1,12 @@
-import React from 'react';
-import InputItem from '../InputItem/index';
-import { questionActs } from '../../constants/questionActType';
-import classnames from 'classnames';
+import React from "react";
+import InputItem from "../InputItem/index";
+import { questionActs } from "../../constants/questionActType";
+import classnames from "classnames";
 export default function(Component) {
   class Question extends React.Component {
     state = {};
     onToggle = () => {
-      console.log('onToggle!');
+      console.log("onToggle!");
     };
     //TODO 将该问题的id集中在reducer中管理
     save = (id, str) => {
@@ -27,7 +27,7 @@ export default function(Component) {
     };
     render() {
       const {
-        question,
+        thisQuestion,
         message,
         index,
         isLast,
@@ -36,13 +36,16 @@ export default function(Component) {
         requireable,
         setRequireFunc
       } = this.props;
+
       const {
-        titleId
-      } = question;
+        titleId,
+        id,
+        require
+      } = thisQuestion;
       const {
         editId
       } = this.state;
-      const requireClazz = classnames('question-title-require', {
+      const requireClazz = classnames("question-title-require", {
         visible: requireable
       });
       return (
@@ -58,14 +61,10 @@ export default function(Component) {
               editing={titleId === editId}
             />
             <div className={requireClazz}>
-              <input
-                type="checkbox"
-                id={question.id + ' - label'}
-                checked={question.require}
-              />
+              <input type="checkbox" id={id + " - label"} checked={require} />
               <label
-                htmlFor={question.id + ' - label'}
-                onClick={() => setRequireFunc(question.id, !question.require)}
+                htmlFor={id + " - label"}
+                onClick={() => setRequireFunc(id, !require)}
               >
                 此题是否必选
               </label>
@@ -84,8 +83,8 @@ export default function(Component) {
           <div className="question-act">
             {Object.keys(questionActs).map((act, i) => {
               let content;
-              if (index === 0 && i === 0 || isLast && i === 1) {
-                return '';
+              if ((index === 0 && i === 0) || (isLast && i === 1)) {
+                return "";
               } else {
                 content = act;
               }
@@ -95,7 +94,7 @@ export default function(Component) {
                   onClick={() =>
                     opeExamQuestionsFunc(
                       currentExamId,
-                      question,
+                      thisQuestion,
                       questionActs[act]
                     )}
                   className="question-act-item"

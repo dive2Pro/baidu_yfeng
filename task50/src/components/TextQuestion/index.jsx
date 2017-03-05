@@ -22,13 +22,13 @@ class TextQuestion extends Component {
 
   render() {
     const {
-      question,
+      thisQuestion,
       message,
       setEdit,
       editId
     } = this.props;
 
-    const contentId = question.contentId;
+    const contentId = thisQuestion.contentId;
     const editing = editId === contentId;
     return (
       <div>

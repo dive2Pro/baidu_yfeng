@@ -1,12 +1,12 @@
-import React, { Component, PropTypes } from 'react';
-import InputItem from '../InputItem/index';
-import * as topicTypes from '../../constants/topicType';
-import Question from '../Question/index';
+import React, { Component, PropTypes } from "react";
+import InputItem from "../InputItem/index";
+import * as topicTypes from "../../constants/topicType";
+import Question from "../Question/index";
 
 class ChoiceQuestion extends Component {
   render() {
     const {
-      question,
+      thisQuestion,
       message,
       save,
       setEdit,
@@ -16,13 +16,13 @@ class ChoiceQuestion extends Component {
     } = this.props;
     const {
       type
-    } = question;
+    } = thisQuestion;
     const inputType = type === topicTypes.SINGLE_TYPE
-      ? 'radio'
-      : type === topicTypes.MULTI_TYPE ? 'checkbox' : 'text';
+      ? "radio"
+      : type === topicTypes.MULTI_TYPE ? "checkbox" : "text";
     return (
       <div>
-        {question.optionsId.map((id, index) => {
+        {thisQuestion.optionsId.map((id, index) => {
           return (
             <InputItem
               inputType={inputType}

@@ -74,6 +74,7 @@ class Editor extends Component {
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const quesIds = exam[currentExamId] ? exam[currentExamId].questionsId : [];
+
     return quesIds &&
       quesIds.map((q, i) => {
         const ques = question[q];
@@ -85,26 +86,21 @@ class Editor extends Component {
                 index={i}
                 key={q}
                 isLast={i === quesIds.length - 1}
-                saveMessageFunc={saveMessageFunc}
-                opeExamQuestionsFunc={opeExamQuestionsFunc}
-                question={ques}
-                message={message}
+                thisQuestion={ques}
                 currentExamId={currentExamId}
+                {...this.props}
               />
             );
           case topicTypes.TEXT_TYPE:
             return (
               <TextQuestion
                 index={i}
-                isLast={i === quesIds.length - 1}
-                saveMessageFunc={saveMessageFunc}
-                opeExamQuestionsFunc={opeExamQuestionsFunc}
                 key={q}
-                question={ques}
-                message={message}
-                currentExamId={currentExamId}
+                isLast={i === quesIds.length - 1}
+                thisQuestion={ques}
                 requireable={true}
-                setRequireFunc={setRequireFunc}
+                currentExamId={currentExamId}
+                {...this.props}
               />
             );
           default:
@@ -139,7 +135,7 @@ class Editor extends Component {
       saveExamFunc,
       exam
     } = this.props;
-    const { currentExamId } = exam;
+    const { currentExamId } = toggle;
     const itemsClazz = classnames("editor-addquestion-items");
 
     const topicArr = topicTypes.arr;
@@ -172,8 +168,6 @@ class Editor extends Component {
                 {Object.keys(topicArr).map((type, index) => {
                   return (
                     <button key={index} onClick={() => this.mockSingle(type)}>
-                      {/*<button key={index} onClick={() => toggleFunc(type)}>*/
-                      }
                       {topicArr[type]}
                     </button>
                   );

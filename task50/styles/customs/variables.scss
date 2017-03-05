@@ -1,19 +1,21 @@
 $background:#e4e4e4;
 $baseEm:0.2em;
 $padding:20px;
-$fontColor:#777;
+$fontColor: #525252;
 $hyperlinkHover: rgba(140, 140, 140, .8);
 $hyperlinkActive: rgba(140, 140, 140, .4);
 $hyperlinkVisited: rgba(140, 140, 140, .4);
-$headerColor: #ffff66;
+$headerColor: #ff8423;
 $selectItemHeight:30px;
 $marginToggle:45px;
-$backgroundSecondary:#ffff66;
+$backgroundSecondary:#ff8423;
 $backgroundContent:#fff;
 $borderColor:#999;
 $backgroundGrey:#999999;
+$hoverBackgroundColor:#e4c3a4;
 $solidBackgroundShadow: -3px -3px 5px 0px rgba(140, 140, 140, 0.8),
 3px 3px 5px 0px rgba(140, 140, 140, 0.8);
+
 $bigIcon:2em;
 $mediumIcon:1.2em;
 @mixin border($color,$size){

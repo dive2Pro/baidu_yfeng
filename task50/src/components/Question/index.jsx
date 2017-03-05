@@ -2,6 +2,7 @@ import React from "react";
 import InputItem from "../InputItem/index";
 import { questionActs } from "../../constants/questionActType";
 import classnames from "classnames";
+
 export default function(Component) {
   class Question extends React.Component {
     state = {};

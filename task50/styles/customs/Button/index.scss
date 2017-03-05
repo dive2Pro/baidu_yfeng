@@ -11,21 +11,27 @@ button{
   padding:($padding/6) ($padding/2);
 
 }
-
 button:hover{
-  background:$backgroundSecondary;
+  z-index: 99;
+  box-shadow:  $solidBackgroundShadow;
   color:white;
+  background:$backgroundSecondary;
+  cursor: pointer;
+  transform: translate3d(0,0,0) scale(1.1);
 }
+
 
 .newlistLarge {
   @include fillButton($backgroundSecondary, white, 16px);
   font-size: 20px;
   padding: ($padding/4) ($padding/2)
+
 }
 
 .newlistMini {
   @extend .newlistLarge;
   font-size: 12px;
+  padding: ($padding/8) ($padding/2)
 
 }
 

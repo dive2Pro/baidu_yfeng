@@ -28,7 +28,7 @@ export function addQuestion(title = '请输入', type, optionsIdCount = 3) {
       id: String(parseInt(new Date().getTime()) + '_mock'),
       type: type,
       titleId: utils.guid(),
-      optionsId: Array(optionsIdCount).fill(null).map(_ => {
+      optionsId: new Array(optionsIdCount).fill(null).map(_ => {
         const id = utils.guid();
         dispatch(
           saveMessage({
@@ -36,7 +36,7 @@ export function addQuestion(title = '请输入', type, optionsIdCount = 3) {
           })
         );
         return id;
-      })
+      }),contentId:utils.guid()
     };
     const specExam = exam[currentExamId];
     let questionsId;

@@ -37,7 +37,6 @@ class ExamList extends Component {
     const {
       setExamCheckedFunc,
       exam,
-      toggle,
       message,
       toggleFunc
     } = this.props;
@@ -93,7 +92,7 @@ class ExamList extends Component {
                               id={key}
                             />
                             <label>
-                              <Link to={`/edit/${key}`}>{title}</Link>
+                              <Link to={`/answer/${key}`}>{title}</Link>
                             </label>
                           </div>
                           <div>{time}</div>

@@ -9,7 +9,8 @@ import {
   ADD_QUESTION,
   SELECT_DATE,
   CURRENT_EXAM,
-  CONFIRM_MODAL
+  CONFIRM_MODAL,
+  ANSWER_MODE
 } from "../../constants/toggleTypes";
 import classnames from "classnames";
 import Modal from "../Modal/index";
@@ -18,7 +19,7 @@ import EditorTitle from "./title";
 // import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
 import { spring, TransitionMotion, Motion } from "react-motion";
 import ConfirmModal from "../Modal/ConfirmModal";
-
+import { deleteElementFromArray } from "../../constants/utils";
 var DatePicker = require("react-datepicker");
 var moment = require("moment");
 require("react-datepicker/dist/react-datepicker.css");
@@ -31,8 +32,12 @@ class Editor extends Component {
       changeExamTimeFunc,
       geneExamFunc,
       newExamId,
-      router
+      router,
+      toggleFunc
     } = this.props;
+
+    const isAnswerMode = location.pathname.indexOf("/answer") === 0;
+    if (isAnswerMode) toggleFunc(ANSWER_MODE);
     if (exam[newExamId]) {
       this.setState(
         {
@@ -54,6 +59,46 @@ class Editor extends Component {
   }
 
   state = {};
+
+  /**
+   *
+   * @param question
+   */
+  onToggle = question =>
+    /**
+     *
+     * @param id optionsId
+     * @param index  optionsIds position
+     * @param checked
+     */
+    (id, index, checked) => {
+      console.log("onToggle!", id, index, checked);
+      const { toggle } = this.props;
+      const currentExamId = toggle[CURRENT_EXAM];
+      this.setState(prevState => {
+        let selectOptions = (prevState[currentExamId] &&
+          prevState[currentExamId][question.id]) || [];
+        switch (question.type) {
+          case topicTypes.SINGLE_TYPE:
+            selectOptions = [id];
+            break;
+          case topicTypes.MULTI_TYPE:
+            if (!checked) {
+              selectOptions = deleteElementFromArray(selectOptions, id);
+            } else {
+              selectOptions.push(id);
+            }
+            break;
+        }
+
+        return {
+          [currentExamId]: {
+            ...prevState[currentExamId],
+            [question.id]: selectOptions
+          }
+        };
+      });
+    };
 
   handleDateChange = date => {
     this.setState({
@@ -77,7 +122,7 @@ class Editor extends Component {
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const quesIds = exam[currentExamId] ? exam[currentExamId].questionsId : [];
-
+    const isAnswerMode = toggle[ANSWER_MODE];
     return quesIds &&
       quesIds.map((q, i) => {
         const ques = question[q];
@@ -91,6 +136,8 @@ class Editor extends Component {
                 isLast={i === quesIds.length - 1}
                 thisQuestion={ques}
                 currentExamId={currentExamId}
+                isAnswerMode={isAnswerMode}
+                onToggle={this.onToggle(ques)}
                 {...this.props}
               />
             );
@@ -103,6 +150,7 @@ class Editor extends Component {
                 thisQuestion={ques}
                 requireable={true}
                 currentExamId={currentExamId}
+                isAnswerMode={isAnswerMode}
                 {...this.props}
               />
             );
@@ -139,17 +187,116 @@ class Editor extends Component {
       exam
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
-    const itemsClazz = classnames("editor-addquestion-items");
-    const memeIcons = ["⭕", "⬜", "📝"];
-    const topicArr = topicTypes.arr;
-    const itemsActive = toggle[ADD_QUESTION];
+    const isAnswerMode = toggle[ANSWER_MODE];
     return (
       <div className="editor">
-        <EditorTitle {...this.props} currentExam={exam[currentExamId]} />
+        <EditorTitle
+          isAnswerMode={toggle[ANSWER_MODE]}
+          {...this.props}
+          currentExam={exam[currentExamId]}
+        />
         <div className="editor-questions">
           {this.geneQuestionsView()}
         </div>
+        {!isAnswerMode ? this.geneEditorBottom() : this.geneAnswerBottom()}
+        <div className="modal-container">
+          <Modal
+            cancelFunc={() => toggleFunc(topicTypes.SINGLE_TYPE)}
+            active={toggle[topicTypes.SINGLE_TYPE]}
+          >
+            <div>
+              <div>请输入问题题目（单选）</div>
+              <input type="text" />
+            </div>
 
+          </Modal>
+          <Modal
+            cancelFunc={() => toggleFunc(topicTypes.MULTI_TYPE)}
+            active={toggle[topicTypes.MULTI_TYPE]}
+          >
+            <div>
+              <div>请输入问题题目（多选）</div>
+              <input type="text" />
+            </div>
+
+          </Modal>
+          <Modal
+            cancelFunc={() => toggleFunc(topicTypes.TEXT_TYPE)}
+            active={toggle[topicTypes.TEXT_TYPE]}
+          >
+            <div>
+              <div>请输入问题题目（文字题）</div>
+
+            </div>
+          </Modal>
+          <ConfirmModal
+            confirmFunc={() =>
+              saveExamFunc(currentExamId, examStateTypes.RELEASED)}
+          >
+            <div>
+              <p>
+                是否发布问卷?
+              </p>
+              <p>
+                (此问卷截止日期为
+                {this.state.startDate &&
+                  this.state.startDate.format("YYYY-MM-DD")}
+                )
+              </p>
+            </div>
+          </ConfirmModal>
+        </div>
+
+      </div>
+    );
+  }
+  handleSubmit = () => {
+    const { exam, question, toggle, message, saveAnswerFunc } = this.props;
+    const currentExamId = toggle[CURRENT_EXAM];
+    const questionsAnswer = this.state[currentExamId]; //{e1:{},q2:{}}
+    //todo filter require
+    const shakedAnswer = Object.keys(questionsAnswer)
+      .filter(key => questionsAnswer[key].length > 0)
+      .map(qId => ({ qId: questionsAnswer[qId] }));
+    console.info(shakedAnswer);
+    const currentExam = exam[currentExamId];
+    const hasRequireQuestionUnAnswer = currentExam.questionsId.length >
+      shakedAnswer.length;
+    // 过滤
+    const contentIdNotNullQuestions = currentExam.questionsId
+      .filter(qid => {
+        return question[qid].type === topicTypes.TEXT_TYPE;
+      })
+      .filter(qid => {
+        return message[question[qid].contentId];
+      })
+      .map(qid => ({
+        [qid]: [question[qid].contentId]
+      }));
+    console.info(contentIdNotNullQuestions);
+    let questions = {};
+    contentIdNotNullQuestions.forEach(q => {
+      questions = { ...questionsAnswer, ...q };
+    });
+    saveAnswerFunc({ answer: { examId: currentExamId, questions } });
+  };
+
+  geneAnswerBottom = () => {
+    return (
+      <div className="editor-answer-bottom">
+        <button onClick={this.handleSubmit}>提交</button>
+      </div>
+    );
+  };
+  geneEditorBottom = () => {
+    const { toggle, saveExamFunc, toggleFunc } = this.props;
+    const memeIcons = ["⭕", "⬜", "📝"];
+    const topicArr = topicTypes.arr;
+    const itemsActive = toggle[ADD_QUESTION];
+    const currentExamId = toggle[CURRENT_EXAM];
+
+    return (
+      <div>
         <div className="editor-addquestion">
           <Motion
             defaultStyle={{ op: 0, display: 0 }}
@@ -165,7 +312,7 @@ class Editor extends Component {
                   flex: op,
                   display: display ? "flex" : "none"
                 }}
-                className={itemsClazz}
+                className="editor-addquestion-items"
                 ref={p => this.addItemsDiv = p}
               >
                 {Object.keys(topicArr).map((type, index) => {
@@ -209,58 +356,11 @@ class Editor extends Component {
             </button>
           </div>
         </div>
-        <Modal
-          cancelFunc={() => toggleFunc(topicTypes.SINGLE_TYPE)}
-          active={toggle[topicTypes.SINGLE_TYPE]}
-        >
-          <div>
-            <div>请输入问题题目（单选）</div>
-            <input type="text" />
-          </div>
-
-        </Modal>
-        <Modal
-          cancelFunc={() => toggleFunc(topicTypes.MULTI_TYPE)}
-          active={toggle[topicTypes.MULTI_TYPE]}
-        >
-          <div>
-            <div>请输入问题题目（多选）</div>
-            <input type="text" />
-          </div>
-
-        </Modal>
-        <Modal
-          cancelFunc={() => toggleFunc(topicTypes.TEXT_TYPE)}
-          active={toggle[topicTypes.TEXT_TYPE]}
-        >
-          <div>
-            <div>请输入问题题目（文字题）</div>
-
-          </div>
-        </Modal>
-        <ConfirmModal
-          confirmFunc={() =>
-            saveExamFunc(currentExamId, examStateTypes.RELEASED)}
-        >
-          <div>
-            <p>
-              是否发布问卷?
-            </p>
-            <p>
-              (此问卷截止日期为
-              {this.state.startDate &&
-                this.state.startDate.format("YYYY-MM-DD")}
-              )
-            </p>
-          </div>
-        </ConfirmModal>
-
       </div>
     );
-  }
+  };
 }
 const mapStateToProps = (state, routerState) => {
-  console.log(routerState);
   return {
     toggle: state.toggle,
     message: state.message,
@@ -284,7 +384,8 @@ const mapDispatchToProps = dispatch => {
     setRequireFunc: bindActionCreators(actions.setRequire, dispatch),
     changeExamStateFunc: bindActionCreators(actions.changeExamState, dispatch),
     changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
-    geneExamFunc: bindActionCreators(actions.geneExam, dispatch)
+    geneExamFunc: bindActionCreators(actions.geneExam, dispatch),
+    saveAnswerFunc: bindActionCreators(actions.saveAnswer, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

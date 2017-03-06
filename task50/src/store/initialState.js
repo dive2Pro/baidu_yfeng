@@ -101,7 +101,7 @@ const initialState = {
       id: "q3",
       titleId: "t3",
       type: topicTypes.TEXT_TYPE,
-      optionsId: "t5"
+      contentId: "t5"
     }
   }
 };

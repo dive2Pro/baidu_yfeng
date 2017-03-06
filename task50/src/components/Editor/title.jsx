@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import InputItem from '../InputItem/index';
+import React, { Component } from "react";
+import InputItem from "../InputItem/index";
 class EditorTitle extends Component {
   state = {};
   //TODO 将该问题的id集中在reducer中管理
@@ -17,7 +17,8 @@ class EditorTitle extends Component {
   render() {
     const {
       currentExam,
-      message
+      message,
+      isAnswerMode
     } = this.props;
     return (
       <div className="editor-title">
@@ -25,9 +26,10 @@ class EditorTitle extends Component {
           <InputItem
             unCheckable={true}
             save={this.save}
+            isAnswerMode={isAnswerMode}
             id={currentExam.titleId}
             setEdit={this.setEdit}
-            msg={message[currentExam.titleId] || '这里是标题'}
+            msg={message[currentExam.titleId] || "这里是标题"}
             editing={currentExam.titleId === this.state.editId}
           />}
       </div>

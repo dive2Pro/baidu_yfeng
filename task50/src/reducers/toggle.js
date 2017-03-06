@@ -1,6 +1,8 @@
-import * as actionTypes from '../constants/actionType';
-
-const initialState = {};
+import * as actionTypes from "../constants/actionType";
+import { ANSWER_MODE } from "../constants/toggleTypes";
+const initialState = {
+  ANSWER_MODE: false
+};
 
 export default function(state = initialState, action) {
   switch (action.type) {

@@ -4,13 +4,13 @@ import Question from "../Question/index";
 class TextQuestion extends Component {
   state = {};
   handleSubmit = () => {
-    const { save, setDestory, id } = this.props;
-    console.log("eee");
+    const { save, setDestory, thisQuestion } = this.props;
     const val = this.inp.value.trim();
+    const { contentId } = thisQuestion;
     if (val) {
-      save(id, val);
+      save(contentId, val);
     } else {
-      setDestory(id);
+      setDestory(contentId);
     }
   };
 

@@ -66,4 +66,14 @@
     }
 
   }
+  &-answer-bottom{
+    border-top:1px solid $borderColor;
+    padding-top: $padding;
+    margin-top: $padding;
+    text-align: center;
+    button{
+      padding:($padding/4) ($padding*2);
+    }
+
+  }
 }

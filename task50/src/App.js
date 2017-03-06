@@ -19,7 +19,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state, ownState) => {
-  console.info(state, ownState);
   return {
     state,
     children: ownState.children

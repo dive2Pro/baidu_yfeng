@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
+import React, { Component, PropTypes } from "react";
+import classnames from "classnames";
 class InputItem extends Component {
+  state = {};
+
   componentDidUpdate(prevProps) {
-    console.log(this.state);
     const { editing } = this.props;
     if (editing) {
       this.inp.focus();
     }
   }
-  state = {};
+
   handleSubmit = () => {
     const { save, setDestory, id } = this.props;
-    console.log('eee');
     const val = this.inp.value.trim();
     if (val) {
       save(id, val);
@@ -36,23 +36,26 @@ class InputItem extends Component {
       editing,
       id,
       unCheckable,
-      defStr
+      defStr,
+      isAnswerMode
     } = this.props;
     const { temp_value } = this.state;
-    const clazz = classnames({ editing: editing }, 'inputitem');
+    const clazz = classnames({ editing: editing }, "inputitem");
     return (
       <div className={clazz}>
         <div className="view">
           {/*//todo name */}
           {unCheckable ||
             <input
-              type={inputType || 'radio'}
+              type={inputType || "radio"}
               className="toggle"
               checked={checked}
-              onChange={onToggle}
+              onChange={e => {
+                onToggle({ checked: e.target.checked });
+              }}
               name="asd"
             />}
-          <label onDoubleClick={() => setEdit(id)}>
+          <label onDoubleClick={() => !isAnswerMode && setEdit(id)}>
             {msg || defStr}
           </label>
         </div>
@@ -74,12 +77,13 @@ class InputItem extends Component {
   }
 }
 
-InputItem.propsTypes = {
-  save: PropTypes.func,
-  defStr: PropTypes.string,
-  editble: PropTypes.bool,
-  onToggle: PropTypes.func,
-  unCheckable: PropTypes.bool
+InputItem.propTypes = {
+  save: React.PropTypes.func,
+  defStr: React.PropTypes.string,
+  editble: React.PropTypes.bool,
+  onToggle: React.PropTypes.func,
+  unCheckable: React.PropTypes.bool,
+  isAnswerMode: React.PropTypes.bool.isRequired
 };
 
 export default InputItem;

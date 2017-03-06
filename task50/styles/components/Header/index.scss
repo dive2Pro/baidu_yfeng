@@ -2,4 +2,11 @@
   background: $headerColor;
   padding: ($padding/2)($padding*3);
   height: ($padding *2);
+  display: flex;
+  justify-items: center;
+  a{
+    display: block;
+    color: white;
+    font-size: 1rem;
+  }
 }

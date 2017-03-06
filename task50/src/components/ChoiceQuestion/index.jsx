@@ -12,7 +12,8 @@ class ChoiceQuestion extends Component {
       setEdit,
       setDestory,
       editId,
-      onToggle
+      onToggle,
+      isAnswerMode
     } = this.props;
     const {
       type
@@ -26,7 +27,7 @@ class ChoiceQuestion extends Component {
           return (
             <InputItem
               inputType={inputType}
-              onToggle={onToggle}
+              onToggle={({ checked }) => onToggle(id, index, checked)}
               key={id}
               save={save}
               setDestory={setDestory}
@@ -34,6 +35,7 @@ class ChoiceQuestion extends Component {
               msg={message[id]}
               editing={id === editId}
               id={id}
+              isAnswerMode={isAnswerMode}
             />
           );
         })}

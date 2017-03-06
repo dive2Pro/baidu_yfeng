@@ -12,5 +12,5 @@ export const TEXT_BY_STATE = {
 export const COLOR_BY_STATE = {
   UN_RELEASE: { color: "lightblue" },
   RELEASED: { color: "green" },
-  OUT_DATE: { color: "grey", "text-decoration": "line-through" }
+  OUT_DATE: { color: "grey", "textDecoration": "line-through" }
 };

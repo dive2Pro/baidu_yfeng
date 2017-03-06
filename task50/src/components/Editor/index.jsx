@@ -138,14 +138,14 @@ class Editor extends Component {
       saveExamFunc,
       exam
     } = this.props;
-    const { currentExamId } = toggle;
+    const currentExamId = toggle[CURRENT_EXAM];
     const itemsClazz = classnames("editor-addquestion-items");
-
+    const memeIcons = ["⭕", "⬜", "📝"];
     const topicArr = topicTypes.arr;
     const itemsActive = toggle[ADD_QUESTION];
     return (
       <div className="editor">
-        <EditorTitle currentExam={exam[currentExamId]} {...this.props} />
+        <EditorTitle {...this.props} currentExam={exam[currentExamId]} />
         <div className="editor-questions">
           {this.geneQuestionsView()}
         </div>
@@ -171,7 +171,7 @@ class Editor extends Component {
                 {Object.keys(topicArr).map((type, index) => {
                   return (
                     <button key={index} onClick={() => this.mockSingle(type)}>
-                      {topicArr[type]}
+                      {memeIcons[index] + "  " + topicArr[type]}
                     </button>
                   );
                 })}
@@ -184,7 +184,7 @@ class Editor extends Component {
             className="editor-addquestion-add"
             onClick={() => toggleFunc(ADD_QUESTION)}
           >
-            ＋　添加问题
+            <h2>＋　添加问题</h2>
           </div>
         </div>
         <div className="editor-bottom">
@@ -235,8 +235,8 @@ class Editor extends Component {
         >
           <div>
             <div>请输入问题题目（文字题）</div>
-          </div>
 
+          </div>
         </Modal>
         <ConfirmModal
           confirmFunc={() =>

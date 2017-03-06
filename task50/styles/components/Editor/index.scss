@@ -5,12 +5,16 @@
   background: $backgroundContent;
   &-title {
     text-align: center;
-    font-size: 18px;
-    font-weight: bold;
+    label{
+      font-size: 1.2rem!important;
+      font-weight: bold;
+    }
+    border-bottom: $baseEm solid $borderColor;
   }
   &-questions {}
   &-addquestion {
     overflow: hidden;
+    margin-top:($padding);
     display: flex;
     flex-direction: column;
     height: ($padding*6);
@@ -32,8 +36,7 @@
       }
     }
     &-add {
-      background: $backgroundGrey;
-      color: white;
+      background: $background;
       height: 100%;
       display: flex;
       &.active {}

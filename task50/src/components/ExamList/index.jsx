@@ -8,8 +8,8 @@ import {
   TEXT_BY_STATE
 } from "../../constants/examStateType";
 import { Link } from "react-router";
-import DeleteModal from "../Modal/deleteModal";
-import { DELETE_MODAL } from "../../constants/toggleTypes";
+import DeleteModal from "../Modal/ConfirmModal";
+import { CONFIRM_MODAL } from "../../constants/toggleTypes";
 const CreateExamButton = ({ classname, onClick, text = "新建问卷" }) => {
   return <button className={classname} onClick={onClick}>{text}</button>;
 };
@@ -107,7 +107,7 @@ class ExamList extends Component {
                                 this.setState({
                                   deletingExamId: key
                                 });
-                                toggleFunc(DELETE_MODAL);
+                                toggleFunc(CONFIRM_MODAL);
                               }}
                             >
                               删除

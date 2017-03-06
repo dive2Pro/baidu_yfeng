@@ -8,7 +8,8 @@ import * as examStateTypes from "../../constants/examStateType";
 import {
   ADD_QUESTION,
   SELECT_DATE,
-  CURRENT_EXAM
+  CURRENT_EXAM,
+  CONFIRM_MODAL
 } from "../../constants/toggleTypes";
 import classnames from "classnames";
 import Modal from "../Modal/index";
@@ -16,7 +17,7 @@ import TextQuestion from "../TextQuestion/index";
 import EditorTitle from "./title";
 // import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
 import { spring, TransitionMotion, Motion } from "react-motion";
-import DeleteModal from "../Modal/deleteModal";
+import ConfirmModal from "../Modal/ConfirmModal";
 
 var DatePicker = require("react-datepicker");
 var moment = require("moment");
@@ -129,7 +130,7 @@ class Editor extends Component {
       opacity: spring(0)
     };
   };
-
+  handleDeleteConfirm = () => {};
   render() {
     const {
       toggleFunc,
@@ -203,10 +204,7 @@ class Editor extends Component {
             >
               保存问卷
             </button>
-            <button
-              onClick={() =>
-                saveExamFunc(currentExamId, examStateTypes.RELEASED)}
-            >
+            <button onClick={() => toggleFunc(CONFIRM_MODAL)}>
               发布问卷
             </button>
           </div>
@@ -240,15 +238,23 @@ class Editor extends Component {
           </div>
 
         </Modal>
-        <DeleteModal confirmFunc={this.handleDeleteConfirm} />
-        <Modal
-          cancelFunc={() => toggleFunc(topicTypes.TEXT_TYPE)}
-          active={toggle[SELECT_DATE]}
+        <ConfirmModal
+          confirmFunc={() =>
+            saveExamFunc(currentExamId, examStateTypes.RELEASED)}
         >
           <div>
-            确定要删除此问卷?
+            <p>
+              是否发布问卷?
+            </p>
+            <p>
+              (此问卷截止日期为
+              {this.state.startDate &&
+                this.state.startDate.format("YYYY-MM-DD")}
+              )
+            </p>
           </div>
-        </Modal>
+        </ConfirmModal>
+
       </div>
     );
   }

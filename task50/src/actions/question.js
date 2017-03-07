@@ -70,7 +70,12 @@ export function saveTempQuestion(questionId) {
     id: questionId
   };
 }
-
+export function saveTempQuestionTitleId(TitleId) {
+  return {
+    type: actionTypes.SAVE_TEMP_QUESTION_TITLE,
+    id: TitleId
+  };
+}
 export function clearTempQuestion() {
   return {
     type: actionTypes.CLEAR_TEMP_QUESTION

@@ -18,6 +18,7 @@ const saveExam = (state, id, exam) => {
     }
   };
 };
+
 const changeExamTitle = (state, id, title) => {
   return {
     ...state,

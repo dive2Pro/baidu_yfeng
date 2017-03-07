@@ -52,9 +52,11 @@ export function geneExam(title = "请填写") {
         titleId
       })
     );
+    dispatch(saveTempExam(examId));
     dispatch(setToggleId(CURRENT_EXAM, examId));
   };
 }
+
 export function changeExamQuestions(id, questionsId = []) {
   return {
     type: actionTypes.CHANGE_EXAM_QUESTIONS,
@@ -62,6 +64,7 @@ export function changeExamQuestions(id, questionsId = []) {
     questionsId
   };
 }
+
 export function opeExamQuestions(examId, question, actType) {
   return (dispatch, getState) => {
     const state = getState();
@@ -99,4 +102,17 @@ export function setExamChecked(checked, ...ids) {
       });
     });
   };
+}
+
+export function saveTempExam(exam) {
+  return {
+    type: actionTypes.SAVE_TEMP_EXAM,
+    exam
+  };
+}
+
+export function clearTempExam(){
+  return{
+    type:actionTypes.CLEAR_TEMP_EXAM
+  }
 }

@@ -30,11 +30,12 @@ class Editor extends Component {
       setToggleIdFunc,
       exam,
       changeExamTimeFunc,
-      geneExamFunc,
       newExamId,
       router,
       toggleFunc,
-      isAnswerMode
+      isAnswerMode,
+      saveTempExamFunc,
+      message
     } = this.props;
 
     if (isAnswerMode) toggleFunc(ANSWER_MODE);
@@ -44,18 +45,22 @@ class Editor extends Component {
           startDate: moment(exam[newExamId].time || {})
         },
         () => {
-          changeExamTimeFunc(newExamId, this.state.startDate.format("Y-M-D"));
+          changeExamTimeFunc(
+            newExamId,
+            this.state.startDate.format("YYYY-MM-DD")
+          );
         }
       );
       setToggleIdFunc(CURRENT_EXAM, newExamId);
+      saveTempExamFunc(exam[newExamId]);
     } else if (newExamId === "new") {
-      geneExamFunc();
       this.setState({
         startDate: moment()
       });
     } else {
       router.push("/list");
     }
+    this.setState({ tempTitle: message[exam[newExamId].titleId] });
   }
   componentWillUnmount() {
     const {
@@ -63,16 +68,28 @@ class Editor extends Component {
       exam,
       toggle,
       changeExamQuestionsFunc,
-      temp
+      temp,
+      saveExamObjFunc,
+      clearTempExamFunc,
+      saveMessageFunc
     } = this.props;
-    const currentExamId = toggle[CURRENT_EXAM];
-    const tempIds = temp.tempIds;
-    if (tempIds.length > 0) {
-      const trueIds = exam[currentExamId].questionsId.filter(id => {
-        return tempIds.indexOf(id) < 0;
-      });
-      changeExamQuestionsFunc(currentExamId, trueIds);
+    const { confirmChange, tempTitle } = this.state;
+    if (confirmChange) {
       clearTempQuestionFunc();
+      clearTempExamFunc();
+    } else {
+      const currentExamId = toggle[CURRENT_EXAM];
+      const tempIds = temp.tempIds;
+      const currentExam = exam[currentExamId];
+      saveMessageFunc({ [currentExam.titleId]: tempTitle });
+      if (tempIds.length > 0) {
+        const trueIds = currentExam.questionsId.filter(id => {
+          return tempIds.indexOf(id) < 0;
+        });
+        changeExamQuestionsFunc(currentExamId, trueIds);
+        clearTempQuestionFunc();
+      }
+      if (temp.exam) saveExamObjFunc(temp.exam);
     }
   }
 
@@ -392,7 +409,11 @@ class Editor extends Component {
     );
   };
   geneEditorBottom = () => {
-    const { toggle, saveExamFunc, toggleFunc } = this.props;
+    const {
+      toggle,
+      saveExamFunc,
+      toggleFunc
+    } = this.props;
     const memeIcons = ["⭕", "⬜", "📝"];
     const topicArr = topicTypes.arr;
     const itemsActive = toggle[ADD_QUESTION];
@@ -452,18 +473,29 @@ class Editor extends Component {
 
           <div>
             <button
-              onClick={() =>
-                saveExamFunc(currentExamId, examStateTypes.UN_RELEASE)}
+              onClick={() => {
+                this.confirmChange();
+
+                saveExamFunc(currentExamId, examStateTypes.UN_RELEASE);
+              }}
             >
               保存问卷
             </button>
-            <button onClick={() => toggleFunc(CONFIRM_MODAL)}>
+            <button
+              onClick={() => {
+                this.confirmChange();
+                toggleFunc(CONFIRM_MODAL);
+              }}
+            >
               发布问卷
             </button>
           </div>
         </div>
       </div>
     );
+  };
+  confirmChange = () => {
+    this.setState({ confirmChange: true });
   };
 }
 const mapStateToProps = (state, routerState) => {
@@ -495,6 +527,8 @@ const mapDispatchToProps = dispatch => {
     geneExamFunc: bindActionCreators(actions.geneExam, dispatch),
     saveAnswerFunc: bindActionCreators(actions.saveAnswer, dispatch),
     saveQuestionFunc: bindActionCreators(actions.saveQuestion, dispatch),
+    saveTempExamFunc: bindActionCreators(actions.saveTempExam, dispatch),
+    saveExamObjFunc: bindActionCreators(actions.saveExamAction, dispatch),
     changeExamQuestionsFunc: bindActionCreators(
       actions.changeExamQuestions,
       dispatch
@@ -507,7 +541,8 @@ const mapDispatchToProps = dispatch => {
     clearTempQuestionFunc: bindActionCreators(
       actions.clearTempQuestion,
       dispatch
-    )
+    ),
+    clearTempExamFunc: bindActionCreators(actions.clearTempExam, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

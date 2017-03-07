@@ -81,6 +81,14 @@ class ExamList extends Component {
                         id,
                         checked
                       } = exam[key];
+                      let timing = time;
+                      if (time instanceof Date) {
+                        timing = time.getFullYear() +
+                          "-" +
+                          (time.getMonth() + 1) +
+                          "-" +
+                          time.getDay();
+                      }
                       const title = message[titleId];
                       return (
                         <div key={key} className="itemcontainer">
@@ -95,12 +103,16 @@ class ExamList extends Component {
                               <Link to={`/answer/${key}`}>{title}</Link>
                             </label>
                           </div>
-                          <div>{time}</div>
+                          <div>
+                            {timing}
+                          </div>
                           <div>
                             {PublishStateText({ state: examState })}
                           </div>
                           <div>
-                            <button><Link to={`/edit/${key}`}>编辑</Link></button>
+                            <button>
+                              <Link to={`/edit/${key}`}>编辑</Link>
+                            </button>
                             <button
                               onClick={() => {
                                 this.setState({

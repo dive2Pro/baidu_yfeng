@@ -16,7 +16,10 @@ import {
   changeExamTime,
   geneExam,
   setExamChecked,
-  changeExamQuestions
+  changeExamQuestions,
+  saveTempExam,
+  saveExamAction,
+  clearTempExam
 } from "./exam";
 export {
   saveMessage,
@@ -36,5 +39,8 @@ export {
   setContentId,
   saveTempQuestion,
   clearTempQuestion,
-  changeExamQuestions
+  changeExamQuestions,
+  saveTempExam,
+  saveExamAction,
+  clearTempExam
 };

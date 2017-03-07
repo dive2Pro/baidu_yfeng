@@ -18,20 +18,25 @@ class EditorTitle extends Component {
     const {
       currentExam,
       message,
-      isAnswerMode
+      isAnswerMode,
+      handleGoback
     } = this.props;
+    if (!currentExam) return <div />;
     return (
       <div className="editor-title">
-        {currentExam &&
-          <InputItem
-            unCheckable={true}
-            save={this.save}
-            isAnswerMode={isAnswerMode}
-            id={currentExam.titleId}
-            setEdit={this.setEdit}
-            msg={message[currentExam.titleId] || "这里是标题"}
-            editing={currentExam.titleId === this.state.editId}
-          />}
+        <div className="editor-title-goback" onClick={handleGoback}>
+          {"< "}返回
+        </div>
+        <InputItem
+          unCheckable={true}
+          save={this.save}
+          isAnswerMode={isAnswerMode}
+          id={currentExam.titleId}
+          setEdit={this.setEdit}
+          msg={message[currentExam.titleId] || "这里是标题"}
+          editing={currentExam.titleId === this.state.editId}
+        />
+
       </div>
     );
   }

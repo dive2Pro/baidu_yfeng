@@ -75,7 +75,8 @@ class Editor extends Component {
       saveExamObjFunc,
       clearTempExamFunc,
       saveMessageFunc,
-      setToggleIdFunc
+      setToggleIdFunc,
+      resetToggledFunc
     } = this.props;
     const { confirmChange, tempTitle } = this.state;
     if (confirmChange) {
@@ -96,6 +97,7 @@ class Editor extends Component {
       if (temp.exam) saveExamObjFunc(temp.exam);
     }
     setToggleIdFunc(CURRENT_EXAM, null);
+    resetToggledFunc(ADD_QUESTION);
   }
 
   state = {};
@@ -228,6 +230,7 @@ class Editor extends Component {
           isAnswerMode={toggle[ANSWER_MODE]}
           {...this.props}
           currentExam={currentExam}
+          handleGoback={() => router.go(-1)}
         />
         <div className="editor-questions">
           {this.geneQuestionsView()}
@@ -551,7 +554,8 @@ const mapDispatchToProps = dispatch => {
       actions.clearTempQuestion,
       dispatch
     ),
-    clearTempExamFunc: bindActionCreators(actions.clearTempExam, dispatch)
+    clearTempExamFunc: bindActionCreators(actions.clearTempExam, dispatch),
+    resetToggledFunc: bindActionCreators(actions.resetToggled, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

@@ -5,6 +5,11 @@
   background: $backgroundContent;
   &-title {
     text-align: center;
+    position: relative;
+    &-goback{
+      position: absolute;
+      z-index: 2;
+    }
     label{
       font-size: 1.2rem!important;
       font-weight: bold;

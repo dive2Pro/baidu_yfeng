@@ -1,9 +1,9 @@
-import * as actionTypes from '../constants/actionType';
-import * as topicTypes from '../constants/topicType';
-import { CURRENT_EXAM } from '../constants/toggleTypes';
-import * as utils from '../constants/utils';
-import { saveMessage } from './message';
-import { changeExamQuestions } from './exam';
+import * as actionTypes from "../constants/actionType";
+import * as topicTypes from "../constants/topicType";
+import { CURRENT_EXAM } from "../constants/toggleTypes";
+import * as utils from "../constants/utils";
+import { saveMessage } from "./message";
+import { changeExamQuestions } from "./exam";
 
 export function setRequire(quesId, require = true) {
   return {
@@ -13,7 +13,7 @@ export function setRequire(quesId, require = true) {
   };
 }
 
-export function addQuestion(title = '请输入', type, optionsIdCount = 3) {
+export function addQuestion(title = "请输入", type, optionsIdCount = 3) {
   return (dispatch, getState) => {
     //todo 生成题时生成各个选项和标题的messageId
     const {
@@ -22,21 +22,22 @@ export function addQuestion(title = '请输入', type, optionsIdCount = 3) {
     } = getState();
     const currentExamId = toggle[CURRENT_EXAM];
     if (!currentExamId) {
-      throw 'currentExamId equal null';
+      throw "currentExamId equal null";
     }
     const question = {
-      id: String(parseInt(new Date().getTime()) + '_mock'),
+      id: String(parseInt(new Date().getTime()) + "_mock"),
       type: type,
       titleId: utils.guid(),
       optionsId: new Array(optionsIdCount).fill(null).map(_ => {
         const id = utils.guid();
         dispatch(
           saveMessage({
-            [id]: '修改'
+            [id]: "修改"
           })
         );
         return id;
-      }),contentId:utils.guid()
+      }),
+      contentId: utils.guid()
     };
     const specExam = exam[currentExamId];
     let questionsId;
@@ -52,10 +53,25 @@ export function addQuestion(title = '请输入', type, optionsIdCount = 3) {
         [question.titleId]: title
       })
     );
+    dispatch(saveQuestion(question));
+  };
+}
+export function saveQuestion(question) {
+  return {
+    type: actionTypes.SAVE_QUESTION,
+    id: question.id,
+    question
+  };
+}
+export function setContentId(questionId, contentId, content="") {
+  return dispatch => {
+    const messageId = contentId || utils.guid();
+    dispatch(saveMessage({ [messageId]: content }));
+
     dispatch({
-      type: actionTypes.SAVE_QUESTION,
-      id: question.id,
-      question
+      type: actionTypes.CHANGE_QUESTION_CONTENTID,
+      id: questionId,
+      contentId: messageId
     });
   };
 }

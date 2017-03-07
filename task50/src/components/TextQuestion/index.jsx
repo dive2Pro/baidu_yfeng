@@ -19,7 +19,21 @@ class TextQuestion extends Component {
       temp_value: event.target.value
     });
   };
+  componentDidMount() {
+    // 生成一个contentId
+    const { thisQuestion, setContentIdFunc } = this.props;
+    setContentIdFunc(thisQuestion.id);
+  }
+  componentWillUnmount() {
+    const { thisQuestion, saveQuestionFunc } = this.props;
+    debugger;
+    if (thisQuestion.contentId) {
+      // 删除contentId , 用户回答信息放在 answerInfo 中
+      delete thisQuestion.contentId;
 
+      saveQuestionFunc(thisQuestion);
+    }
+  }
   render() {
     const {
       thisQuestion,
@@ -29,7 +43,8 @@ class TextQuestion extends Component {
     } = this.props;
 
     const contentId = thisQuestion.contentId;
-    const editing = editId === contentId;
+    const editing = editId && editId === contentId;
+
     return (
       <div>
         <textarea

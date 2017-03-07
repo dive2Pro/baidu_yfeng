@@ -13,17 +13,20 @@ export default function(Component) {
         editId: null
       });
     };
+
     setEdit = id => {
       this.setState(_ => ({
         editId: id
       }));
     };
+
     setDestory = id => {
       this.props.saveMessageFunc({ [id]: "" });
       this.setState({
         editId: null
       });
     };
+
     render() {
       const {
         thisQuestion,

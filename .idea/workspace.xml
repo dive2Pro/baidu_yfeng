@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="3181afef-3d42-4c57-89dc-b42bd992baa3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/actions/index.js" afterPath="$PROJECT_DIR$/task50/src/actions/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/actions/message.js" afterPath="$PROJECT_DIR$/task50/src/actions/message.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/actions/question.js" afterPath="$PROJECT_DIR$/task50/src/actions/question.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Question/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/Question/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/store/initialState.js" afterPath="$PROJECT_DIR$/task50/src/store/initialState.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,23 +26,43 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/task50/src/actions/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="754">
-              <caret line="32" column="36" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="36" />
+            <state relative-caret-position="676">
+              <caret line="26" column="14" lean-forward="false" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
               <folding>
-                <element signature="e#0#52#0" expanded="true" />
+                <element signature="e#0#60#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="true">
+      <file leaf-file-name="actionType.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/task50/src/constants/actionType.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="13" column="16" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="answer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/task50/src/actions/answer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task50/src/components/Editor/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="284" column="9" lean-forward="true" selection-start-line="284" selection-start-column="9" selection-end-line="284" selection-end-column="9" />
+            <state relative-caret-position="692">
+              <caret line="469" column="20" lean-forward="false" selection-start-line="469" selection-start-column="4" selection-end-line="469" selection-end-column="20" />
               <folding>
                 <element signature="n#!!block;n#componentDidMount#0;n#Editor#0" expanded="false" />
                 <element signature="e#1332#1599#0" expanded="false" />
@@ -59,55 +82,17 @@
                 <element signature="e#2685#2780#0" expanded="false" />
                 <element signature="e#2839#3033#0" expanded="false" />
                 <element signature="e#2859#2888#0" expanded="false" />
-                <element signature="n#!!block;n#geneQuestionsView#0;n#Editor#0" expanded="false" />
-                <element signature="e#3444#4444#0" expanded="false" />
-                <element signature="e#3488#4436#0" expanded="false" />
-                <element signature="e#3621#3958#0" expanded="false" />
-                <element signature="e#4046#4369#0" expanded="false" />
-                <element signature="e#4474#4569#0" expanded="false" />
-                <element signature="e#4591#4650#0" expanded="false" />
-                <element signature="e#4604#4645#0" expanded="false" />
-                <element signature="e#4673#4748#0" expanded="false" />
-                <element signature="e#4686#4743#0" expanded="false" />
-                <element signature="e#4979#6624#0" expanded="false" />
-                <element signature="e#5012#5150#0" expanded="false" />
-                <element signature="e#5159#5245#0" expanded="false" />
-                <element signature="e#5330#6610#0" expanded="false" />
-                <element signature="e#5374#5640#0" expanded="false" />
-                <element signature="e#5523#5620#0" expanded="false" />
-                <element signature="e#5651#5915#0" expanded="false" />
-                <element signature="e#5798#5895#0" expanded="false" />
-                <element signature="e#5926#6153#0" expanded="false" />
-                <element signature="e#6071#6134#0" expanded="false" />
-                <element signature="e#6164#6595#0" expanded="false" />
-                <element signature="e#6301#6569#0" expanded="false" />
-                <element signature="e#6321#6367#0" expanded="false" />
-                <element signature="e#6382#6550#0" expanded="false" />
-                <marker date="1488866329600" expanded="false" signature="7862:7931" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="7954:8012" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="8033:8083" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="8199:8254" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="8359:8498" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="8380:8487" ph="&lt;div/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="8527:10655" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="8781:10644" ph="&lt;div/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="8795:9995" ph="&lt;div/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="8842:9732" ph="&lt;Motion/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="8918:9031" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="9095:9697" ph="&lt;div/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="9123:9254" ph="{&quot;opacity&quot;: op...}" />
-                <marker date="1488866329600" expanded="false" signature="9433:9674" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="9482:9635" ph="&lt;button/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="9743:9980" ph="&lt;div/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="10004:10631" ph="&lt;div/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="10046:10302" ph="&lt;div/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="10128:10285" ph="&lt;DatePicker/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="10314:10616" ph="&lt;div/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="10332:10495" ph="&lt;button/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="10508:10599" ph="&lt;button/&gt;" />
-                <marker date="1488866329600" expanded="false" signature="10707:10979" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="11020:11846" ph="{...}" />
-                <marker date="1488866329600" expanded="false" signature="11031:11843" ph="{...}" />
+                <element signature="e#3650#3987#0" expanded="false" />
+                <element signature="e#4607#4666#0" expanded="false" />
+                <element signature="e#4620#4661#0" expanded="false" />
+                <element signature="e#4689#4764#0" expanded="false" />
+                <element signature="e#4702#4759#0" expanded="false" />
+                <element signature="e#5293#5379#0" expanded="false" />
+                <element signature="e#11643#11880#0" expanded="false" />
+                <element signature="e#11946#12202#0" expanded="false" />
+                <element signature="e#12028#12185#0" expanded="false" />
+                <element signature="e#12408#12499#0" expanded="false" />
+                <element signature="e#12607#12879#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -123,30 +108,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/InputItem/index.jsx">
+      <file leaf-file-name="message.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/task50/src/actions/message.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+            <state relative-caret-position="260">
+              <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="question.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/task50/src/actions/question.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="587">
+              <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
               <folding>
-                <element signature="n#InputItem#0" expanded="false" />
-                <element signature="n#!!block;n#componentDidUpdate#0;n#InputItem#0" expanded="false" />
-                <element signature="e#228#259#0" expanded="false" />
-                <element signature="e#288#472#0" expanded="false" />
-                <element signature="e#391#419#0" expanded="false" />
-                <element signature="e#425#468#0" expanded="false" />
-                <element signature="e#501#571#0" expanded="false" />
-                <element signature="e#521#565#0" expanded="false" />
-                <element signature="n#!!block;n#render#0;n#InputItem#0" expanded="false" />
-                <element signature="e#893#2022#0" expanded="false" />
-                <element signature="e#925#1405#0" expanded="false" />
-                <element signature="e#959#975#0" expanded="false" />
-                <element signature="e#1015#1273#0" expanded="false" />
-                <element signature="e#1158#1232#0" expanded="false" />
-                <element signature="e#1285#1390#0" expanded="false" />
-                <element signature="e#1415#1769#0" expanded="false" />
-                <element signature="e#1788#2009#0" expanded="false" />
-                <element signature="e#2059#2278#0" expanded="false" />
+                <element signature="e#0#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -155,8 +133,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task50/src/reducers/question/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="406">
+              <caret line="29" column="21" lean-forward="false" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -165,8 +143,8 @@
       <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task50/src/components/Question/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="21" column="42" lean-forward="false" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+            <state relative-caret-position="-910">
+              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -174,47 +152,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/reducers/question/test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2314">
-              <caret line="19" column="26" lean-forward="true" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/reducers/exam/test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="6" column="18" lean-forward="false" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="title.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/Editor/title.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="728">
-              <caret line="28" column="38" lean-forward="false" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="38" />
+            <state relative-caret-position="364">
+              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -235,9 +177,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>message</find>
-      <find>answerCount</find>
-      <find>optionsId</find>
       <find>examId</find>
       <find>Sw</find>
       <find>browserHistory</find>
@@ -258,13 +197,16 @@
       <find>toggleFunc</find>
       <find>EditorTitle</find>
       <find>删除</find>
-      <find>saveExamFunc</find>
       <find>isAns</find>
       <find>utisl</find>
       <find>contentId</find>
       <find>currentExamId</find>
       <find>toggle[ANSWER_MODE]</find>
       <find>location</find>
+      <find>saveExamFunc</find>
+      <find>setEdit</find>
+      <find>saveMessageFunc</find>
+      <find>exam[currentExamId]</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -273,7 +215,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/task50/src/reducers/answer/index.js" />
         <option value="$PROJECT_DIR$/task50/src/reducers/answer/answer.test.js" />
         <option value="$PROJECT_DIR$/task50/src/components/Chart/Chart.js" />
         <option value="$PROJECT_DIR$/task50/src/components/Chart/DogutPieChart.js" />
@@ -298,10 +239,7 @@
         <option value="$PROJECT_DIR$/task50/styles/customs/main.scss" />
         <option value="$PROJECT_DIR$/task50/styles/components/ExamList/index.scss" />
         <option value="$PROJECT_DIR$/task50/styles/customs/Button/index.scss" />
-        <option value="$PROJECT_DIR$/task50/src/components/Modal/index.jsx" />
-        <option value="$PROJECT_DIR$/task50/styles/components/Modal/index.scss" />
         <option value="$PROJECT_DIR$/task50/src/components/Modal/deleteModal.js" />
-        <option value="$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js" />
         <option value="$PROJECT_DIR$/task50/styles/customs/variables.scss" />
         <option value="$PROJECT_DIR$/task50/src/constants/examStateType.js" />
         <option value="$PROJECT_DIR$/task50/styles/components/Header/index.scss" />
@@ -317,13 +255,17 @@
         <option value="$PROJECT_DIR$/task50/src/App.js" />
         <option value="$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx" />
         <option value="$PROJECT_DIR$/task50/src/components/InputItem/index.jsx" />
-        <option value="$PROJECT_DIR$/task50/src/actions/question.js" />
-        <option value="$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx" />
-        <option value="$PROJECT_DIR$/task50/src/actions/index.js" />
         <option value="$PROJECT_DIR$/task50/src/actions/answer.js" />
-        <option value="$PROJECT_DIR$/task50/src/components/Question/index.jsx" />
         <option value="$PROJECT_DIR$/task50/src/store/initialState.js" />
+        <option value="$PROJECT_DIR$/task50/styles/components/Modal/index.scss" />
+        <option value="$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js" />
+        <option value="$PROJECT_DIR$/task50/src/components/Modal/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/src/actions/message.js" />
+        <option value="$PROJECT_DIR$/task50/src/components/Question/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/src/actions/question.js" />
+        <option value="$PROJECT_DIR$/task50/src/actions/index.js" />
         <option value="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx" />
       </list>
     </option>
   </component>
@@ -402,6 +344,54 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="styles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="styles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="styles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modal" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -511,6 +501,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="reducers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="message" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -589,6 +605,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Modal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="InputItem" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -615,7 +657,81 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="ExamList" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Editor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChoiceQuestion" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="actions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -701,7 +817,7 @@
       <workItem from="1488682205866" duration="30814000" />
       <workItem from="1488749251787" duration="12596000" />
       <workItem from="1488779186823" duration="17682000" />
-      <workItem from="1488864363130" duration="2026000" />
+      <workItem from="1488864363130" duration="8410000" />
     </task>
     <task id="LOCAL-00001" summary="feat(examlist):delete">
       <created>1488544303125</created>
@@ -787,11 +903,25 @@
       <option name="project" value="LOCAL" />
       <updated>1488805815405</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat(answer):action,reducer&#10;feat(editor):submit with   require &#10;">
+      <created>1488866417470</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1488866417470</updated>
+    </task>
+    <task id="LOCAL-00014" summary="&#10;feat(modal): confirm addQuestion&#10;">
+      <created>1488869774524</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1488869774524</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91663000" />
+    <option name="totallyTimeSpent" value="98047000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="52" width="1072" height="1028" extended-state="4" />
@@ -854,36 +984,17 @@
     <MESSAGE value="feat(modal): deleteModal -&gt; ConfirmModal" />
     <MESSAGE value="fix(editor):title  css&#10;" />
     <MESSAGE value="feat(answer):action,reducer&#10;feat(editor):submit answer&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(answer):action,reducer&#10;feat(editor):submit answer&#10;" />
+    <MESSAGE value="feat(answer):action,reducer&#10;feat(editor):submit with   require &#10;" />
+    <MESSAGE value="&#10;feat(modal): confirm addQuestion&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;feat(modal): confirm addQuestion&#10;" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/task50/node_modules/react-router/es/browserHistory.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/reducers/exam/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="55" column="59" lean-forward="false" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/node_modules/react-datepicker/dist/react-datepicker.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/node_modules/react/lib/ReactCSSTransitionGroup.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1948">
@@ -910,6 +1021,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-613">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -951,18 +1063,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task50/styles/components/Modal/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="45" column="22" lean-forward="false" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/constants/topicType.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
           <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -988,13 +1093,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="1909" column="8" lean-forward="false" selection-start-line="1909" selection-start-column="8" selection-end-line="1909" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/constants/actionType.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="19" column="19" lean-forward="false" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1002,6 +1101,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="5" column="42" lean-forward="true" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1009,6 +1109,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,47 +1128,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/actions/toggle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/reducers/toggle.test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="572">
           <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/Modal/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="806">
-          <caret line="31" column="15" lean-forward="false" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/ExamList/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="94" column="48" lean-forward="false" selection-start-line="94" selection-start-column="48" selection-end-line="94" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1135,6 +1199,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="132" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1142,29 +1207,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="54" column="33" lean-forward="false" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/actions/question.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="38" column="8" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/actions/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
-          <caret line="24" column="12" lean-forward="false" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/actions/answer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1194,16 +1236,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="754">
-          <caret line="32" column="36" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/reducers/exam/test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1224,61 +1256,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/InputItem/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
-          <folding>
-            <element signature="n#InputItem#0" expanded="false" />
-            <element signature="n#!!block;n#componentDidUpdate#0;n#InputItem#0" expanded="false" />
-            <element signature="e#228#259#0" expanded="false" />
-            <element signature="e#288#472#0" expanded="false" />
-            <element signature="e#391#419#0" expanded="false" />
-            <element signature="e#425#468#0" expanded="false" />
-            <element signature="e#501#571#0" expanded="false" />
-            <element signature="e#521#565#0" expanded="false" />
-            <element signature="n#!!block;n#render#0;n#InputItem#0" expanded="false" />
-            <element signature="e#893#2022#0" expanded="false" />
-            <element signature="e#925#1405#0" expanded="false" />
-            <element signature="e#959#975#0" expanded="false" />
-            <element signature="e#1015#1273#0" expanded="false" />
-            <element signature="e#1158#1232#0" expanded="false" />
-            <element signature="e#1285#1390#0" expanded="false" />
-            <element signature="e#1415#1769#0" expanded="false" />
-            <element signature="e#1788#2009#0" expanded="false" />
-            <element signature="e#2059#2278#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="6" column="18" lean-forward="false" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/Question/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="21" column="42" lean-forward="false" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/reducers/question/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/reducers/question/test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2314">
@@ -1289,18 +1266,159 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/store/initialState.js">
+    <entry file="file://$PROJECT_DIR$/task50/src/actions/toggle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="98" column="19" lean-forward="true" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+        <state relative-caret-position="208">
+          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/styles/components/Modal/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="19" column="23" lean-forward="true" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/Modal/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/InputItem/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="57" column="62" lean-forward="false" selection-start-line="57" selection-start-column="55" selection-end-line="57" selection-end-column="62" />
+          <folding>
+            <element signature="n#!!block;n#componentDidUpdate#0;n#InputItem#0" expanded="false" />
+            <element signature="e#228#259#0" expanded="false" />
+            <element signature="e#288#472#0" expanded="false" />
+            <element signature="e#391#419#0" expanded="false" />
+            <element signature="e#425#468#0" expanded="false" />
+            <element signature="e#501#571#0" expanded="false" />
+            <element signature="e#521#565#0" expanded="false" />
+            <element signature="e#959#975#0" expanded="false" />
+            <element signature="e#1015#1273#0" expanded="false" />
+            <element signature="e#1158#1232#0" expanded="false" />
+            <element signature="e#1415#1769#0" expanded="false" />
+            <element signature="e#2059#2278#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="25" column="31" lean-forward="false" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/ExamList/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1750">
+          <caret line="94" column="48" lean-forward="false" selection-start-line="94" selection-start-column="48" selection-end-line="94" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/reducers/message/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/reducers/message/index.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1206">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/actions/message.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/actions/answer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/constants/actionType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="13" column="16" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/reducers/question/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="29" column="21" lean-forward="false" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/Question/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-910">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/actions/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="676">
+          <caret line="26" column="14" lean-forward="false" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#60#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/components/Editor/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="284" column="9" lean-forward="true" selection-start-line="284" selection-start-column="9" selection-end-line="284" selection-end-column="9" />
+        <state relative-caret-position="692">
+          <caret line="469" column="20" lean-forward="false" selection-start-line="469" selection-start-column="4" selection-end-line="469" selection-end-column="20" />
           <folding>
             <element signature="n#!!block;n#componentDidMount#0;n#Editor#0" expanded="false" />
             <element signature="e#1332#1599#0" expanded="false" />
@@ -1320,55 +1438,45 @@
             <element signature="e#2685#2780#0" expanded="false" />
             <element signature="e#2839#3033#0" expanded="false" />
             <element signature="e#2859#2888#0" expanded="false" />
-            <element signature="n#!!block;n#geneQuestionsView#0;n#Editor#0" expanded="false" />
-            <element signature="e#3444#4444#0" expanded="false" />
-            <element signature="e#3488#4436#0" expanded="false" />
-            <element signature="e#3621#3958#0" expanded="false" />
-            <element signature="e#4046#4369#0" expanded="false" />
-            <element signature="e#4474#4569#0" expanded="false" />
-            <element signature="e#4591#4650#0" expanded="false" />
-            <element signature="e#4604#4645#0" expanded="false" />
-            <element signature="e#4673#4748#0" expanded="false" />
-            <element signature="e#4686#4743#0" expanded="false" />
-            <element signature="e#4979#6624#0" expanded="false" />
-            <element signature="e#5012#5150#0" expanded="false" />
-            <element signature="e#5159#5245#0" expanded="false" />
-            <element signature="e#5330#6610#0" expanded="false" />
-            <element signature="e#5374#5640#0" expanded="false" />
-            <element signature="e#5523#5620#0" expanded="false" />
-            <element signature="e#5651#5915#0" expanded="false" />
-            <element signature="e#5798#5895#0" expanded="false" />
-            <element signature="e#5926#6153#0" expanded="false" />
-            <element signature="e#6071#6134#0" expanded="false" />
-            <element signature="e#6164#6595#0" expanded="false" />
-            <element signature="e#6301#6569#0" expanded="false" />
-            <element signature="e#6321#6367#0" expanded="false" />
-            <element signature="e#6382#6550#0" expanded="false" />
-            <marker date="1488866329600" expanded="false" signature="7862:7931" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="7954:8012" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="8033:8083" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="8199:8254" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="8359:8498" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="8380:8487" ph="&lt;div/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="8527:10655" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="8781:10644" ph="&lt;div/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="8795:9995" ph="&lt;div/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="8842:9732" ph="&lt;Motion/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="8918:9031" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="9095:9697" ph="&lt;div/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="9123:9254" ph="{&quot;opacity&quot;: op...}" />
-            <marker date="1488866329600" expanded="false" signature="9433:9674" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="9482:9635" ph="&lt;button/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="9743:9980" ph="&lt;div/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="10004:10631" ph="&lt;div/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="10046:10302" ph="&lt;div/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="10128:10285" ph="&lt;DatePicker/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="10314:10616" ph="&lt;div/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="10332:10495" ph="&lt;button/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="10508:10599" ph="&lt;button/&gt;" />
-            <marker date="1488866329600" expanded="false" signature="10707:10979" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="11020:11846" ph="{...}" />
-            <marker date="1488866329600" expanded="false" signature="11031:11843" ph="{...}" />
+            <element signature="e#3650#3987#0" expanded="false" />
+            <element signature="e#4607#4666#0" expanded="false" />
+            <element signature="e#4620#4661#0" expanded="false" />
+            <element signature="e#4689#4764#0" expanded="false" />
+            <element signature="e#4702#4759#0" expanded="false" />
+            <element signature="e#5293#5379#0" expanded="false" />
+            <element signature="e#11643#11880#0" expanded="false" />
+            <element signature="e#11946#12202#0" expanded="false" />
+            <element signature="e#12028#12185#0" expanded="false" />
+            <element signature="e#12408#12499#0" expanded="false" />
+            <element signature="e#12607#12879#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/actions/question.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="587">
+          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/store/initialState.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="98" column="19" lean-forward="true" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>

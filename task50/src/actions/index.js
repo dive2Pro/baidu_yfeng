@@ -1,5 +1,5 @@
 import { toggle, setToggleId,resetToggled } from './toggle';
-import { addQuestion, setRequire } from './question';
+import { addQuestion, setRequire,saveQuestion,setContentId } from './question';
 import { saveMessage } from './message';
 import { saveAnswer } from './answer';
 import {
@@ -22,5 +22,7 @@ export {
   geneExam,
   setExamChecked,
   resetToggled,
-  saveAnswer
+  saveAnswer,
+  saveQuestion,
+  setContentId
 };

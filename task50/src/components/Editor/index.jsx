@@ -121,7 +121,8 @@ class Editor extends Component {
       toggle
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
-    const quesIds = exam[currentExamId] ? exam[currentExamId].questionsId : [];
+    const currentExam = exam[currentExamId];
+    const quesIds = currentExam ? currentExam.questionsId : [];
     const isAnswerMode = toggle[ANSWER_MODE];
     return quesIds &&
       quesIds.map((q, i) => {
@@ -192,12 +193,13 @@ class Editor extends Component {
       addQuestionFunc
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
+    const currentExam = exam[currentExamId];
     return (
       <div className="editor">
         <EditorTitle
           isAnswerMode={toggle[ANSWER_MODE]}
           {...this.props}
-          currentExam={exam[currentExamId]}
+          currentExam={currentExam}
         />
         <div className="editor-questions">
           {this.geneQuestionsView()}
@@ -352,6 +354,7 @@ class Editor extends Component {
     contentIdNotNullQuestions.forEach(q => {
       questions = { ...questionsAnswer, ...q };
     });
+
     saveAnswerFunc({ answer: { examId: currentExamId, questions } });
   };
   geneAnswerBottom = () => {
@@ -462,7 +465,9 @@ const mapDispatchToProps = dispatch => {
     changeExamStateFunc: bindActionCreators(actions.changeExamState, dispatch),
     changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
     geneExamFunc: bindActionCreators(actions.geneExam, dispatch),
-    saveAnswerFunc: bindActionCreators(actions.saveAnswer, dispatch)
+    saveAnswerFunc: bindActionCreators(actions.saveAnswer, dispatch),
+    saveQuestionFunc: bindActionCreators(actions.saveQuestion, dispatch),
+    setContentIdFunc: bindActionCreators(actions.setContentId, dispatch)
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

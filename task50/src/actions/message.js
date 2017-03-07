@@ -7,7 +7,11 @@ export function saveMessageAct(message) {
     message
   };
 }
-
+/**
+ *
+ * @param message {[id]:content}
+ * @returns {function(*=)}
+ */
 export function saveMessage(message) {
   return dispatch => {
     console.log(dispatch);

@@ -5,7 +5,9 @@ import {
   saveQuestion,
   setContentId,
   saveTempQuestion,
-  clearTempQuestion
+  clearTempQuestion,
+  addOption,
+  deleteOption
 } from "./question";
 import { saveMessage } from "./message";
 import { saveAnswer } from "./answer";
@@ -42,5 +44,7 @@ export {
   changeExamQuestions,
   saveTempExam,
   saveExamAction,
-  clearTempExam
+  clearTempExam,
+  addOption,
+  deleteOption
 };

@@ -20,7 +20,11 @@ button:hover{
   transform: scale(1.1);
 }
 
-
+.unuseable{
+  text-decoration: line-through;
+  color: $unuseableColor;
+  pointer-events: none;
+}
 .newlistLarge {
   @include fillButton($backgroundSecondary, white, 16px);
   font-size: 20px;

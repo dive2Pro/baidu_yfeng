@@ -4,6 +4,11 @@ import * as topicTypes from "../../constants/topicType";
 import Question from "../Question/index";
 
 class ChoiceQuestion extends Component {
+  handleDestory = id => {
+    const { setDestory, deleteOption, thisQuestion } = this.props;
+    setDestory(id);
+    deleteOption(thisQuestion.id, id);
+  };
   render() {
     const {
       thisQuestion,
@@ -13,7 +18,8 @@ class ChoiceQuestion extends Component {
       setDestory,
       editId,
       onToggle,
-      isAnswerMode
+      isAnswerMode,
+      addOption
     } = this.props;
     const {
       type
@@ -30,7 +36,7 @@ class ChoiceQuestion extends Component {
               onToggle={({ checked }) => onToggle(id, index, checked)}
               key={id}
               save={save}
-              setDestory={setDestory}
+              setDestory={() => this.handleDestory(id)}
               setEdit={setEdit}
               msg={message[id]}
               editing={id === editId}
@@ -39,6 +45,11 @@ class ChoiceQuestion extends Component {
             />
           );
         })}
+        <div>
+          <span
+            className="question-items-add"
+            onClick={() => addOption(thisQuestion.id)}>+</span>
+        </div>
       </div>
     );
   }
@@ -51,6 +62,8 @@ ChoiceQuestion.propTypes = {
   question: PropTypes.object,
   message: PropTypes.object,
   saveMessageFunc: PropTypes.func,
-  index: PropTypes.number
+  index: PropTypes.number,
+  addOption: React.PropTypes.func,
+  deleteOption: React.PropTypes.func
 };
 export default Question(ChoiceQuestion);

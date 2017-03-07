@@ -12,11 +12,11 @@ $backgroundSecondary:#f3ecb4;
 $backgroundContent:#fff;
 $dashWhite: #c5c9c6;
 $borderColor:#999;
+$unuseableColor:#999;
 $backgroundGrey:#999999;
 $hoverBackgroundColor:#e4c3a4;
 $solidBackgroundShadow: -3px -3px 5px 0px rgba(140, 140, 140, 0.8),
 3px 3px 5px 0px rgba(140, 140, 140, 0.8);
-
 $bigIcon:2em;
 $mediumIcon:1.2em;
 @mixin border($color,$size){

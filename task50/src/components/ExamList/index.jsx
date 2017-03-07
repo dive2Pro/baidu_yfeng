@@ -5,11 +5,15 @@ import * as actions from "../../actions/index";
 import {
   COLOR_BY_STATE,
   EXAM_DELETED,
-  TEXT_BY_STATE
+  TEXT_BY_STATE,
+  RELEASED,
+  UN_RELEASE,
+  OUT_DATE
 } from "../../constants/examStateType";
 import { Link } from "react-router";
 import DeleteModal from "../Modal/ConfirmModal";
 import { CONFIRM_MODAL } from "../../constants/toggleTypes";
+import Button from "../Button";
 const CreateExamButton = ({ classname, onClick, text = "新建问卷" }) => {
   return <button className={classname} onClick={onClick}>{text}</button>;
 };
@@ -94,6 +98,8 @@ class ExamList extends Component {
                           time.getDay();
                       }
                       const title = message[titleId];
+                      const buttonUnClickable = examState ===
+                        (RELEASED || OUT_DATE);
                       return (
                         <div key={key} className="itemcontainer">
                           <div>
@@ -114,11 +120,12 @@ class ExamList extends Component {
                             {PublishStateText({ state: examState })}
                           </div>
                           <div>
-                            <button>
+                            <Button isUnClickable={buttonUnClickable}>
                               <Link to={`/edit/${key}`}>编辑</Link>
-                            </button>
-                            <button
-                              onClick={() => {
+                            </Button>
+                            <Button
+                              isUnClickable={buttonUnClickable}
+                              onhandleClick={() => {
                                 this.setState({
                                   deletingExamId: key
                                 });
@@ -126,7 +133,7 @@ class ExamList extends Component {
                               }}
                             >
                               删除
-                            </button>
+                            </Button>
                             <button>
                               {" "}<Link to={`/show/${key}`}>查看数据</Link>
                             </button>

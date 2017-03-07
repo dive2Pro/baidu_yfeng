@@ -2,7 +2,7 @@ import * as actionTypes from "../constants/actionType";
 import { CURRENT_EXAM } from "../constants/toggleTypes";
 import * as utils from "../constants/utils";
 import { saveMessage } from "./message";
-import { addQuestion } from "./question";
+import { saveQuestion, saveTempQuestion } from "./question";
 import { NEW_GENE } from "../constants/examStateType";
 import { setToggleId } from "./toggle";
 export function changeExamState(id, examState) {
@@ -73,9 +73,17 @@ export function opeExamQuestions(examId, question, actType) {
     let sortedQuestionsId;
     switch (actType) {
       case 0: //duplicate
-        const quesCount = optionsId.length;
-        dispatch(addQuestion("duplicateQuestion", type, quesCount));
-        return;
+        const newQuestion = { ...question, id: utils.guid() };
+        dispatch(saveQuestion(newQuestion));
+        dispatch(saveTempQuestion(newQuestion.id));
+        const position = questionsId.indexOf(id) + 1;
+        sortedQuestionsId = utils.insertElementInArray(
+          questionsId,
+          newQuestion.id,
+          position
+        );
+        debugger;
+        break;
       case 1: // down
         sortedQuestionsId = utils.moveElementInArray(questionsId, id, 1);
         break;

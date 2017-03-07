@@ -12,12 +12,10 @@ import {
   CONFIRM_MODAL,
   ANSWER_MODE
 } from "../../constants/toggleTypes";
-import classnames from "classnames";
-import Modal from "../Modal/index";
 import TextQuestion from "../TextQuestion/index";
 import EditorTitle from "./title";
 // import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
-import { spring, TransitionMotion, Motion } from "react-motion";
+import { spring, Motion } from "react-motion";
 import ConfirmModal from "../Modal/ConfirmModal";
 import { deleteElementFromArray } from "../../constants/utils";
 var DatePicker = require("react-datepicker");
@@ -161,7 +159,9 @@ class Editor extends Component {
     const {
       question,
       exam,
-      toggle
+      toggle,
+      deleteOptionFunc,
+      addOptionFunc
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const currentExam = exam[currentExamId];
@@ -175,6 +175,8 @@ class Editor extends Component {
           case topicTypes.MULTI_TYPE:
             return (
               <ChoiceQuestion
+                addOption={addOptionFunc}
+                deleteOption={deleteOptionFunc}
                 index={i}
                 key={q}
                 isLast={i === quesIds.length - 1}
@@ -262,7 +264,7 @@ class Editor extends Component {
               <p>
                 <input
                   type="text"
-                  placeholder="请输入问题个数"
+                  placeholder="请输入问题个数(最多10个)"
                   ref={r =>
                     this["modal-" + topicTypes.SINGLE_TYPE + "count"] = r}
                 />
@@ -294,7 +296,7 @@ class Editor extends Component {
               <p>
                 <input
                   type="text"
-                  placeholder="请输入问题个数"
+                  placeholder="请输入问题个数(最多10个)"
                   ref={r =>
                     this["modal-" + topicTypes.MULTI_TYPE + "count"] = r}
                 />
@@ -355,6 +357,11 @@ class Editor extends Component {
       return;
     }
     const currentExam = exam[currentExamId];
+    const { examState } = currentExam;
+    if (examState !== examStateTypes.RELEASED) {
+      alert("本问卷未发布,本次提交无效");
+      return;
+    }
     //todo filter require
     let hasRequireQustionDidntAnswer = false;
     let t_question = {};
@@ -403,6 +410,7 @@ class Editor extends Component {
 
     clearTempQuestionFunc();
   };
+
   geneAnswerBottom = () => {
     return (
       <div className="editor-answer-bottom">
@@ -471,6 +479,7 @@ class Editor extends Component {
               dateFormat="YYYY-MM-DD"
               selected={this.state.startDate}
               onChange={this.handleDateChange}
+              minDate={moment()}
             />
           </div>
 
@@ -555,6 +564,8 @@ const mapDispatchToProps = dispatch => {
       dispatch
     ),
     clearTempExamFunc: bindActionCreators(actions.clearTempExam, dispatch),
+    addOptionFunc: bindActionCreators(actions.addOption, dispatch),
+    deleteOptionFunc: bindActionCreators(actions.deleteOption, dispatch),
     resetToggledFunc: bindActionCreators(actions.resetToggled, dispatch)
   };
 };

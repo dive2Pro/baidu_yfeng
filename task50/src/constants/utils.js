@@ -7,16 +7,22 @@ export function guid() {
   }
   return s4() +
     s4() +
-    '-' +
+    "-" +
     s4() +
-    '-' +
+    "-" +
     s4() +
-    '-' +
+    "-" +
     s4() +
-    '-' +
+    "-" +
     s4() +
     s4() +
     s4();
+}
+
+export function insertElementInArray(arr, v, position) {
+  const newArr = arr.slice();
+  newArr.splice(position, 0, v);
+  return newArr;
 }
 
 export function moveElementInArray(arr, v, positionChange) {
@@ -44,5 +50,5 @@ export function deleteElementFromArray(arr, v) {
   return newArr;
 }
 export function fromCharCode(code) {
-  return String.fromCharCode(code)
+  return String.fromCharCode(code);
 }

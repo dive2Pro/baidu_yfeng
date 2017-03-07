@@ -41,7 +41,6 @@ export default function question(state = initialState, action) {
       return changeOptionsId(state, action.id, action.optionsId);
     case actionTypes.CHANGE_QUESTION_REQUIRE:
       return changeRequire(state, action.id, action.require);
-
     default:
       return state;
   }

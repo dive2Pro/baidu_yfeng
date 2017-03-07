@@ -43,5 +43,18 @@
     }
     &-items{
       margin-left: $padding;
+      &-add{
+        font-size: 1.5em;
+        display: inline-block;
+        height: ($padding*2);
+        width: ($padding*2);
+        text-align: center;
+         &:hover{
+           background-color: $backgroundSecondary;
+           //@include border($borderColor,1px);
+           transform: scale(1.4);
+         }
+      }
+
     }
   }

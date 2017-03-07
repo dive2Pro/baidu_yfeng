@@ -159,11 +159,11 @@ class Editor extends Component {
         }
       });
   }
-  mockSingle = type => {
+  handleToggleFunc = type => {
     const {
-      addQuestionFunc
+      toggleFunc
     } = this.props;
-    addQuestionFunc("title", type);
+    toggleFunc(type);
   };
   willEnter = () => {
     return {
@@ -179,13 +179,17 @@ class Editor extends Component {
     };
   };
   handleDeleteConfirm = () => {};
+  handleGeneConfirm = () => {
+    console.log(this);
+  };
   render() {
     const {
       toggleFunc,
       toggle,
       saveExamFunc,
       exam,
-      isAnswerMode
+      isAnswerMode,
+      addQuestionFunc
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     return (
@@ -200,35 +204,85 @@ class Editor extends Component {
         </div>
         {!isAnswerMode ? this.geneEditorBottom() : this.geneAnswerBottom()}
         <div className="modal-container">
-          <Modal
-            cancelFunc={() => toggleFunc(topicTypes.SINGLE_TYPE)}
-            active={toggle[topicTypes.SINGLE_TYPE]}
+          <ConfirmModal
+            actType={topicTypes.SINGLE_TYPE}
+            confirmFunc={() => {
+              console.info(this.handleGeneConfirm());
+              const title = this["modal-" + topicTypes.SINGLE_TYPE].value;
+              const count = this[
+                "modal-" + topicTypes.SINGLE_TYPE + "count"
+              ].value;
+              addQuestionFunc(
+                title,
+                topicTypes.MULTI_TYPE,
+                parseInt(count) || 3
+              );
+            }}
           >
             <div>
-              <div>请输入问题题目（单选）</div>
-              <input type="text" />
+              <p>
+                <input
+                  placeholder="请输入问题题目（单选）"
+                  ref={r => this["modal-" + topicTypes.SINGLE_TYPE] = r}
+                />
+              </p>
+              <p>
+                <input
+                  type="text"
+                  placeholder="请输入问题个数"
+                  ref={r =>
+                    this["modal-" + topicTypes.SINGLE_TYPE + "count"] = r}
+                />
+              </p>
             </div>
 
-          </Modal>
-          <Modal
-            cancelFunc={() => toggleFunc(topicTypes.MULTI_TYPE)}
-            active={toggle[topicTypes.MULTI_TYPE]}
+          </ConfirmModal>
+          <ConfirmModal
+            actType={topicTypes.MULTI_TYPE}
+            confirmFunc={() => {
+              const title = this["modal-" + topicTypes.MULTI_TYPE].value;
+              const count = this[
+                "modal-" + topicTypes.MULTI_TYPE + "count"
+              ].value;
+              addQuestionFunc(
+                title,
+                topicTypes.MULTI_TYPE,
+                parseInt(count) || 3
+              );
+            }}
           >
             <div>
-              <div>请输入问题题目（多选）</div>
-              <input type="text" />
+              <p>
+                <input
+                  placeholder="请输入问题题目（多选）"
+                  ref={r => this["modal-" + topicTypes.MULTI_TYPE] = r}
+                />
+              </p>
+              <p>
+                <input
+                  type="text"
+                  placeholder="请输入问题个数"
+                  ref={r =>
+                    this["modal-" + topicTypes.MULTI_TYPE + "count"] = r}
+                />
+              </p>
             </div>
 
-          </Modal>
-          <Modal
-            cancelFunc={() => toggleFunc(topicTypes.TEXT_TYPE)}
-            active={toggle[topicTypes.TEXT_TYPE]}
+          </ConfirmModal>
+          <ConfirmModal
+            actType={topicTypes.TEXT_TYPE}
+            confirmFunc={() => {
+              const title = this["modal-" + topicTypes.TEXT_TYPE].value;
+              addQuestionFunc(title, topicTypes.TEXT_TYPE);
+            }}
           >
             <div>
-              <div>请输入问题题目（文字题）</div>
-
+              <input
+                placeholder="请输入问题题目（文字题）"
+                ref={r => this["modal-" + topicTypes.TEXT_TYPE] = r}
+              />
             </div>
-          </Modal>
+          </ConfirmModal>
           <ConfirmModal
             confirmFunc={() =>
               saveExamFunc(currentExamId, examStateTypes.RELEASED)}
@@ -266,9 +320,9 @@ class Editor extends Component {
       if (t_question.require) {
         hasRequireQustionDidntAnswer = !questionsAnswer[qid] ||
           questionsAnswer[qid].keyLength < 1;
-        return true
+        return true;
       }
-      return false
+      return false;
     });
     if (hasRequireQustionDidntAnswer) {
       alert("该问题必须回答: " + message[t_question.titleId]);
@@ -336,7 +390,10 @@ class Editor extends Component {
               >
                 {Object.keys(topicArr).map((type, index) => {
                   return (
-                    <button key={index} onClick={() => this.mockSingle(type)}>
+                    <button
+                      key={index}
+                      onClick={() => this.handleToggleFunc(type)}
+                    >
                       {memeIcons[index] + "  " + topicArr[type]}
                     </button>
                   );

@@ -7,10 +7,10 @@ class Modal extends Component {
   render() {
     const { active, cancelFunc, confirmFunc } = this.props;
     const clazz = classnames("modal", { active: active });
+
     return (
       <div className={clazz} onClick={cancelFunc}>
         <div className="modal-mask" onClick={this.handlermaskClick}>
-
           <div className="modal-content">
             <div className="modal-content-title">
               <h3>提示</h3>

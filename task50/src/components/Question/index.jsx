@@ -61,8 +61,9 @@ export default function(Component) {
               id={titleId}
               setEdit={this.setEdit}
               msg={message[titleId]}
-              editing={titleId === editId}
+              editing={editId && titleId === editId}
               isAnswerMode={isAnswerMode}
+              setDestory={this.setDestory}
             />
             {!isAnswerMode &&
               <div className={requireClazz}>

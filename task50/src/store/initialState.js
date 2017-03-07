@@ -95,7 +95,8 @@ const initialState = {
       id: "q2",
       titleId: "t2",
       type: topicTypes.MULTI_TYPE,
-      optionsId: ["t5", "t6", "t7", "an1"]
+      optionsId: ["t5", "t6", "t7", "an1"],
+      require: true
     },
     q3: {
       id: "q3",

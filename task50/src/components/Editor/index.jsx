@@ -33,10 +33,10 @@ class Editor extends Component {
       geneExamFunc,
       newExamId,
       router,
-      toggleFunc
+      toggleFunc,
+      isAnswerMode
     } = this.props;
 
-    const isAnswerMode = location.pathname.indexOf("/answer") === 0;
     if (isAnswerMode) toggleFunc(ANSWER_MODE);
     if (exam[newExamId]) {
       this.setState(
@@ -184,10 +184,10 @@ class Editor extends Component {
       toggleFunc,
       toggle,
       saveExamFunc,
-      exam
+      exam,
+      isAnswerMode
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
-    const isAnswerMode = toggle[ANSWER_MODE];
     return (
       <div className="editor">
         <EditorTitle
@@ -254,14 +254,34 @@ class Editor extends Component {
     const { exam, question, toggle, message, saveAnswerFunc } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const questionsAnswer = this.state[currentExamId]; //{e1:{},q2:{}}
+    if (!questionsAnswer) {
+      return;
+    }
+    const currentExam = exam[currentExamId];
     //todo filter require
+    let hasRequireQustionDidntAnswer = false;
+    let t_question = {};
+    currentExam.questionsId.some(qid => {
+      t_question = question[qid];
+      if (t_question.require) {
+        hasRequireQustionDidntAnswer = !questionsAnswer[qid] ||
+          questionsAnswer[qid].keyLength < 1;
+        return true
+      }
+      return false
+    });
+    if (hasRequireQustionDidntAnswer) {
+      alert("该问题必须回答: " + message[t_question.titleId]);
+      return;
+    }
     const shakedAnswer = Object.keys(questionsAnswer)
       .filter(key => questionsAnswer[key].length > 0)
       .map(qId => ({ qId: questionsAnswer[qId] }));
-    console.info(shakedAnswer);
-    const currentExam = exam[currentExamId];
     const hasRequireQuestionUnAnswer = currentExam.questionsId.length >
       shakedAnswer.length;
+    currentExam.questionsId.some(qId => {
+      return qId.length;
+    });
     // 过滤
     const contentIdNotNullQuestions = currentExam.questionsId
       .filter(qid => {
@@ -280,7 +300,6 @@ class Editor extends Component {
     });
     saveAnswerFunc({ answer: { examId: currentExamId, questions } });
   };
-
   geneAnswerBottom = () => {
     return (
       <div className="editor-answer-bottom">
@@ -367,6 +386,7 @@ const mapStateToProps = (state, routerState) => {
     question: state.question,
     exam: state.exam,
     newExamId: routerState.params.examId,
+    isAnswerMode: routerState.location.pathname.indexOf("/answer") === 0,
     router: routerState.router
   };
 };

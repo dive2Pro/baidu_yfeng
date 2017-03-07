@@ -19,10 +19,10 @@ export default function(Component) {
       }));
     };
     setDestory = id => {
+      this.props.saveMessageFunc({ [id]: "" });
       this.setState({
         editId: null
       });
-
     };
     render() {
       const {

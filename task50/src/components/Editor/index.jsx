@@ -35,7 +35,8 @@ class Editor extends Component {
       toggleFunc,
       isAnswerMode,
       saveTempExamFunc,
-      message
+      message,
+      geneExamFunc
     } = this.props;
 
     if (isAnswerMode) toggleFunc(ANSWER_MODE);
@@ -53,14 +54,16 @@ class Editor extends Component {
       );
       setToggleIdFunc(CURRENT_EXAM, newExamId);
       saveTempExamFunc(exam[newExamId]);
+      this.setState({ tempTitle: message[exam[newExamId].titleId] });
     } else if (newExamId === "new") {
+      geneExamFunc();
+      this.setState({ tempTitle: "" });
       this.setState({
         startDate: moment()
       });
     } else {
       router.push("/list");
     }
-    this.setState({ tempTitle: message[exam[newExamId].titleId] });
   }
   componentWillUnmount() {
     const {
@@ -71,7 +74,8 @@ class Editor extends Component {
       temp,
       saveExamObjFunc,
       clearTempExamFunc,
-      saveMessageFunc
+      saveMessageFunc,
+      setToggleIdFunc
     } = this.props;
     const { confirmChange, tempTitle } = this.state;
     if (confirmChange) {
@@ -81,7 +85,7 @@ class Editor extends Component {
       const currentExamId = toggle[CURRENT_EXAM];
       const tempIds = temp.tempIds;
       const currentExam = exam[currentExamId];
-      saveMessageFunc({ [currentExam.titleId]: tempTitle });
+      saveMessageFunc({ [currentExam.titleId]: tempTitle || "未填写" });
       if (tempIds.length > 0) {
         const trueIds = currentExam.questionsId.filter(id => {
           return tempIds.indexOf(id) < 0;
@@ -91,6 +95,7 @@ class Editor extends Component {
       }
       if (temp.exam) saveExamObjFunc(temp.exam);
     }
+    setToggleIdFunc(CURRENT_EXAM, null);
   }
 
   state = {};
@@ -145,14 +150,15 @@ class Editor extends Component {
     } = this.props;
     changeExamTimeFunc(toggle[CURRENT_EXAM], date.format("Y-M-D"));
   };
+  getCurrentExam() {
+    const { toggle, exam } = this.props;
+    const currentExamId = toggle[CURRENT_EXAM];
+    return exam[currentExamId];
+  }
   geneQuestionsView() {
     const {
       question,
-      message,
-      saveMessageFunc,
-      opeExamQuestionsFunc,
       exam,
-      setRequireFunc,
       toggle
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
@@ -201,20 +207,6 @@ class Editor extends Component {
     } = this.props;
     toggleFunc(type);
   };
-  willEnter = () => {
-    return {
-      height: 0,
-      opacity: 1
-    };
-  };
-
-  willLeave = () => {
-    return {
-      height: spring(0),
-      opacity: spring(0)
-    };
-  };
-  handleDeleteConfirm = () => {};
   handleGeneConfirm = () => {
     console.log(this);
   };
@@ -225,7 +217,8 @@ class Editor extends Component {
       saveExamFunc,
       exam,
       isAnswerMode,
-      addQuestionFunc
+      addQuestionFunc,
+      router
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const currentExam = exam[currentExamId];
@@ -251,7 +244,7 @@ class Editor extends Component {
               ].value;
               addQuestionFunc(
                 title,
-                topicTypes.MULTI_TYPE,
+                topicTypes.SINGLE_TYPE,
                 parseInt(count) || 3
               );
             }}
@@ -321,8 +314,11 @@ class Editor extends Component {
             </div>
           </ConfirmModal>
           <ConfirmModal
-            confirmFunc={() =>
-              saveExamFunc(currentExamId, examStateTypes.RELEASED)}
+            confirmFunc={() => {
+              saveExamFunc(currentExamId, examStateTypes.RELEASED);
+              this.setState({ confirmChange: true });
+              router.go(-1);
+            }}
           >
             <div>
               <p>
@@ -372,9 +368,12 @@ class Editor extends Component {
       alert("该问题必须回答: " + message[t_question.titleId]);
       return;
     }
-    const shakedAnswer = Object.keys(questionsAnswer)
+    const shakedAnswer = {};
+    Object.keys(questionsAnswer)
       .filter(key => questionsAnswer[key].length > 0)
-      .map(qId => ({ qId: questionsAnswer[qId] }));
+      .forEach(qId => {
+        shakedAnswer[qId] = questionsAnswer[qId];
+      });
     const hasRequireQuestionUnAnswer = currentExam.questionsId.length >
       shakedAnswer.length;
     currentExam.questionsId.some(qId => {
@@ -392,9 +391,9 @@ class Editor extends Component {
         [qid]: [question[qid].contentId]
       }));
     console.info(contentIdNotNullQuestions);
-    let questions = {};
+    let questions = { ...shakedAnswer };
     contentIdNotNullQuestions.forEach(q => {
-      questions = { ...questionsAnswer, ...q };
+      questions = { ...shakedAnswer, ...q };
     });
 
     saveAnswerFunc({ answer: { examId: currentExamId, questions } });
@@ -412,7 +411,8 @@ class Editor extends Component {
     const {
       toggle,
       saveExamFunc,
-      toggleFunc
+      toggleFunc,
+      router
     } = this.props;
     const memeIcons = ["⭕", "⬜", "📝"];
     const topicArr = topicTypes.arr;
@@ -475,7 +475,6 @@ class Editor extends Component {
             <button
               onClick={() => {
                 this.confirmChange();
-
                 saveExamFunc(currentExamId, examStateTypes.UN_RELEASE);
               }}
             >
@@ -494,8 +493,18 @@ class Editor extends Component {
       </div>
     );
   };
+
   confirmChange = () => {
-    this.setState({ confirmChange: true });
+    const {
+      clearTempQuestionFunc,
+      clearTempExamFunc,
+      message,
+      saveTempExamFunc
+    } = this.props;
+    this.setState({ tempTitle: message[this.getCurrentExam().titleId] });
+    clearTempQuestionFunc();
+    clearTempExamFunc();
+    saveTempExamFunc(this.getCurrentExam());
   };
 }
 const mapStateToProps = (state, routerState) => {

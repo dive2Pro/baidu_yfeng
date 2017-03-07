@@ -12,7 +12,9 @@ export default class ChoiceChart extends Component {
   render() {
     const { question, message, answer, index, answerCount } = this.props;
     const { type, titleId, optionsId } = question;
-
+    if (!answer) {
+      return <div>{message[titleId]} 暂时没有答题信息</div>;
+    }
     let data = answer;
     let chartType = "pie";
     if (type === SINGLE_TYPE) {

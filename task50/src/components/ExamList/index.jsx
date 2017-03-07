@@ -31,7 +31,7 @@ class ExamList extends Component {
   state = {};
   handleDeleteConfirm = () => {
     const deletingExamId = this.state.deletingExamId;
-    deletingExamId && this.deleteExam(deletingExamId);
+    deletingExamId && this.deleteExam(...deletingExamId);
   };
   render() {
     const {
@@ -40,7 +40,11 @@ class ExamList extends Component {
       message,
       toggleFunc
     } = this.props;
-    const haveExam = exam && Object.keys(exam).length > 0;
+    const haveExam = exam &&
+      Object.keys(exam).some(key => {
+        return exam[key].examState !== EXAM_DELETED;
+      });
+    console.info(haveExam);
     return (
       <div className="examlist">
         {!haveExam
@@ -146,10 +150,16 @@ class ExamList extends Component {
                   <label htmlFor="all_check">全选</label>
                   <button
                     onClick={() => {
-                      this.deleteExam(
-                        ...Object.keys(exam).filter(key => exam[key].checked)
+                      const waitingDeletes = Object.keys(exam).filter(
+                        key => exam[key].checked
                       );
-                      this.allInp.checked = false;
+                      if (waitingDeletes.length > 0) {
+                        this.setState({
+                          deletingExamId: waitingDeletes
+                        });
+                        toggleFunc(CONFIRM_MODAL);
+                        this.allInp.checked = false;
+                      }
                     }}
                   >
                     删除
@@ -157,6 +167,7 @@ class ExamList extends Component {
                 </div>
               </div>
             </div>}
+
         <DeleteModal confirmFunc={this.handleDeleteConfirm} />
       </div>
     );

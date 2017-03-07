@@ -24,19 +24,21 @@ export function addQuestion(title = "请输入", type, optionsIdCount = 3) {
     if (!currentExamId) {
       throw "currentExamId equal null";
     }
+    const isNotTextQuestion = type !== topicTypes.TEXT_TYPE;
     const question = {
       id: String(parseInt(new Date().getTime()) + "_mock"),
       type: type,
       titleId: utils.guid(),
-      optionsId: new Array(optionsIdCount).fill(null).map(_ => {
-        const id = utils.guid();
-        dispatch(
-          saveMessage({
-            [id]: "修改"
-          })
-        );
-        return id;
-      }),
+      optionsId: isNotTextQuestion &&
+        new Array(optionsIdCount).fill(null).map(_ => {
+          const id = utils.guid();
+          dispatch(
+            saveMessage({
+              [id]: "修改"
+            })
+          );
+          return id;
+        }),
       contentId: utils.guid()
     };
     const specExam = exam[currentExamId];

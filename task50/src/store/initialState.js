@@ -18,19 +18,22 @@ const initialState = {
       examState: examStateTypes.UN_RELEASE,
       titleId: "t1",
       time: "2017-9-10",
-      questionsId: ["q1", "q2", "q3"]
+      questionsId: ["q1", "q2", "q3"],
+      id: "e1"
     },
     e2: {
       examState: examStateTypes.RELEASED,
       titleId: "t2",
       time: "2014-9-10",
-      questionsId: ["q1", "q2", "q3"]
+      questionsId: ["q1", "q2", "q3"],
+      id: "e2"
     },
     e3: {
       examState: examStateTypes.OUT_DATE,
       titleId: "t3",
       time: "2015-9-10",
-      questionsId: ["q1", "q2", "q3"]
+      questionsId: ["q1", "q2", "q3"],
+      id: "e3"
     }
   },
   message: {

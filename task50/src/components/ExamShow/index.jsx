@@ -6,9 +6,12 @@ import * as actions from "../../actions/index";
 import ChoiceChart from "../ChoiceChart/index";
 class ExamShow extends Component {
   geneContent = () => {
-    const { answer, exam, message, question } = this.props;
-    const currentAnswer = answer[defaultExamId];
-    const currentExam = exam[defaultExamId];
+    const { answer, exam, message, question, newExamId, router } = this.props;
+    const currentAnswer = answer[newExamId];
+    if (!currentAnswer) {
+      return <div>数据为空!</div>;
+    }
+    const currentExam = exam[newExamId];
     const currentAllQuestions = currentExam.questionsId;
     const questionsAnswerInfo = currentAnswer.questions;
     const answerInfo = {};
@@ -33,6 +36,10 @@ class ExamShow extends Component {
       );
     });
   };
+  handleGoBack = () => {
+    const { router } = this.props;
+    router.go(-1);
+  };
   componentDidMount() {
     const { newExamId, router, exam } = this.props;
     if (!newExamId || !exam[newExamId]) {
@@ -56,7 +63,7 @@ class ExamShow extends Component {
             {this.geneContent()}
           </div>
           <div className="showBottom">
-            <button className="showBottom-button">
+            <button className="showBottom-button" onClick={this.handleGoBack}>
               返回
             </button>
           </div>

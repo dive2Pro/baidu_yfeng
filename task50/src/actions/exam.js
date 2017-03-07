@@ -36,7 +36,7 @@ export function saveExam(currentExamId, examState, time = new Date()) {
   };
 }
 
-export function geneExam(title = "请填写") {
+export function geneExam(title = "未填写") {
   return dispatch => {
     const titleId = utils.guid(); // const exam = getState().exam; // const currentExamId = exam.currentExamId;
     dispatch(
@@ -45,14 +45,13 @@ export function geneExam(title = "请填写") {
       })
     );
     const examId = utils.guid();
-    dispatch(
-      saveExamAction({
-        id: examId,
-        examState: NEW_GENE,
-        titleId
-      })
-    );
-    dispatch(saveTempExam(examId));
+    const exam = {
+      id: examId,
+      examState: NEW_GENE,
+      titleId
+    };
+    dispatch(saveExamAction(exam));
+    dispatch(saveTempExam(exam));
     dispatch(setToggleId(CURRENT_EXAM, examId));
   };
 }
@@ -111,8 +110,8 @@ export function saveTempExam(exam) {
   };
 }
 
-export function clearTempExam(){
-  return{
-    type:actionTypes.CLEAR_TEMP_EXAM
-  }
+export function clearTempExam() {
+  return {
+    type: actionTypes.CLEAR_TEMP_EXAM
+  };
 }

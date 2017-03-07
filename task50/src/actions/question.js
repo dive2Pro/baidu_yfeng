@@ -53,6 +53,7 @@ export function addQuestion(title = "请输入", type, optionsIdCount = 3) {
         [question.titleId]: title
       })
     );
+    dispatch(saveTempQuestion(question.id));
     dispatch(saveQuestion(question));
   };
 }
@@ -63,7 +64,20 @@ export function saveQuestion(question) {
     question
   };
 }
-export function setContentId(questionId, contentId, content="") {
+export function saveTempQuestion(questionId) {
+  return {
+    type: actionTypes.SAVE_TEMP_QUESTION,
+    id: questionId
+  };
+}
+
+export function clearTempQuestion() {
+  return {
+    type: actionTypes.CLEAR_TEMP_QUESTION
+  };
+}
+
+export function setContentId(questionId, contentId, content = "") {
   return dispatch => {
     const messageId = contentId || utils.guid();
     dispatch(saveMessage({ [messageId]: content }));

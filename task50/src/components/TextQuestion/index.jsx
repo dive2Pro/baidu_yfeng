@@ -26,7 +26,7 @@ class TextQuestion extends Component {
   }
   componentWillUnmount() {
     const { thisQuestion, saveQuestionFunc } = this.props;
-    debugger;
+
     if (thisQuestion.contentId) {
       // 删除contentId , 用户回答信息放在 answerInfo 中
       delete thisQuestion.contentId;

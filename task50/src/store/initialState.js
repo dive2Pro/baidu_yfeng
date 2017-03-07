@@ -103,7 +103,8 @@ const initialState = {
       titleId: "t3",
       type: topicTypes.TEXT_TYPE,
       contentId: "t5"
-    }
+    },
+    tempIds: []
   }
 };
 

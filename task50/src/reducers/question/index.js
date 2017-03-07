@@ -1,5 +1,11 @@
-import * as actionTypes from '../../constants/actionType';
-const initialState = {};
+import * as actionTypes from "../../constants/actionType";
+const initialState = {
+  tempIds: []
+};
+
+Object.defineProperty(initialState, "tempIds", {
+  enumerable: false
+});
 
 const changeContentId = (state, id, contentId) => ({
   ...state,

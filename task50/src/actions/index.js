@@ -1,14 +1,23 @@
-import { toggle, setToggleId,resetToggled } from './toggle';
-import { addQuestion, setRequire,saveQuestion,setContentId } from './question';
-import { saveMessage } from './message';
-import { saveAnswer } from './answer';
+import { toggle, setToggleId, resetToggled } from "./toggle";
+import {
+  addQuestion,
+  setRequire,
+  saveQuestion,
+  setContentId,
+  saveTempQuestion,
+  clearTempQuestion
+} from "./question";
+import { saveMessage } from "./message";
+import { saveAnswer } from "./answer";
 import {
   saveExam,
   changeExamState,
   opeExamQuestions,
   changeExamTime,
-  geneExam,setExamChecked
-} from './exam';
+  geneExam,
+  setExamChecked,
+  changeExamQuestions
+} from "./exam";
 export {
   saveMessage,
   toggle,
@@ -24,5 +33,8 @@ export {
   resetToggled,
   saveAnswer,
   saveQuestion,
-  setContentId
+  setContentId,
+  saveTempQuestion,
+  clearTempQuestion,
+  changeExamQuestions
 };

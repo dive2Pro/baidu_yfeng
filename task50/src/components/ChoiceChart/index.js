@@ -43,7 +43,8 @@ export default class ChoiceChart extends Component {
         </div>
         <div className="chartshow">
           <div className="chartshow-message">
-            {optionsId.map &&
+            {optionsId &&
+              optionsId.map &&
               optionsId.map((id, i) => {
                 return (
                   <div key={id + i}>

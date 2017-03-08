@@ -15,7 +15,6 @@ class ChoiceQuestion extends Component {
       message,
       save,
       setEdit,
-      setDestory,
       editId,
       onToggle,
       isAnswerMode,
@@ -47,9 +46,13 @@ class ChoiceQuestion extends Component {
           );
         })}
         <div>
-          <span
-            className="question-items-add"
-            onClick={() => addOption(thisQuestion.id)}>+</span>
+          {!isAnswerMode &&
+            <span
+              className="question-items-add"
+              onClick={() => addOption(thisQuestion.id)}
+            >
+              +
+            </span>}
         </div>
       </div>
     );

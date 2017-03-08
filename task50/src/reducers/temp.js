@@ -26,7 +26,9 @@ const clearTempExam = (state, examId) => {
   const newState = { ...state, tempExam: null };
   return { ...newState, [examId]: null };
 };
-
+const setTempWarning = (state,message)=>{
+  return {...state,warning:message}
+}
 const initialState = { tempIds: [] };
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -38,6 +40,8 @@ export default function(state = initialState, action) {
       return clearTempQustion(state);
     case actionTypes.CLEAR_TEMP_EXAM:
       return clearTempExam(state, action.examId);
+    case actionTypes.SET_TEMP_WARNING:
+      return setTempWarning(state,action.message)
     default:
       return state;
   }

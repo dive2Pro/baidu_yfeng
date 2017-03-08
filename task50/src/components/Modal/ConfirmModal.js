@@ -11,7 +11,7 @@ const ConfirmModal = ({ toggle, ...restProps }) => {
       active={toggle[actType || CONFIRM_MODAL]}
       {...restProps}
       confirmFunc={e => {
-        confirmFunc(e);
+        confirmFunc && confirmFunc(e);
         dispatch(resetToggled(actType || CONFIRM_MODAL));
       }}
     >
@@ -21,7 +21,10 @@ const ConfirmModal = ({ toggle, ...restProps }) => {
     </Modal>
   );
 };
-
+ConfirmModal.ProtoTypes = {
+  confirmFunc: React.PropTypes.func,
+  actType: React.PropTypes.string
+};
 export default connect((state, ownState) => ({
   toggle: state.toggle,
   ownState

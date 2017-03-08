@@ -10,7 +10,7 @@ import {
   deleteOption
 } from "./question";
 import { saveMessage } from "./message";
-import { saveAnswer,restoreTempExam } from "./answer";
+import { saveAnswer,handleSubmit } from "./answer";
 import {
   saveExam,
   changeExamState,
@@ -44,5 +44,6 @@ export {
   saveExamAction,
   clearTempExam,
   addOption,
-  deleteOption
+  deleteOption,
+  handleSubmit
 };

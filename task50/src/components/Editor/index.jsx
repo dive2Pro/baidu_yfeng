@@ -5,14 +5,18 @@ import { bindActionCreators } from "redux";
 import * as actions from "../../actions/index";
 import * as topicTypes from "../../constants/topicType";
 import * as examStateTypes from "../../constants/examStateType";
-import { saveTempExam, restoreTempExam } from "../../actions/answer";
+import {
+  saveTempExam,
+  restoreTempExam,
+  handleSubmit
+} from "../../actions/answer";
 
 import {
   ADD_QUESTION,
-  SELECT_DATE,
   CURRENT_EXAM,
   CONFIRM_MODAL,
-  ANSWER_MODE
+  ANSWER_MODE,
+  WARNING_MODAL
 } from "../../constants/toggleTypes";
 import TextQuestion from "../TextQuestion/index";
 import EditorTitle from "./title";
@@ -35,7 +39,6 @@ class Editor extends Component {
       toggleFunc,
       isAnswerMode,
       saveTempExamFunc,
-      message,
       geneExamFunc
     } = this.props;
 
@@ -53,10 +56,8 @@ class Editor extends Component {
         }
       );
       setToggleIdFunc(CURRENT_EXAM, newExamId);
-      this.setState({ tempTitle: message[exam[newExamId].titleId] });
     } else if (newExamId === "new") {
       geneExamFunc();
-      this.setState({ tempTitle: "" });
       this.setState({
         startDate: moment()
       });
@@ -89,9 +90,9 @@ class Editor extends Component {
      * @param id optionsId
      * @param index  optionsIds position
      * @param checked
+     *
      */
     (id, index, checked) => {
-      console.log("onToggle!", id, index, checked);
       const { toggle } = this.props;
       const currentExamId = toggle[CURRENT_EXAM];
       this.setState(prevState => {
@@ -109,7 +110,13 @@ class Editor extends Component {
             }
             break;
         }
-
+        /**
+         * 当前[ExamId]:
+         *      [questionId]:
+         *          [
+         *           optionsId
+         *          ]
+         */
         return {
           [currentExamId]: {
             ...prevState[currentExamId],
@@ -193,10 +200,6 @@ class Editor extends Component {
     toggleFunc(type);
   };
 
-  handleGeneConfirm = () => {
-    console.log(this);
-  };
-
   render() {
     const {
       toggle,
@@ -204,7 +207,8 @@ class Editor extends Component {
       exam,
       isAnswerMode,
       addQuestionFunc,
-      router
+      router,
+      temp
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const currentExam = exam[currentExamId];
@@ -224,7 +228,6 @@ class Editor extends Component {
           <ConfirmModal
             actType={topicTypes.SINGLE_TYPE}
             confirmFunc={() => {
-              console.info(this.handleGeneConfirm());
               const title = this["modal-" + topicTypes.SINGLE_TYPE].value;
               const count = this[
                 "modal-" + topicTypes.SINGLE_TYPE + "count"
@@ -303,7 +306,6 @@ class Editor extends Component {
           <ConfirmModal
             confirmFunc={() => {
               saveExamFunc(currentExamId, examStateTypes.RELEASED);
-              this.setState({ confirmChange: true });
               router.go(-1);
             }}
           >
@@ -319,6 +321,11 @@ class Editor extends Component {
               </p>
             </div>
           </ConfirmModal>
+          <ConfirmModal actType={WARNING_MODAL}>
+            <div>
+              {temp.warning}
+            </div>
+          </ConfirmModal>
         </div>
 
       </div>
@@ -327,71 +334,12 @@ class Editor extends Component {
 
   handleSubmit = () => {
     const {
-      exam,
-      question,
       toggle,
-      message,
-      saveAnswerFunc
+      handleSubmitFunc
     } = this.props;
-    const currentExamId = toggle[CURRENT_EXAM];
-
-    const questionsAnswer = this.state[currentExamId]; //{e1:{},q2:{}}
-    if (!questionsAnswer) {
-      return;
-    }
-    const currentExam = exam[currentExamId];
-    const { examState } = currentExam;
-
-    if (examState !== examStateTypes.RELEASED) {
-      alert("本问卷未发布,本次提交无效");
-      return;
-    }
-
-    //todo filter require
-    let hasRequireQustionDidntAnswer = false;
-    let t_question = {};
-    currentExam.questionsId.some(qid => {
-      t_question = question[qid];
-      if (t_question.require) {
-        hasRequireQustionDidntAnswer = !questionsAnswer[qid] ||
-          questionsAnswer[qid].keyLength < 1;
-        return true;
-      }
-      return false;
-    });
-    if (hasRequireQustionDidntAnswer) {
-      alert("该问题必须回答: " + message[t_question.titleId]);
-      return;
-    }
-    const shakedAnswer = {};
-    Object.keys(questionsAnswer)
-      .filter(key => questionsAnswer[key].length > 0)
-      .forEach(qId => {
-        shakedAnswer[qId] = questionsAnswer[qId];
-      });
-    const hasRequireQuestionUnAnswer = currentExam.questionsId.length >
-      shakedAnswer.length;
-    currentExam.questionsId.some(qId => {
-      return qId.length;
-    });
-    // 过滤
-    const contentIdNotNullQuestions = currentExam.questionsId
-      .filter(qid => {
-        return question[qid].type === topicTypes.TEXT_TYPE;
-      })
-      .filter(qid => {
-        return message[question[qid].contentId];
-      })
-      .map(qid => ({
-        [qid]: [question[qid].contentId]
-      }));
-    console.info(contentIdNotNullQuestions);
-    let questions = { ...shakedAnswer };
-    contentIdNotNullQuestions.forEach(q => {
-      questions = { ...shakedAnswer, ...q };
-    });
-
-    saveAnswerFunc({ answer: { examId: currentExamId, questions } });
+    const currentExamId = toggle[CURRENT_EXAM]
+    const questionAnswer = this.state[currentExamId];
+    questionAnswer && handleSubmitFunc(currentExamId,questionAnswer);
   };
 
   geneAnswerBottom = () => {
@@ -431,7 +379,6 @@ class Editor extends Component {
                   display: display ? "flex" : "none"
                 }}
                 className="editor-addquestion-items"
-                ref={p => this.addItemsDiv = p}
               >
                 {Object.keys(topicArr).map((type, index) => {
                   return (
@@ -448,7 +395,6 @@ class Editor extends Component {
           </Motion>
           <div
             key="editor-AddQuestion"
-            ref={d => this.addDiv = d}
             className="editor-addquestion-add"
             onClick={() => toggleFunc(ADD_QUESTION)}
           >
@@ -486,8 +432,8 @@ class Editor extends Component {
       </div>
     );
   };
-
 }
+
 const mapStateToProps = (state, routerState) => {
   const newExamId = routerState.params.examId;
 
@@ -510,11 +456,11 @@ const mapDispatchToProps = dispatch => {
     setToggleIdFunc: bindActionCreators(actions.setToggleId, dispatch),
     changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
     geneExamFunc: bindActionCreators(actions.geneExam, dispatch),
-    saveAnswerFunc: bindActionCreators(actions.saveAnswer, dispatch),
     saveTempExamFunc: bindActionCreators(saveTempExam, dispatch),
     addOptionFunc: bindActionCreators(actions.addOption, dispatch),
     deleteOptionFunc: bindActionCreators(actions.deleteOption, dispatch),
     restoreTempExamFunc: bindActionCreators(restoreTempExam, dispatch),
+    handleSubmitFunc: bindActionCreators(handleSubmit, dispatch),
     resetToggledFunc: bindActionCreators(actions.resetToggled, dispatch)
   };
 };

@@ -58,7 +58,7 @@ export function addQuestion(title = "请输入", type, optionsIdCount = 1) {
         [question.titleId]: title
       })
     );
-    dispatch(saveTempQuestion(question.id));
+    // dispatch(saveTempQuestion(question.id));
     dispatch(saveQuestion(question));
   };
 }
@@ -67,6 +67,12 @@ export function saveQuestion(question) {
     type: actionTypes.SAVE_QUESTION,
     id: question.id,
     question
+  };
+}
+export function saveQuestions(questions) {
+  return {
+    type: actionTypes.SAVE_QUESTION_S,
+    questions
   };
 }
 export function saveTempQuestion(questionId) {
@@ -91,7 +97,6 @@ export function setContentId(questionId, contentId, content = "") {
   return dispatch => {
     const messageId = contentId || utils.guid();
     dispatch(saveMessage({ [messageId]: content }));
-
     dispatch({
       type: actionTypes.CHANGE_QUESTION_CONTENTID,
       id: questionId,
@@ -110,7 +115,7 @@ export const addOption = questionId => (dispatch, getState) => {
   const newOptionId = utils.guid();
   dispatch(saveMessage({ [newOptionId]: "请修改" }));
   question.optionsId.push(newOptionId);
-  dispatch(changeExamQuestions(questionId, question.optionsId));
+  dispatch(changeQuestionOptionsAct(questionId, question.optionsId));
 };
 
 export const deleteOption = (questionId, optionId) => (dispatch, getState) => {

@@ -5,6 +5,8 @@ import { bindActionCreators } from "redux";
 import * as actions from "../../actions/index";
 import * as topicTypes from "../../constants/topicType";
 import * as examStateTypes from "../../constants/examStateType";
+import { saveTempExam, restoreTempExam } from "../../actions/answer";
+
 import {
   ADD_QUESTION,
   SELECT_DATE,
@@ -51,7 +53,6 @@ class Editor extends Component {
         }
       );
       setToggleIdFunc(CURRENT_EXAM, newExamId);
-      saveTempExamFunc(exam[newExamId]);
       this.setState({ tempTitle: message[exam[newExamId].titleId] });
     } else if (newExamId === "new") {
       geneExamFunc();
@@ -62,39 +63,16 @@ class Editor extends Component {
     } else {
       router.push("/list");
     }
+    saveTempExamFunc();
   }
 
   componentWillUnmount() {
     const {
-      clearTempQuestionFunc,
-      exam,
-      toggle,
-      changeExamQuestionsFunc,
-      temp,
-      saveExamObjFunc,
-      clearTempExamFunc,
-      saveMessageFunc,
       setToggleIdFunc,
-      resetToggledFunc
+      resetToggledFunc,
+      restoreTempExamFunc
     } = this.props;
-    const { confirmChange, tempTitle } = this.state;
-    if (confirmChange) {
-      clearTempQuestionFunc();
-      clearTempExamFunc();
-    } else {
-      const currentExamId = toggle[CURRENT_EXAM];
-      const tempIds = temp.tempIds;
-      const currentExam = exam[currentExamId];
-      saveMessageFunc({ [currentExam.titleId]: tempTitle || "未填写" });
-      if (tempIds.length > 0) {
-        const trueIds = currentExam.questionsId.filter(id => {
-          return tempIds.indexOf(id) < 0;
-        });
-        changeExamQuestionsFunc(currentExamId, trueIds);
-        clearTempQuestionFunc();
-      }
-      if (temp.exam) saveExamObjFunc(temp.exam);
-    }
+    restoreTempExamFunc();
     setToggleIdFunc(CURRENT_EXAM, null);
     resetToggledFunc(ADD_QUESTION);
   }
@@ -151,12 +129,6 @@ class Editor extends Component {
     } = this.props;
     changeExamTimeFunc(toggle[CURRENT_EXAM], date.format("Y-M-D"));
   };
-
-  getCurrentExam() {
-    const { toggle, exam } = this.props;
-    const currentExamId = toggle[CURRENT_EXAM];
-    return exam[currentExamId];
-  }
 
   geneQuestionsView() {
     const {
@@ -355,7 +327,6 @@ class Editor extends Component {
 
   handleSubmit = () => {
     const {
-      clearTempQuestionFunc,
       exam,
       question,
       toggle,
@@ -421,7 +392,6 @@ class Editor extends Component {
     });
 
     saveAnswerFunc({ answer: { examId: currentExamId, questions } });
-    clearTempQuestionFunc();
   };
 
   geneAnswerBottom = () => {
@@ -499,7 +469,6 @@ class Editor extends Component {
           <div>
             <button
               onClick={() => {
-                this.confirmChange();
                 saveExamFunc(currentExamId, examStateTypes.UN_RELEASE);
               }}
             >
@@ -507,7 +476,6 @@ class Editor extends Component {
             </button>
             <button
               onClick={() => {
-                this.confirmChange();
                 toggleFunc(CONFIRM_MODAL);
               }}
             >
@@ -519,18 +487,6 @@ class Editor extends Component {
     );
   };
 
-  confirmChange = () => {
-    const {
-      clearTempQuestionFunc,
-      clearTempExamFunc,
-      message,
-      saveTempExamFunc
-    } = this.props;
-    this.setState({ tempTitle: message[this.getCurrentExam().titleId] });
-    clearTempQuestionFunc();
-    clearTempExamFunc();
-    saveTempExamFunc(this.getCurrentExam());
-  };
 }
 const mapStateToProps = (state, routerState) => {
   const newExamId = routerState.params.examId;
@@ -550,37 +506,15 @@ const mapDispatchToProps = dispatch => {
   return {
     toggleFunc: bindActionCreators(actions.toggle, dispatch),
     addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch),
-    saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch),
     saveExamFunc: bindActionCreators(actions.saveExam, dispatch),
     setToggleIdFunc: bindActionCreators(actions.setToggleId, dispatch),
-    opeExamQuestionsFunc: bindActionCreators(
-      actions.opeExamQuestions,
-      dispatch
-    ),
-    setRequireFunc: bindActionCreators(actions.setRequire, dispatch),
-    changeExamStateFunc: bindActionCreators(actions.changeExamState, dispatch),
     changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
     geneExamFunc: bindActionCreators(actions.geneExam, dispatch),
     saveAnswerFunc: bindActionCreators(actions.saveAnswer, dispatch),
-    saveQuestionFunc: bindActionCreators(actions.saveQuestion, dispatch),
-    saveTempExamFunc: bindActionCreators(actions.saveTempExam, dispatch),
-    saveExamObjFunc: bindActionCreators(actions.saveExamAction, dispatch),
-    changeExamQuestionsFunc: bindActionCreators(
-      actions.changeExamQuestions,
-      dispatch
-    ),
-    setContentIdFunc: bindActionCreators(actions.setContentId, dispatch),
-    saveTempQuestionFunc: bindActionCreators(
-      actions.saveTempQuestion,
-      dispatch
-    ),
-    clearTempQuestionFunc: bindActionCreators(
-      actions.clearTempQuestion,
-      dispatch
-    ),
-    clearTempExamFunc: bindActionCreators(actions.clearTempExam, dispatch),
+    saveTempExamFunc: bindActionCreators(saveTempExam, dispatch),
     addOptionFunc: bindActionCreators(actions.addOption, dispatch),
     deleteOptionFunc: bindActionCreators(actions.deleteOption, dispatch),
+    restoreTempExamFunc: bindActionCreators(restoreTempExam, dispatch),
     resetToggledFunc: bindActionCreators(actions.resetToggled, dispatch)
   };
 };

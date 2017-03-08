@@ -45,6 +45,7 @@ class ExamList extends Component {
       exam,
       toggleFunc
     } = this.props;
+    const allMessage = this.props.message;
     const haveExam = exam &&
       Object.keys(exam).some(key => {
         return exam[key].examState !== EXAM_DELETED;
@@ -82,7 +83,6 @@ class ExamList extends Component {
                       return exam[key].examState !== EXAM_DELETED;
                     })
                     .map((key, i) => {
-
                       const {
                         titleId,
                         time,
@@ -90,7 +90,7 @@ class ExamList extends Component {
                         id,
                         checked
                       } = exam[key];
-                      const message = this.props.message[id];
+                      const message = allMessage[id];
                       let timing = time;
                       if (time instanceof Date) {
                         timing = time.getFullYear() +

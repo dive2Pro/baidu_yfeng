@@ -2,6 +2,7 @@ import * as actionTypes from "../constants/actionType";
 import { CURRENT_EXAM } from "../constants/toggleTypes";
 import * as utils from "../constants/utils";
 import { saveMessage } from "./message";
+import { saveTempExam } from "./answer";
 import { saveQuestion, saveTempQuestion } from "./question";
 import { NEW_GENE } from "../constants/examStateType";
 import { setToggleId } from "./toggle";
@@ -33,6 +34,7 @@ export function saveExam(currentExamId, examState, time = new Date()) {
         id: currentExamId
       })
     );
+    dispatch(saveTempExam())
   };
 }
 
@@ -108,13 +110,6 @@ export function setExamChecked(checked, ...ids) {
         id
       });
     });
-  };
-}
-
-export function saveTempExam(exam) {
-  return {
-    type: actionTypes.SAVE_TEMP_EXAM,
-    exam
   };
 }
 

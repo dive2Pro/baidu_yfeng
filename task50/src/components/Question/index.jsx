@@ -2,7 +2,13 @@ import React, { PropTypes } from "react";
 import InputItem from "../InputItem/index";
 import { questionActs } from "../../constants/questionActType";
 import classnames from "classnames";
-
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {
+  setContentId,
+  opeExamQuestions,
+  saveQuestion
+} from "../../actions/index";
 export default function(Component) {
   class Question extends React.Component {
     state = {};
@@ -71,8 +77,8 @@ export default function(Component) {
         visible: requireable
       });
       const requireInputClazz = classnames({
-        checked:require
-      })
+        checked: require
+      });
       return (
         <div className="question">
           <div className="question-title">
@@ -139,5 +145,10 @@ export default function(Component) {
       );
     }
   }
-  return Question;
+  const mapDispatchToProps = dispatch => ({
+    setContentIdFunc: bindActionCreators(setContentId, dispatch),
+    opeExamQuestionsFunc: bindActionCreators(opeExamQuestions, dispatch),
+    saveQuestionFunc: bindActionCreators(saveQuestion, dispatch)
+  });
+  return connect(null, mapDispatchToProps)(Question);
 }

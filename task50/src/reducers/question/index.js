@@ -28,7 +28,9 @@ const changeRequire = (state, id, require) => ({
   ...state,
   [id]: { ...state[id], require }
 });
-
+const saveQuestion_S = (state,questions)=>{
+  return {...state,...questions}
+};
 export default function question(state = initialState, action) {
   switch (action.type) {
     case actionTypes.CHANGE_QUESTION_CONTENTID:
@@ -41,6 +43,8 @@ export default function question(state = initialState, action) {
       return changeOptionsId(state, action.id, action.optionsId);
     case actionTypes.CHANGE_QUESTION_REQUIRE:
       return changeRequire(state, action.id, action.require);
+    case actionTypes.SAVE_QUESTION_S:
+      return saveQuestion_S(state,  action.questions);
     default:
       return state;
   }

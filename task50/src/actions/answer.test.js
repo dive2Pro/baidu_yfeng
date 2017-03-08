@@ -1,7 +1,7 @@
 /**
  * Created by hyc on 17-3-8.
  */
-import { saveTempExam } from "./answer";
+import { saveTempExam, restoreTempExam } from "./answer";
 import configureMockStore from "redux-mock-store";
 import thunk from "../store/thunk";
 import * as toggleTypes from "../constants/toggleTypes";
@@ -21,5 +21,10 @@ test("saveTempExam with redux thunk ", () => {
   const store = mockStore(initState);
   const afterDispatch = store.dispatch(saveTempExam());
   const actions = store.getActions();
-  console.log(actions);
+  const receiveState = store.getState();
+  console.log(receiveState);
+  const newStore = mockStore(receiveState);
+  // newStore.dispatch(restoreTempExam());
+  // const lastState = newStore.getState();
+  // console.log(lastState);
 });

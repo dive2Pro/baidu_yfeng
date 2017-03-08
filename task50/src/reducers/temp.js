@@ -19,25 +19,25 @@ const clearTempQustion = state => {
   return newState;
 };
 
-const saveTempExam = (state, exam) => {
-  return { ...state, exam };
+const saveTempExam = (state, tempExam) => {
+  return { ...state, tempExam };
 };
-const clearTempExam = state => {
-  return { ...state, exam: null };
+const clearTempExam = (state, examId) => {
+  const newState = { ...state, tempExam: null };
+  return { ...newState, [examId]: null };
 };
+
 const initialState = { tempIds: [] };
 export default function(state = initialState, action) {
   switch (action.type) {
     case actionTypes.SAVE_TEMP_QUESTION:
       return saveTempQustion(state, action.id);
-
     case actionTypes.SAVE_TEMP_EXAM:
-      return saveTempExam(state, action.exam);
-
+      return saveTempExam(state, action.tempExam);
     case actionTypes.CLEAR_TEMP_QUESTION:
       return clearTempQustion(state);
     case actionTypes.CLEAR_TEMP_EXAM:
-      return clearTempExam(state, action.exam);
+      return clearTempExam(state, action.examId);
     default:
       return state;
   }

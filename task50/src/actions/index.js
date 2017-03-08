@@ -10,7 +10,7 @@ import {
   deleteOption
 } from "./question";
 import { saveMessage } from "./message";
-import { saveAnswer } from "./answer";
+import { saveAnswer,restoreTempExam } from "./answer";
 import {
   saveExam,
   changeExamState,
@@ -19,7 +19,6 @@ import {
   geneExam,
   setExamChecked,
   changeExamQuestions,
-  saveTempExam,
   saveExamAction,
   clearTempExam
 } from "./exam";
@@ -42,7 +41,6 @@ export {
   saveTempQuestion,
   clearTempQuestion,
   changeExamQuestions,
-  saveTempExam,
   saveExamAction,
   clearTempExam,
   addOption,

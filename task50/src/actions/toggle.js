@@ -1,6 +1,6 @@
-import * as actionTypes from '../constants/actionType';
-import { guid } from '../constants/utils';
-
+import * as actionTypes from "../constants/actionType";
+import { guid } from "../constants/utils";
+import { saveTempExam } from "./answer";
 export function toggle(toggleType) {
   return {
     type: actionTypes.SET_TOGGLED,
@@ -15,9 +15,12 @@ export function resetToggled(toggleType) {
   };
 }
 export function setToggleId(toggleType, id) {
-  return {
-    type: actionTypes.SET_CURRENTEXAM_ID,
-    toggleType,
-    id: id || guid()
+  return dispatch => {
+    const action = {
+      type: actionTypes.SET_CURRENTEXAM_ID,
+      toggleType,
+      id: id || guid()
+    };
+    dispatch(action);
   };
 }

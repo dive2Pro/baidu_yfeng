@@ -24,6 +24,7 @@ class ChoiceQuestion extends Component {
     const {
       type
     } = thisQuestion;
+
     const inputType = type === topicTypes.SINGLE_TYPE
       ? "radio"
       : type === topicTypes.MULTI_TYPE ? "checkbox" : "text";

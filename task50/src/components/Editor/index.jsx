@@ -18,8 +18,8 @@ import EditorTitle from "./title";
 import { spring, Motion } from "react-motion";
 import ConfirmModal from "../Modal/ConfirmModal";
 import { deleteElementFromArray } from "../../constants/utils";
-var DatePicker = require("react-datepicker");
-var moment = require("moment");
+const DatePicker = require("react-datepicker");
+const moment = require("moment");
 require("react-datepicker/dist/react-datepicker.css");
 
 class Editor extends Component {
@@ -63,6 +63,7 @@ class Editor extends Component {
       router.push("/list");
     }
   }
+
   componentWillUnmount() {
     const {
       clearTempQuestionFunc,
@@ -150,11 +151,13 @@ class Editor extends Component {
     } = this.props;
     changeExamTimeFunc(toggle[CURRENT_EXAM], date.format("Y-M-D"));
   };
+
   getCurrentExam() {
     const { toggle, exam } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     return exam[currentExamId];
   }
+
   geneQuestionsView() {
     const {
       question,
@@ -165,11 +168,15 @@ class Editor extends Component {
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const currentExam = exam[currentExamId];
+    if (!currentExam) {
+      return <div>...</div>;
+    }
     const quesIds = currentExam ? currentExam.questionsId : [];
     const isAnswerMode = toggle[ANSWER_MODE];
     return quesIds &&
       quesIds.map((q, i) => {
         const ques = question[q];
+        const title = "";
         switch (ques.type) {
           case topicTypes.SINGLE_TYPE:
           case topicTypes.MULTI_TYPE:
@@ -184,6 +191,7 @@ class Editor extends Component {
                 currentExamId={currentExamId}
                 isAnswerMode={isAnswerMode}
                 onToggle={this.onToggle(ques)}
+                title={title}
                 {...this.props}
               />
             );
@@ -194,9 +202,10 @@ class Editor extends Component {
                 key={q}
                 isLast={i === quesIds.length - 1}
                 thisQuestion={ques}
-                requireable={true}
+                requireable
                 currentExamId={currentExamId}
                 isAnswerMode={isAnswerMode}
+                title={title}
                 {...this.props}
               />
             );
@@ -211,12 +220,13 @@ class Editor extends Component {
     } = this.props;
     toggleFunc(type);
   };
+
   handleGeneConfirm = () => {
     console.log(this);
   };
+
   render() {
     const {
-      toggleFunc,
       toggle,
       saveExamFunc,
       exam,
@@ -342,6 +352,7 @@ class Editor extends Component {
       </div>
     );
   }
+
   handleSubmit = () => {
     const {
       clearTempQuestionFunc,
@@ -352,16 +363,19 @@ class Editor extends Component {
       saveAnswerFunc
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
+
     const questionsAnswer = this.state[currentExamId]; //{e1:{},q2:{}}
     if (!questionsAnswer) {
       return;
     }
     const currentExam = exam[currentExamId];
     const { examState } = currentExam;
+
     if (examState !== examStateTypes.RELEASED) {
       alert("本问卷未发布,本次提交无效");
       return;
     }
+
     //todo filter require
     let hasRequireQustionDidntAnswer = false;
     let t_question = {};
@@ -407,7 +421,6 @@ class Editor extends Component {
     });
 
     saveAnswerFunc({ answer: { examId: currentExamId, questions } });
-
     clearTempQuestionFunc();
   };
 
@@ -520,12 +533,14 @@ class Editor extends Component {
   };
 }
 const mapStateToProps = (state, routerState) => {
+  const newExamId = routerState.params.examId;
+
   return {
     toggle: state.toggle,
-    message: state.message,
+    message: state.message[newExamId],
     question: state.question,
     exam: state.exam,
-    newExamId: routerState.params.examId,
+    newExamId: newExamId,
     isAnswerMode: routerState.location.pathname.indexOf("/answer") === 0,
     router: routerState.router,
     temp: state.temp

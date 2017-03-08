@@ -29,6 +29,7 @@ class Modal extends Component {
     );
   }
 }
+
 Modal.propTypes = {
   cancelFunc: React.PropTypes.func,
   confirmFunc: React.PropTypes.func,

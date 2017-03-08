@@ -24,6 +24,8 @@ const PublishStateText = ({ text, state }) => {
   );
 };
 class ExamList extends Component {
+  state = {};
+
   deleteExam = (...ids) => {
     const { changeExamStateFunc } = this.props;
     ids.forEach(id => changeExamStateFunc(id, EXAM_DELETED));
@@ -32,23 +34,21 @@ class ExamList extends Component {
     const { router } = this.props;
     router.push(`/edit/new`);
   };
-  state = {};
   handleDeleteConfirm = () => {
     const deletingExamId = this.state.deletingExamId;
     deletingExamId && this.deleteExam(...deletingExamId);
   };
+
   render() {
     const {
       setExamCheckedFunc,
       exam,
-      message,
       toggleFunc
     } = this.props;
     const haveExam = exam &&
       Object.keys(exam).some(key => {
         return exam[key].examState !== EXAM_DELETED;
       });
-    console.info(haveExam);
     return (
       <div className="examlist">
         {!haveExam
@@ -82,6 +82,7 @@ class ExamList extends Component {
                       return exam[key].examState !== EXAM_DELETED;
                     })
                     .map((key, i) => {
+
                       const {
                         titleId,
                         time,
@@ -89,6 +90,7 @@ class ExamList extends Component {
                         id,
                         checked
                       } = exam[key];
+                      const message = this.props.message[id];
                       let timing = time;
                       if (time instanceof Date) {
                         timing = time.getFullYear() +

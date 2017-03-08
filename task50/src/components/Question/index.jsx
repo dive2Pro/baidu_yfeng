@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropTypes } from "react";
 import InputItem from "../InputItem/index";
 import { questionActs } from "../../constants/questionActType";
 import classnames from "classnames";
@@ -6,6 +6,21 @@ import classnames from "classnames";
 export default function(Component) {
   class Question extends React.Component {
     state = {};
+    static propTypes = {
+      thisQuestion: React.PropTypes.object,
+      message: React.PropTypes.object,
+      index: React.PropTypes.number,
+      isLast: React.PropTypes.bool,
+      opeExamQuestionsFunc: React.PropTypes.func,
+      currentExamId: React.PropTypes.string,
+      requireable: React.PropTypes.bool,
+      setRequireFunc: React.PropTypes.func,
+      isAnswerMode: React.PropTypes.bool,
+      onToggle: React.PropTypes.func,
+      onAnswerText: React.PropTypes.func,
+      saveMessageFunc: React.PropTypes.func
+    };
+
     //TODO 将该问题的id集中在reducer中管理
     save = (id, str) => {
       this.props.saveMessageFunc({ [id]: str });
@@ -30,7 +45,6 @@ export default function(Component) {
     render() {
       const {
         thisQuestion,
-        message,
         index,
         isLast,
         opeExamQuestionsFunc,
@@ -39,7 +53,8 @@ export default function(Component) {
         setRequireFunc,
         isAnswerMode,
         onToggle,
-        onAnswerText
+        onAnswerText,
+        title
       } = this.props;
 
       const {
@@ -47,12 +62,17 @@ export default function(Component) {
         id,
         require
       } = thisQuestion;
+
       const {
         editId
       } = this.state;
+
       const requireClazz = classnames("question-title-require", {
         visible: requireable
       });
+      const requireInputClazz = classnames({
+        checked:require
+      })
       return (
         <div className="question">
           <div className="question-title">
@@ -60,13 +80,13 @@ export default function(Component) {
             <InputItem
               onToggle={this.onToggle}
               unCheckable={true}
-              save={this.save}
               id={titleId}
-              setEdit={this.setEdit}
-              msg={message[titleId]}
+              msg={title}
               editing={editId && titleId === editId}
               isAnswerMode={isAnswerMode}
+              save={this.save}
               setDestory={this.setDestory}
+              setEdit={this.setEdit}
             />
             {!isAnswerMode &&
               <div className={requireClazz}>
@@ -81,18 +101,18 @@ export default function(Component) {
           </div>
           <div className="question-items">
             <Component
-              save={this.save}
-              setEdit={this.setEdit}
-              setDestory={this.setDestory}
               editId={editId}
               onToggle={onToggle}
               onAnswerText={onAnswerText}
               {...this.props}
+              save={this.save}
+              setEdit={this.setEdit}
+              setDestory={this.setDestory}
             />
           </div>
-          <div className="question-act">
-            {!isAnswerMode &&
-              Object.keys(questionActs).map((act, i) => {
+          {!isAnswerMode &&
+            <div className="question-act">
+              {Object.keys(questionActs).map((act, i) => {
                 let content;
                 if ((index === 0 && i === 0) || (isLast && i === 1)) {
                   return "";
@@ -114,7 +134,7 @@ export default function(Component) {
                   </div>
                 );
               })}
-          </div>
+            </div>}
         </div>
       );
     }

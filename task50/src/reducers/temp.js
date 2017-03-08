@@ -30,10 +30,12 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case actionTypes.SAVE_TEMP_QUESTION:
       return saveTempQustion(state, action.id);
-    case actionTypes.CLEAR_TEMP_QUESTION:
-      return clearTempQustion(state);
+
     case actionTypes.SAVE_TEMP_EXAM:
       return saveTempExam(state, action.exam);
+
+    case actionTypes.CLEAR_TEMP_QUESTION:
+      return clearTempQustion(state);
     case actionTypes.CLEAR_TEMP_EXAM:
       return clearTempExam(state, action.exam);
     default:

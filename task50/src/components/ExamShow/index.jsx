@@ -73,14 +73,15 @@ class ExamShow extends Component {
 }
 
 const mapStateToProps = (state, routerState) => {
+  const newExamId = routerState.params.examId;
   return {
     toggle: state.toggle,
-    message: state.message,
+    message: state.message[newExamId],
     question: state.question,
     exam: state.exam,
     answer: state.answer,
     user: state.user,
-    newExamId: routerState.params.examId,
+    newExamId,
     router: routerState.router
   };
 };

@@ -1,5 +1,5 @@
-import * as actionTypes from '../../constants/actionType';
-import message from './index';
+import * as actionTypes from "../../constants/actionType";
+import message from "./index";
 
 /*describe('message reducer ', () => {
   test('messagereducer changeStatus with {} ', () => {
@@ -48,32 +48,36 @@ import message from './index';
   });
 });*/
 
-describe('message reducer ', () => {
-  test('messagereducer changeStatus with {} ', () => {
+describe("message reducer ", () => {
+  test("messagereducer changeStatus with {} ", () => {
     const initialState = {};
     const expectState = {
-      a1: 'ing'
+      e1: { a1: "ing" }
     };
     const action = {
       type: actionTypes.SAVE_MESSAGE,
-
-      message: { a1: 'ing' }
+      examId: "e1",
+      message: { a1: "ing" }
     };
     expect(message(initialState, action)).toEqual(expectState);
   });
-  test('messagereducer changeStatus with {} ', () => {
+  test("messagereducer changeStatus with {} ", () => {
     const initialState = {
-      a1: 'ing',
-      a2: 'tian tang'
+      a1: "ing",
+      a2: "tian tang"
     };
     const expectState = {
-      a1: 'ebd',
-      a2: 'tian tang'
+      a1: "ing",
+      a2: "tian tang",
+      e1: {
+        a1: "ebd"
+      }
     };
     const action = {
       type: actionTypes.SAVE_MESSAGE,
+      examId: "e1",
       message: {
-        a1: 'ebd'
+        a1: "ebd"
       }
     };
     expect(message(initialState, action)).toEqual(expectState);

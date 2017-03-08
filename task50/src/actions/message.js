@@ -1,10 +1,11 @@
 import * as actionTypes from '../constants/actionType';
-import * as topicTypes from '../constants/topicType';
+import {CURRENT_EXAM} from '../constants/toggleTypes'
 
-export function saveMessageAct(message) {
+export function saveMessageAct(examId,message) {
   return {
     type: actionTypes.SAVE_MESSAGE,
-    message
+    message,
+    examId
   };
 }
 /**
@@ -13,8 +14,9 @@ export function saveMessageAct(message) {
  * @returns {function(*=)}
  */
 export function saveMessage(message) {
-  return dispatch => {
+  return (dispatch,getState) => {
     console.log(dispatch);
-    dispatch(saveMessageAct(message));
+    const currentId = getState().toggle[CURRENT_EXAM]
+    dispatch(saveMessageAct(currentId,message));
   };
 }

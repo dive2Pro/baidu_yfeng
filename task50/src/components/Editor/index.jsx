@@ -10,7 +10,6 @@ import {
   restoreTempExam,
   handleSubmit
 } from "../../actions/answer";
-
 import {
   ADD_QUESTION,
   CURRENT_EXAM,
@@ -110,13 +109,6 @@ class Editor extends Component {
             }
             break;
         }
-        /**
-         * 当前[ExamId]:
-         *      [questionId]:
-         *          [
-         *           optionsId
-         *          ]
-         */
         return {
           [currentExamId]: {
             ...prevState[currentExamId],
@@ -142,8 +134,7 @@ class Editor extends Component {
       question,
       exam,
       toggle,
-      deleteOptionFunc,
-      addOptionFunc
+      message
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const currentExam = exam[currentExamId];
@@ -161,8 +152,6 @@ class Editor extends Component {
           case topicTypes.MULTI_TYPE:
             return (
               <ChoiceQuestion
-                addOption={addOptionFunc}
-                deleteOption={deleteOptionFunc}
                 index={i}
                 key={q}
                 isLast={i === quesIds.length - 1}
@@ -171,7 +160,7 @@ class Editor extends Component {
                 isAnswerMode={isAnswerMode}
                 onToggle={this.onToggle(ques)}
                 title={title}
-                {...this.props}
+                message={message}
               />
             );
           case topicTypes.TEXT_TYPE:
@@ -185,7 +174,7 @@ class Editor extends Component {
                 currentExamId={currentExamId}
                 isAnswerMode={isAnswerMode}
                 title={title}
-                {...this.props}
+                message={message}
               />
             );
           default:
@@ -206,7 +195,6 @@ class Editor extends Component {
       saveExamFunc,
       exam,
       isAnswerMode,
-      addQuestionFunc,
       router,
       temp
     } = this.props;
@@ -228,15 +216,7 @@ class Editor extends Component {
           <ConfirmModal
             actType={topicTypes.SINGLE_TYPE}
             confirmFunc={() => {
-              const title = this["modal-" + topicTypes.SINGLE_TYPE].value;
-              const count = this[
-                "modal-" + topicTypes.SINGLE_TYPE + "count"
-              ].value;
-              addQuestionFunc(
-                title,
-                topicTypes.SINGLE_TYPE,
-                parseInt(count) || 3
-              );
+              this.handleConfirmGeneQuestion(topicTypes.SINGLE_TYPE);
             }}
           >
             <div>
@@ -255,20 +235,11 @@ class Editor extends Component {
                 />
               </p>
             </div>
-
           </ConfirmModal>
           <ConfirmModal
             actType={topicTypes.MULTI_TYPE}
             confirmFunc={() => {
-              const title = this["modal-" + topicTypes.MULTI_TYPE].value;
-              const count = this[
-                "modal-" + topicTypes.MULTI_TYPE + "count"
-              ].value;
-              addQuestionFunc(
-                title,
-                topicTypes.MULTI_TYPE,
-                parseInt(count) || 3
-              );
+              this.handleConfirmGeneQuestion(topicTypes.MULTI_TYPE);
             }}
           >
             <div>
@@ -292,8 +263,7 @@ class Editor extends Component {
           <ConfirmModal
             actType={topicTypes.TEXT_TYPE}
             confirmFunc={() => {
-              const title = this["modal-" + topicTypes.TEXT_TYPE].value;
-              addQuestionFunc(title, topicTypes.TEXT_TYPE);
+              this.handleConfirmGeneQuestion(topicTypes.TEXT_TYPE);
             }}
           >
             <div>
@@ -331,15 +301,27 @@ class Editor extends Component {
       </div>
     );
   }
-
+  handleConfirmGeneQuestion = type => {
+    const title = this["modal-" + type].value;
+    const countView = this["modal-" + type + "count"];
+    let count = countView && countView.value;
+    if (Math.isNaN(count)) {
+      count = 3;
+    } else if (parseInt(count) > 10) {
+      count = 10;
+    } else if (parseInt(count) < 1) {
+      count = 3;
+    }
+    this.props.addQuestionFunc(title, topicTypes.SINGLE_TYPE, count);
+  };
   handleSubmit = () => {
     const {
       toggle,
       handleSubmitFunc
     } = this.props;
-    const currentExamId = toggle[CURRENT_EXAM]
+    const currentExamId = toggle[CURRENT_EXAM];
     const questionAnswer = this.state[currentExamId];
-    questionAnswer && handleSubmitFunc(currentExamId,questionAnswer);
+    questionAnswer && handleSubmitFunc(currentExamId, questionAnswer);
   };
 
   geneAnswerBottom = () => {
@@ -411,7 +393,6 @@ class Editor extends Component {
               minDate={moment()}
             />
           </div>
-
           <div>
             <button
               onClick={() => {
@@ -436,7 +417,6 @@ class Editor extends Component {
 
 const mapStateToProps = (state, routerState) => {
   const newExamId = routerState.params.examId;
-
   return {
     toggle: state.toggle,
     message: state.message[newExamId],
@@ -457,8 +437,6 @@ const mapDispatchToProps = dispatch => {
     changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
     geneExamFunc: bindActionCreators(actions.geneExam, dispatch),
     saveTempExamFunc: bindActionCreators(saveTempExam, dispatch),
-    addOptionFunc: bindActionCreators(actions.addOption, dispatch),
-    deleteOptionFunc: bindActionCreators(actions.deleteOption, dispatch),
     restoreTempExamFunc: bindActionCreators(restoreTempExam, dispatch),
     handleSubmitFunc: bindActionCreators(handleSubmit, dispatch),
     resetToggledFunc: bindActionCreators(actions.resetToggled, dispatch)

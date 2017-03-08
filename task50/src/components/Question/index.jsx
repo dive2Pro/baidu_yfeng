@@ -7,7 +7,9 @@ import { bindActionCreators } from "redux";
 import {
   setContentId,
   opeExamQuestions,
-  saveQuestion
+  saveQuestion,
+  addOption,
+  deleteOption
 } from "../../actions/index";
 export default function(Component) {
   class Question extends React.Component {
@@ -148,7 +150,9 @@ export default function(Component) {
   const mapDispatchToProps = dispatch => ({
     setContentIdFunc: bindActionCreators(setContentId, dispatch),
     opeExamQuestionsFunc: bindActionCreators(opeExamQuestions, dispatch),
-    saveQuestionFunc: bindActionCreators(saveQuestion, dispatch)
+    saveQuestionFunc: bindActionCreators(saveQuestion, dispatch),
+    addOptionFunc: bindActionCreators(addOption, dispatch),
+    deleteOptionFunc: bindActionCreators(deleteOption, dispatch)
   });
   return connect(null, mapDispatchToProps)(Question);
 }

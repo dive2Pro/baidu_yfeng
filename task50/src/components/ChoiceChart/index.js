@@ -6,9 +6,7 @@ import { MULTI_TYPE, TEXT_TYPE, SINGLE_TYPE } from "../../constants/topicType";
 import Chart from "../Chart/Chart";
 import { fromCharCode } from "../../constants/utils";
 export default class ChoiceChart extends Component {
-  constructor(props) {
-    super(props);
-  }
+
   render() {
     const { question, message, answer, index, answerCount } = this.props;
     const { type, titleId, optionsId } = question;

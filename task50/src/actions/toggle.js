@@ -1,6 +1,5 @@
 import * as actionTypes from "../constants/actionType";
 import { guid } from "../constants/utils";
-import { saveTempExam } from "./answer";
 export function toggle(toggleType) {
   return {
     type: actionTypes.SET_TOGGLED,

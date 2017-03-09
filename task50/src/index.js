@@ -11,6 +11,7 @@ import EditorContainer from "./components/Editor/index";
 import ExamShowContainer from "./components/ExamShow/index";
 import { toggle, resetToggled } from "./actions/index";
 import { ANSWER_MODE } from "./constants/toggleTypes";
+
 require("../styles/index.scss");
 // 监视location的跳转,设置是否可编辑问题
 reduxHistory.listen(location => {

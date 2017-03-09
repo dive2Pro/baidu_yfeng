@@ -35,13 +35,10 @@ class Editor extends Component {
       changeExamTimeFunc,
       newExamId,
       router,
-      toggleFunc,
-      isAnswerMode,
       saveTempExamFunc,
       geneExamFunc
     } = this.props;
 
-    if (isAnswerMode) toggleFunc(ANSWER_MODE);
     if (exam[newExamId]) {
       this.setState(
         {
@@ -196,17 +193,22 @@ class Editor extends Component {
       exam,
       isAnswerMode,
       router,
-      temp
+      temp,
+      saveMessageFunc,
+      message
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const currentExam = exam[currentExamId];
+    if (!currentExam) return <div>...</div>;
     return (
       <div className="editor">
         <EditorTitle
-          isAnswerMode={toggle[ANSWER_MODE]}
-          {...this.props}
           currentExam={currentExam}
           handleGoback={() => router.go(-1)}
+          isAnswerMode={isAnswerMode}
+          titleId={currentExam.titleId}
+          title={message[currentExam.titleId]}
+          saveMessageFunc={saveMessageFunc}
         />
         <div className="editor-questions">
           {this.geneQuestionsView()}
@@ -305,7 +307,7 @@ class Editor extends Component {
     const title = this["modal-" + type].value;
     const countView = this["modal-" + type + "count"];
     let count = countView && countView.value;
-    if (Math.isNaN(count)) {
+    if (Number.isNaN(count)) {
       count = 3;
     } else if (parseInt(count) > 10) {
       count = 10;
@@ -433,6 +435,7 @@ const mapDispatchToProps = dispatch => {
     toggleFunc: bindActionCreators(actions.toggle, dispatch),
     addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch),
     saveExamFunc: bindActionCreators(actions.saveExam, dispatch),
+    saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch),
     setToggleIdFunc: bindActionCreators(actions.setToggleId, dispatch),
     changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
     geneExamFunc: bindActionCreators(actions.geneExam, dispatch),

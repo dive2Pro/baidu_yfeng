@@ -17,9 +17,10 @@ class EditorTitle extends Component {
   render() {
     const {
       currentExam,
-      message,
       isAnswerMode,
-      handleGoback
+      handleGoback,
+      title,
+      titleId
     } = this.props;
     if (!currentExam) return <div />;
     return (
@@ -31,10 +32,10 @@ class EditorTitle extends Component {
           unCheckable={true}
           save={this.save}
           isAnswerMode={isAnswerMode}
-          id={currentExam.titleId}
+          id={titleId}
           setEdit={this.setEdit}
-          msg={message[currentExam.titleId] || "这里是标题"}
-          editing={currentExam.titleId === this.state.editId}
+          msg={title || "这里是标题"}
+          editing={titleId === this.state.editId}
         />
 
       </div>

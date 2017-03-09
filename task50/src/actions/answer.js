@@ -31,7 +31,10 @@ const tempWarning = message => ({
  *           optionsId
  *          ]
  */
-export const handleSubmit = (currentExamId,questionsAnswer) => (dispatch, getState) => {
+export const handleSubmit = (currentExamId, questionsAnswer) => (
+  dispatch,
+  getState
+) => {
   if (!questionsAnswer) {
     return;
   }
@@ -92,6 +95,7 @@ export const handleSubmit = (currentExamId,questionsAnswer) => (dispatch, getSta
   };
   dispatch(saveAnswer(answerObj));
 };
+
 export const saveTempExam = () => (dispatch, getState) => {
   const rootState = getState();
   const { question, exam, toggle, message } = rootState;
@@ -102,6 +106,7 @@ export const saveTempExam = () => (dispatch, getState) => {
   questionsId.forEach(id => {
     tempQuestions[id] = { ...question[id] };
   });
+
   const tempMessage = message[currentExamId];
   const tempExam = {
     exam: { ...currentExam },

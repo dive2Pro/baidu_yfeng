@@ -9,7 +9,8 @@ import {
   opeExamQuestions,
   saveQuestion,
   addOption,
-  deleteOption
+  deleteOption,
+  saveMessage
 } from "../../actions/index";
 export default function(Component) {
   class Question extends React.Component {
@@ -151,8 +152,9 @@ export default function(Component) {
     setContentIdFunc: bindActionCreators(setContentId, dispatch),
     opeExamQuestionsFunc: bindActionCreators(opeExamQuestions, dispatch),
     saveQuestionFunc: bindActionCreators(saveQuestion, dispatch),
-    addOptionFunc: bindActionCreators(addOption, dispatch),
-    deleteOptionFunc: bindActionCreators(deleteOption, dispatch)
+    saveMessageFunc: bindActionCreators(saveMessage, dispatch),
+    addOption: bindActionCreators(addOption, dispatch),
+    deleteOption: bindActionCreators(deleteOption, dispatch)
   });
   return connect(null, mapDispatchToProps)(Question);
 }

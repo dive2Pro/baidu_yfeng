@@ -16,9 +16,6 @@ const localStore = store => next => action => {
   ) {
     crossStore.set("Baidu_Ife", store.getState());
   }
-  if (isActionFunc) {
-  } else {
-  }
   next(action);
 };
 export default localStore;

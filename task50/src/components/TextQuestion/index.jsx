@@ -47,8 +47,6 @@ class TextQuestion extends Component {
     return (
       <div>
         <textarea
-          rows="10"
-          cols="80"
           onBlur={this.handleSubmit}
           onFocus={() => setEdit(contentId)}
           onChange={this.handleChange}

@@ -120,10 +120,7 @@ class ExamList extends Component {
               <span>
                 操作
               </span>
-              <CreateExamButton
-                classname="newlistMini"
-                onClick={this.createNewExam}
-              />
+
             </div>
           </div>
         </div>
@@ -165,6 +162,10 @@ class ExamList extends Component {
             </button>
           </div>
         </div>
+        <CreateExamButton
+          classname="newlistMini"
+          onClick={this.createNewExam}
+        />
       </div>
     );
   };

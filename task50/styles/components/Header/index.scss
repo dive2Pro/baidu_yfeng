@@ -4,9 +4,19 @@
   height: ($padding *2);
   display: flex;
   justify-items: center;
+  transition: all 0.5s;
   a{
     display: block;
     color: white;
     font-size: 1rem;
+  }
+}
+
+@mixin header--md(){
+  .overScroll40{
+    position: fixed;
+    width: 100vw;
+    margin-top: -8px;
+    z-index: 99;
   }
 }

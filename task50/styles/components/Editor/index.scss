@@ -16,7 +16,12 @@
     }
     border-bottom: $baseEm solid $borderColor;
   }
-  &-questions {}
+  &-questions {
+    textarea{
+      width: 90%;
+      height: 15vh;
+    }
+  }
   &-addquestion {
     overflow: hidden;
     margin-top:($padding);
@@ -35,7 +40,6 @@
     &-items {
       background: $backgroundContent;
       display: flex;
-
       &>button{
         margin-right: ($padding*2);
       }
@@ -44,7 +48,6 @@
       background: $background;
       height: 100%;
       display: flex;
-      &.active {}
     }
   }
   &-bottom {
@@ -60,7 +63,6 @@
         margin-right: $padding;
       }
     }
-
     input[type='text']{
       padding:($padding/4) ($padding);
     }
@@ -81,4 +83,29 @@
     }
 
   }
+}
+@mixin editor--md(){
+  .editor{
+    transform: scale(1.005);
+    transition: transform 0.5s;
+    &-addquestion{
+      &-items{
+      &>button{
+        margin-right: $baseEm;
+        }
+      }
+    }
+    &-bottom{
+      flex-wrap: wrap;
+      &-left{
+        flex-wrap: wrap;
+        margin-bottom:($padding/2);
+      }
+    }
+
+  }
+}
+
+@mixin editor-sd(){
+
 }

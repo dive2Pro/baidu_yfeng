@@ -1,0 +1,11 @@
+
+@media screen and(max-width: 950px) {
+  @include examlist--sm();
+}
+
+@media screen and (min-width: 55px){
+  @include examlist--md();
+  @include body--md();
+  @include editor--md();
+  @include header--md();
+}

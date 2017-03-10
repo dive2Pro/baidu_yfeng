@@ -1,5 +1,6 @@
 .examlist {
-  & .newlist {
+  position: relative;
+   .newlist {
     min-height: 320px;
     display: flex;
     align-items: center;
@@ -7,7 +8,7 @@
     background: $backgroundContent;
     justify-content: center;
   }
-  & .itemcontainer {
+   .itemcontainer {
     display: flex;
     position: relative;
     min-height: 30px;
@@ -20,6 +21,7 @@
     &>:first-child {
       flex: 2;
       display: flex;
+      min-width: ($padding*10);
       & label{
         display:block;
         width:100%;
@@ -32,13 +34,16 @@
     }
     &>:nth-child(2) {
       flex: 1;
+      min-width: ($padding*6);
     }
     &>:nth-child(3) {
       flex: 1;
+      min-width: ($padding*5);
     }
     &>:last-child {
       flex: 2;
       display: flex;
+      min-width: 400px;
       & button{
         flex:1;
         margin-right: ($padding/4);
@@ -49,16 +54,11 @@
      position: relative;
      background: #ffc792;
      font-size:1.2em;
-    .newlistMini {
-      position: absolute;
-      right: 10%;
-      bottom: ($padding/6);
-    }
   }
-  & .listcontent {
+   .listcontent {
     background: $backgroundContent;
     font-size: 1em;
-    & .listitems {
+     .listitems {
       padding: ($padding/4);
       &>div {
         border-bottom: 1px solid #999;
@@ -68,7 +68,7 @@
         color: $fontColor;
       }
     }
-    & .listbottom {
+     .listbottom {
       padding: ($padding/8) ($padding*2/3);
       padding-bottom: ($padding*2);
       display: flex;
@@ -76,6 +76,58 @@
         margin-left: $padding;
         padding-left: $padding;
         padding-right: $padding;
+      }
+    }
+
+  }
+  .newlistMini {
+    position: absolute;
+    right: 20%;
+    top:($padding/5);
+  }
+
+}
+
+
+@mixin examlist--sm(){
+  .examlist{
+
+  background-color: #222222!important;
+  .listcontent {
+    .itemcontainer {
+      flex-wrap: wrap;
+      max-width: 920px;
+      &>:not(:last-child){
+      }
+    }
+  }
+  .listtitle{
+    .itemcontainer{
+      &>:last-child{
+        position: absolute;
+        left:-9999px;
+      }
+
+    }
+  }
+  .newlistMini {
+    position: absolute;
+    right: 20%;
+    bottom: 12%;
+    top:76%;
+  }
+  }
+}
+
+@mixin examlist--md(){
+  .examlist {
+    .listtitle {
+      display: none;
+    }
+    .itemcontainer {
+      button {
+        margin: 0 0;
+        padding: 2px;
       }
     }
   }

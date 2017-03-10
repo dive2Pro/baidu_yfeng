@@ -55,7 +55,7 @@ class InputItem extends Component {
               }}
               name="asd"
             />}
-          <label onDoubleClick={() => !isAnswerMode && setEdit(id)}>
+          <label onClick={() => !isAnswerMode && setEdit(id)}>
             {msg || defStr}
           </label>
         </div>

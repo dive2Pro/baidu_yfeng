@@ -19,6 +19,7 @@ $solidBackgroundShadow: -3px -3px 5px 0px rgba(140, 140, 140, 0.8),
 3px 3px 5px 0px rgba(140, 140, 140, 0.8);
 $bigIcon:2em;
 $mediumIcon:1.2em;
+$smallIcon:0.8em;
 @mixin border($color,$size){
   border:$size solid $color;
 }

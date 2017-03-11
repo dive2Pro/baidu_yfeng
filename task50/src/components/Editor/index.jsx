@@ -25,9 +25,13 @@ import ConfirmModal from "../Modal/ConfirmModal";
 import { deleteElementFromArray } from "../../constants/utils";
 const DatePicker = require("react-datepicker");
 const moment = require("moment");
+import InputWithEdit from "../InputItem/InputWithEdit";
+import CheckOrRadioSelectView from "../InputItem/CheckOrRadioSelectView";
 require("react-datepicker/dist/react-datepicker.css");
 
 class Editor extends Component {
+  state = {};
+
   componentDidMount() {
     const {
       setToggleIdFunc,
@@ -73,47 +77,18 @@ class Editor extends Component {
     setToggleIdFunc(CURRENT_EXAM, null);
     resetToggledFunc(ADD_QUESTION);
   }
-
-  state = {};
-
-  /**
-   *
-   * @param question
-   */
-  onToggle = question =>
-    /**
-     *
-     * @param id optionsId
-     * @param index  optionsIds position
-     * @param checked
-     *
-     */
-    (id, index, checked) => {
-      const { toggle } = this.props;
-      const currentExamId = toggle[CURRENT_EXAM];
-      this.setState(prevState => {
-        let selectOptions = (prevState[currentExamId] &&
-          prevState[currentExamId][question.id]) || [];
-        switch (question.type) {
-          case topicTypes.SINGLE_TYPE:
-            selectOptions = [id];
-            break;
-          case topicTypes.MULTI_TYPE:
-            if (!checked) {
-              selectOptions = deleteElementFromArray(selectOptions, id);
-            } else {
-              selectOptions.push(id);
-            }
-            break;
+  onToggle = question => ids => {
+    const { toggle } = this.props;
+    const currentExamId = toggle[CURRENT_EXAM];
+    this.setState(prevState => {
+      return {
+        [currentExamId]: {
+          ...prevState[currentExamId],
+          [question.id]: ids
         }
-        return {
-          [currentExamId]: {
-            ...prevState[currentExamId],
-            [question.id]: selectOptions
-          }
-        };
-      });
-    };
+      };
+    });
+  };
 
   handleDateChange = date => {
     this.setState({
@@ -131,7 +106,8 @@ class Editor extends Component {
       question,
       exam,
       toggle,
-      message
+      message,
+      isAnswerMode
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const currentExam = exam[currentExamId];
@@ -139,26 +115,27 @@ class Editor extends Component {
       return <div>...</div>;
     }
     const quesIds = currentExam ? currentExam.questionsId : [];
-    const isAnswerMode = toggle[ANSWER_MODE];
     return quesIds &&
       quesIds.map((q, i) => {
         const ques = question[q];
-        const title = "";
+        const title = message[ques.titleId];
         switch (ques.type) {
           case topicTypes.SINGLE_TYPE:
           case topicTypes.MULTI_TYPE:
             return (
-              <ChoiceQuestion
-                index={i}
-                key={q}
-                isLast={i === quesIds.length - 1}
-                thisQuestion={ques}
-                currentExamId={currentExamId}
-                isAnswerMode={isAnswerMode}
-                onToggle={this.onToggle(ques)}
-                title={title}
-                message={message}
-              />
+              <div>
+                <ChoiceQuestion
+                  index={i}
+                  key={q}
+                  isLast={i === quesIds.length - 1}
+                  thisQuestion={ques}
+                  currentExamId={currentExamId}
+                  isAnswerMode={isAnswerMode}
+                  onHandleChange={this.onToggle(ques)}
+                  message={message}
+                  title={title}
+                />
+              </div>
             );
           case topicTypes.TEXT_TYPE:
             return (
@@ -185,7 +162,7 @@ class Editor extends Component {
     } = this.props;
     toggleFunc(type);
   };
-
+  onHandleInput = ({ id, value }) => {};
   render() {
     const {
       toggle,
@@ -419,13 +396,15 @@ class Editor extends Component {
 
 const mapStateToProps = (state, routerState) => {
   const newExamId = routerState.params.examId;
+  const answerMode = routerState.location.pathname.indexOf("/answer") === 0;
+  console.log("answerMode = " + answerMode,routerState);
   return {
     toggle: state.toggle,
     message: state.message[newExamId],
     question: state.question,
     exam: state.exam,
     newExamId: newExamId,
-    isAnswerMode: routerState.location.pathname.indexOf("/answer") === 0,
+    isAnswerMode: answerMode,
     router: routerState.router,
     temp: state.temp
   };

@@ -12,6 +12,7 @@ import {
   deleteOption,
   saveMessage
 } from "../../actions/index";
+import InputWithEditView from "../InputItem/InputWithEdit";
 export default function(Component) {
   class Question extends React.Component {
     state = {};
@@ -36,6 +37,14 @@ export default function(Component) {
       this.setState({
         editId: null
       });
+    };
+    onHandleInput = ({ id, value }) => {
+      console.info("onHandleInput " + id + "  value = " + value);
+      if (!!value) {
+        this.save(id, value);
+      } else {
+        this.setDestory(id);
+      }
     };
 
     setEdit = id => {
@@ -63,7 +72,8 @@ export default function(Component) {
         isAnswerMode,
         onToggle,
         onAnswerText,
-        title
+        title,
+        onHandleChange
       } = this.props;
 
       const {
@@ -86,16 +96,11 @@ export default function(Component) {
         <div className="question">
           <div className="question-title">
             <div>Q{index + 1}</div>
-            <InputItem
-              onToggle={this.onToggle}
-              unCheckable={true}
+            <InputWithEditView
+              onHandleInput={this.onHandleInput}
               id={titleId}
-              msg={title}
-              editing={editId && titleId === editId}
+              placeHold={title}
               isAnswerMode={isAnswerMode}
-              save={this.save}
-              setDestory={this.setDestory}
-              setEdit={this.setEdit}
             />
             {!isAnswerMode &&
               <div className={requireClazz}>
@@ -110,13 +115,11 @@ export default function(Component) {
           </div>
           <div className="question-items">
             <Component
-              editId={editId}
               onToggle={onToggle}
               onAnswerText={onAnswerText}
+              onHandleInput={this.onHandleInput}
+              onHandleChange={onHandleChange}
               {...this.props}
-              save={this.save}
-              setEdit={this.setEdit}
-              setDestory={this.setDestory}
             />
           </div>
           {!isAnswerMode &&

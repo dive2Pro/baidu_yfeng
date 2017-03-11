@@ -85,7 +85,10 @@ class ExamList extends Component {
         title: "标题",
         dataIndex: "examTitle",
         width: "22%",
-        key: "title"
+        key: "title",
+        render: (text, item) => {
+          return <Link to={`answer/${item.key}`}><span>{text}</span></Link>;
+        }
       },
       {
         title: "时间",

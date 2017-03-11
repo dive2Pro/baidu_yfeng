@@ -6,7 +6,15 @@
       font-size: $bigIcon;
       display: flex;
       align-items: center;
-      justify-content: center;
+      position: relative;
+      justify-content: flex-start;
+      ._inputitem_edit{
+        display: flex;
+        flex: 1;
+        label{
+          font-size: $smallIcon;
+        }
+      }
       &-require {
         visibility: hidden;
         display: flex;
@@ -41,8 +49,33 @@
         opacity: 1;
       }
     }
+
     &-items{
-      margin-left: $padding;
+      &-item{
+        display: flex;
+        font-size: ($padding);
+        align-items: center;
+        ._checkboxgroup{
+          display: flex;
+          flex-direction: column;
+        }
+        .ant-checkbox-group{
+          display: flex;
+          flex-direction: column;
+          span{
+            font-size: $mediumIcon;
+          }
+        }
+        ._inputitem_edit {
+          display: flex;
+          flex: 1;
+          label {
+            font-size: $smallIcon;
+          }
+        }
+
+      }
+            margin-left: $padding;
       &-add{
         font-size: 1.5em;
         display: inline-block;

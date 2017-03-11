@@ -52,3 +52,18 @@ export function deleteElementFromArray(arr, v) {
 export function fromCharCode(code) {
   return String.fromCharCode(code);
 }
+
+export function debounce(func) {
+  let timer, context, result, args;
+  const later = function() {
+    result = func.apply(context, args);
+  };
+  return (...rest) => {
+    console.log("rest= ", rest);
+    context = this;
+    args = rest;
+    timer && clearTimeout(timer);
+    timer = setTimeout(later, 500);
+    return result;
+  };
+}

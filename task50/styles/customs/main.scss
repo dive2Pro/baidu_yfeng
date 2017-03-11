@@ -5,6 +5,8 @@ body {
   letter-spacing: 0.02em;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  margin:0;
+  padding:0;
   ul,
   li {
     list-style: none;
@@ -41,7 +43,7 @@ path:hover{
 
   }
   &-content{
-    margin:$padding*2;
+    margin:($padding*2+8) $padding*2 $padding*2 $padding*2;
     border-radius: 0.2rem!important;
     box-shadow: $solidBackgroundShadow;
   }

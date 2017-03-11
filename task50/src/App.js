@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import Header from "./components/Header/index";
 import { connect } from "react-redux";
-
-// <Editor />
+import { Layout } from "antd";
+import "antd/dist/antd.min.css";
+const { Content: AntContent } = Layout;
 class App extends Component {
   render() {
     return (
-      <div>
-        <div id="app-title">
-          <Header />
-        </div>
-        <div id="app-content">
+      <Layout className="layout">
+        <Header />
+        <AntContent id="app-content">
           {this.props.children}
-        </div>
-      </div>
+        </AntContent>
+      </Layout>
     );
   }
 }

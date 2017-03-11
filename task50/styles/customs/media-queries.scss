@@ -3,7 +3,7 @@
   @include examlist--sm();
 }
 
-@media screen and (min-width: 55px){
+@media screen and (max-width: 55px){
   @include examlist--md();
   @include body--md();
   @include editor--md();

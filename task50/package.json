@@ -4,11 +4,8 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
-    "d3": "^4.7.1",
     "moment": "^2.17.1",
-    "react": "^15.4.2",
     "react-datepicker": "^0.41.1",
-    "react-dom": "^15.4.2",
     "react-motion": "^0.4.7",
     "react-redux": "^5.0.3",
     "react-router": "^3.0.2",
@@ -17,6 +14,10 @@
     "store": "^2.0.4"
   },
   "devDependencies": {
+    "d3": "^4.7.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "antd": "^2.8.0",
     "autoprefixer": "6.7.2",
     "babel-core": "6.22.1",
     "babel-eslint": "7.1.1",

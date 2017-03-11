@@ -10,9 +10,9 @@ import {
   OUT_DATE
 } from "../../constants/examStateType";
 import { Link } from "react-router";
-import DeleteModal from "../Modal/ConfirmModal";
+import ConfirmModal from "../Modal/ConfirmModal";
+import { Table, Popconfirm, Button } from "antd";
 import { CONFIRM_MODAL } from "../../constants/toggleTypes";
-import Button from "../Button";
 
 const CreateExamButton = ({ classname, onClick, text = "新建问卷" }) => {
   return <button className={classname} onClick={onClick}>{text}</button>;
@@ -24,7 +24,7 @@ const PublishStateText = ({ text, state }) => {
   );
 };
 class ExamList extends Component {
-  state = {};
+  state = { selectedRowKeys: [] };
 
   renderCraeteNewExam = () => (
     <div className="newlist">
@@ -42,10 +42,11 @@ class ExamList extends Component {
     const { router } = this.props;
     router.push(`/edit/new`);
   };
+
   handleDeleteConfirm = () => {
-    const deletingExamId = this.state.deletingExamId;
-    deletingExamId && this.deleteExam(...deletingExamId);
+    this.deleteExam(...this.state.selectedRowKeys);
   };
+
   flatDateToString = time => {
     let timing = time;
     if (time instanceof Date) {
@@ -57,116 +58,93 @@ class ExamList extends Component {
     }
     return timing;
   };
-
-  renderExamItem = ({ examItem, message }) => {
-    const { setExamCheckedFunc, toggleFunc } = this.props;
-    const { titleId, time, examState, id: examId, checked } = examItem;
-    const buttonUnClickable = examState === (RELEASED || OUT_DATE);
-    let timing = this.flatDateToString(time);
-    const title = message[titleId];
-    return (
-      <div key={examId} className="itemcontainer">
-        <div>
-          <input
-            onChange={() => setExamCheckedFunc(!checked, examId)}
-            type="checkbox"
-            checked={checked}
-            id={examId}
-          />
-          <label>
-            <Link to={`/answer/${examId}`}>{title}</Link>
-          </label>
-        </div>
-        <div>
-          {timing}
-        </div>
-        <div>
-          {PublishStateText({ state: examState })}
-        </div>
-        <div>
-          <Button isUnClickable={buttonUnClickable}>
-            <Link to={`/edit/${examId}`}>编辑</Link>
-          </Button>
-          <Button
-            isUnClickable={buttonUnClickable}
-            onhandleClick={() => {
-              this.setState({
-                deletingExamId: examId
-              });
-              toggleFunc(CONFIRM_MODAL);
-            }}
-          >
-            删除
-          </Button>
-          <button>
-            <Link to={`/show/${examId}`}>查看数据</Link>
-          </button>
-        </div>
-      </div>
-    );
+  onSelectChange = selectedRowKeys => {
+    console.log("selectedRowKeys changed: ", selectedRowKeys);
+    this.setState({ selectedRowKeys });
   };
-
   rendernExamList = () => {
-    const { exam, message: allMessages } = this.props;
-    const { setExamCheckedFunc, toggleFunc } = this.props;
-    return (
-      <div>
-        <div className="listtitle">
-          <div className="itemcontainer">
-            <div>标题</div>
-            <div>时间</div>
-            <div>状态</div>
-            <div>
-              <span>
-                操作
-              </span>
+    const { exam, message: allMessages, toggleFunc } = this.props;
+    const data = [];
+    Object.keys(exam)
+      .filter(key => exam[key].examState !== EXAM_DELETED)
+      .forEach(key => {
+        const examItem = exam[key];
+        const message = allMessages[examItem.id];
+        const { titleId, time, examState, id: examId } = examItem;
+        data.push({
+          key: examId,
+          examTitle: message[titleId],
+          time,
+          status: examState,
+          operation: { examId, examState }
+        });
+      });
 
+    const columns = [
+      {
+        title: "标题",
+        dataIndex: "examTitle",
+        width: "22%",
+        key: "title"
+      },
+      {
+        title: "时间",
+        dataIndex: "time",
+        width: "15%",
+        key: "time"
+      },
+      {
+        title: "状态",
+        dataIndex: "status",
+        width: "15%",
+        key: "status"
+      },
+      {
+        title: "操作",
+        dataIndex: "operation",
+        width: "42%",
+        key: "operation",
+        render: ({ examId, examState }) => {
+          const buttonUnClickable = examState === (RELEASED || OUT_DATE);
+          return (
+            <div>
+              <Button disabled={buttonUnClickable}>
+                <Link to={`/edit/${examId}`}>编辑</Link>
+              </Button>
+
+              <Popconfirm
+                placement="top"
+                title={"提示"}
+                okText="确定"
+                cancelText="取消"
+                onConfirm={() => this.deleteExam(examId)}
+              >
+                <Button disabled={buttonUnClickable}>
+                  删除
+                </Button>
+              </Popconfirm>
+              <Button>
+                <Link to={`/show/${examId}`}>查看数据</Link>
+              </Button>
             </div>
-          </div>
-        </div>
-        <div className="listcontent">
-          <div className="listitems">
-            {Object.keys(exam)
-              .filter(key => exam[key].examState !== EXAM_DELETED)
-              .map(key => {
-                const examItem = exam[key];
-                const message = allMessages[examItem.id];
-                return this.renderExamItem({ message, examItem });
-              })}
-          </div>
-          <div className="listbottom">
-            <input
-              onClick={() => {
-                setExamCheckedFunc(this.allInp.checked, ...Object.keys(exam));
-              }}
-              ref={i => this.allInp = i}
-              type="checkbox"
-              id="all_check"
-            />
-            <label htmlFor="all_check">全选</label>
-            <button
-              onClick={() => {
-                const waitingDeletes = Object.keys(exam).filter(
-                  key => exam[key].checked
-                );
-                if (waitingDeletes.length > 0) {
-                  this.setState({
-                    deletingExamId: waitingDeletes
-                  });
-                  toggleFunc(CONFIRM_MODAL);
-                  this.allInp.checked = false;
-                }
-              }}
-            >
-              删除
-            </button>
-          </div>
-        </div>
-        <CreateExamButton
-          classname="newlistMini"
-          onClick={this.createNewExam}
-        />
-      </div>
+          );
+        }
+      }
+    ];
+    const rowSelection = {
+      selectedRowKeys: this.state.selectedRowKeys,
+      onChange: this.onSelectChange
+    };
+    const footer = () => {
+      return <Button onClick={() => toggleFunc(CONFIRM_MODAL)}>删除选择</Button>;
+    };
+    return (
+      <Table
+        footer={footer}
+        rowSelection={rowSelection}
+        dataSource={data}
+        columns={columns}
+      />
     );
   };
   render() {
@@ -175,10 +153,16 @@ class ExamList extends Component {
       Object.keys(exam).some(key => {
         return exam[key].examState !== EXAM_DELETED;
       });
+
     return (
       <div className="examlist">
         {!haveExam ? this.renderCraeteNewExam() : this.rendernExamList()}
-        <DeleteModal confirmFunc={this.handleDeleteConfirm} />
+        <ConfirmModal
+          actType={CONFIRM_MODAL}
+          confirmFunc={this.handleDeleteConfirm}
+        >
+          确定要删除选择的问卷?
+        </ConfirmModal>
       </div>
     );
   }

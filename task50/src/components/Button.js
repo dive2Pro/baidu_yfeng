@@ -2,20 +2,18 @@
  * Created by hyc on 17-3-7.
  */
 import React, { Component } from "react";
-import classnames from "classnames";
+import { Button as AntButton } from "antd";
+
 export default class Button extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
-    const { content, onhandleClick, isUnClickable, children } = this.props;
-    const clazz = classnames({
-      unuseable: isUnClickable
-    });
+    const { content,
+      onhandleClick,
+      disabled,
+      children } = this.props;
     return (
-      <button className={clazz} onClick={onhandleClick}>
+      <AntButton disabled={disabled} onClick={onhandleClick}>
         {children}
-      </button>
+      </AntButton>
     );
   }
 }

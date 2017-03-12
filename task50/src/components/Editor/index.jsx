@@ -14,7 +14,6 @@ import {
   ADD_QUESTION,
   CURRENT_EXAM,
   CONFIRM_MODAL,
-  ANSWER_MODE,
   WARNING_MODAL
 } from "../../constants/toggleTypes";
 import TextQuestion from "../TextQuestion/index";
@@ -22,12 +21,10 @@ import EditorTitle from "./title";
 // import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
 import { spring, Motion } from "react-motion";
 import ConfirmModal from "../Modal/ConfirmModal";
-import { deleteElementFromArray } from "../../constants/utils";
-const DatePicker = require("react-datepicker");
+import Button from "../Button";
+import { Icon, DatePicker } from "antd";
+
 const moment = require("moment");
-import InputWithEdit from "../InputItem/InputWithEdit";
-import CheckOrRadioSelectView from "../InputItem/CheckOrRadioSelectView";
-require("react-datepicker/dist/react-datepicker.css");
 
 class Editor extends Component {
   state = {};
@@ -162,7 +159,7 @@ class Editor extends Component {
     } = this.props;
     toggleFunc(type);
   };
-  onHandleInput = ({ id, value }) => {};
+
   render() {
     const {
       toggle,
@@ -314,8 +311,7 @@ class Editor extends Component {
     const {
       toggle,
       saveExamFunc,
-      toggleFunc,
-      router
+      toggleFunc
     } = this.props;
     const memeIcons = ["⭕", "⬜", "📝"];
     const topicArr = topicTypes.arr;
@@ -343,23 +339,26 @@ class Editor extends Component {
               >
                 {Object.keys(topicArr).map((type, index) => {
                   return (
-                    <button
+                    <Button
                       key={index}
-                      onClick={() => this.handleToggleFunc(type)}
+                      onhandleClick={() => this.handleToggleFunc(type)}
                     >
                       {memeIcons[index] + "  " + topicArr[type]}
-                    </button>
+                    </Button>
                   );
                 })}
               </div>
             )}
           </Motion>
           <div
+            href="#"
             key="editor-AddQuestion"
             className="editor-addquestion-add"
             onClick={() => toggleFunc(ADD_QUESTION)}
           >
-            <h2>＋　添加问题</h2>
+            <Icon style={{ fontSize: "20px" }} type="plus-circle-o" />
+            {"    "}
+            添加问题
           </div>
         </div>
         <div className="editor-bottom">
@@ -367,26 +366,30 @@ class Editor extends Component {
             <span>问卷截止日期:</span>
             <DatePicker
               dateFormat="YYYY-MM-DD"
-              selected={this.state.startDate}
+              value={this.state.startDate}
+              defaultValue={this.state.startDate}
               onChange={this.handleDateChange}
-              minDate={moment()}
+              disabledDate={t => {
+                return t && t.valueOf() < Date.now();
+              }}
+              allowClear={false}
             />
           </div>
           <div>
-            <button
-              onClick={() => {
+            <Button
+              onhandleClick={() => {
                 saveExamFunc(currentExamId, examStateTypes.UN_RELEASE);
               }}
             >
               保存问卷
-            </button>
-            <button
-              onClick={() => {
+            </Button>
+            <Button
+              onhandleClick={() => {
                 toggleFunc(CONFIRM_MODAL);
               }}
             >
               发布问卷
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -397,7 +400,7 @@ class Editor extends Component {
 const mapStateToProps = (state, routerState) => {
   const newExamId = routerState.params.examId;
   const answerMode = routerState.location.pathname.indexOf("/answer") === 0;
-  console.log("answerMode = " + answerMode,routerState);
+  answerMode && console.log("answerMode = " + answerMode, routerState);
   return {
     toggle: state.toggle,
     message: state.message[newExamId],

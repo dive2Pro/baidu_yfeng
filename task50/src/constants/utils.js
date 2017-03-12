@@ -30,6 +30,14 @@ export function moveElementInArray(arr, v, positionChange) {
   if (oldPosition < 0) {
     return arr;
   }
+  if (positionChange == null) {
+    return deleteElementFromArray(arr, v);
+  } else {
+    positionChange = +positionChange;
+  }
+  console.info(
+    "moveElementInArray  " + v + " posiitonChange " + positionChange
+  );
   let diffPosition = oldPosition + positionChange;
   if (diffPosition < 0) {
     diffPosition = 0;
@@ -40,6 +48,8 @@ export function moveElementInArray(arr, v, positionChange) {
   const newArr = arr.slice();
   const removed = newArr.splice(oldPosition, 1)[0];
   newArr.splice(diffPosition, 0, removed);
+  console.info(arr, "after", newArr, diffPosition);
+
   return newArr;
 }
 

@@ -2,12 +2,15 @@
   <dictionary name="hyc">
     <words>
       <w>classname</w>
+      <w>destory</w>
+      <w>inputitem</w>
       <w>itemcontainer</w>
       <w>listcontent</w>
       <w>listitems</w>
       <w>listtitle</w>
       <w>newlist</w>
       <w>textarea</w>
+      <w>yyyy</w>
     </words>
   </dictionary>
 </component>

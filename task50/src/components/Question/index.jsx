@@ -1,5 +1,5 @@
 import React, { PropTypes } from "react";
-import InputItem from "../InputItem/index";
+import InputWithEditView from "../InputItem/index";
 import { questionActs } from "../../constants/questionActType";
 import classnames from "classnames";
 import { connect } from "react-redux";
@@ -10,9 +10,9 @@ import {
   saveQuestion,
   addOption,
   deleteOption,
-  saveMessage
+  saveMessage,
+  opeOptions
 } from "../../actions/index";
-import InputWithEditView from "../InputItem/InputWithEdit";
 export default function(Component) {
   class Question extends React.Component {
     state = {};
@@ -82,16 +82,10 @@ export default function(Component) {
         require
       } = thisQuestion;
 
-      const {
-        editId
-      } = this.state;
-
       const requireClazz = classnames("question-title-require", {
         visible: requireable
       });
-      const requireInputClazz = classnames({
-        checked: require
-      });
+
       return (
         <div className="question">
           <div className="question-title">
@@ -101,6 +95,7 @@ export default function(Component) {
               id={titleId}
               placeHold={title}
               isAnswerMode={isAnswerMode}
+              isTitle
             />
             {!isAnswerMode &&
               <div className={requireClazz}>
@@ -132,7 +127,8 @@ export default function(Component) {
                   content = act;
                 }
                 return (
-                  <div
+                  <a
+                    href="#"
                     key={i}
                     onClick={() =>
                       opeExamQuestionsFunc(
@@ -143,7 +139,7 @@ export default function(Component) {
                     className="question-act-item"
                   >
                     {content}
-                  </div>
+                  </a>
                 );
               })}
             </div>}
@@ -157,7 +153,8 @@ export default function(Component) {
     saveQuestionFunc: bindActionCreators(saveQuestion, dispatch),
     saveMessageFunc: bindActionCreators(saveMessage, dispatch),
     addOption: bindActionCreators(addOption, dispatch),
-    deleteOption: bindActionCreators(deleteOption, dispatch)
+    deleteOption: bindActionCreators(deleteOption, dispatch),
+    opeOptions: bindActionCreators(opeOptions, dispatch)
   });
   return connect(null, mapDispatchToProps)(Question);
 }

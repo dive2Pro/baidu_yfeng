@@ -8,13 +8,7 @@
       align-items: center;
       position: relative;
       justify-content: flex-start;
-      ._inputitem_edit{
-        display: flex;
-        flex: 1;
-        label{
-          font-size: $smallIcon;
-        }
-      }
+
       &-require {
         visibility: hidden;
         display: flex;
@@ -44,13 +38,13 @@
       }
     }
     &:hover {
-      background: $backgroundSecondary;
       .question-act {
         opacity: 1;
       }
     }
 
     &-items{
+      margin-left: $padding;
       &-item{
         display: flex;
         font-size: ($padding);
@@ -75,7 +69,6 @@
         }
 
       }
-            margin-left: $padding;
       &-add{
         font-size: 1.5em;
         display: inline-block;
@@ -89,5 +82,12 @@
          }
       }
 
+    }
+  }
+  ._inputitem_edit{
+    display: flex;
+    flex: 1;
+    label{
+      font-size: $smallIcon;
     }
   }

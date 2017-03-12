@@ -6,7 +6,7 @@ import { Button as AntButton } from "antd";
 
 export default class Button extends Component {
   render() {
-    const { content,
+    const {
       onhandleClick,
       disabled,
       children } = this.props;

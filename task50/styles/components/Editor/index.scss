@@ -6,17 +6,32 @@
   &-title {
     text-align: center;
     position: relative;
+    border-bottom: $baseEm solid $borderColor;
+    padding: $padding/2;
     &-goback{
       position: absolute;
       z-index: 2;
+      left:0;
+    }
+    ._inputitem_edit{
+      justify-content: center;
+      align-items: center;
+      font-size: $padding;
+      .ant-dropdown-link{
+        font-size: $smallIcon;
+      }
+      input[type='text']{
+        text-align: center;
+        z-index: 100;
+      }
     }
     label{
       font-size: 1.2rem!important;
       font-weight: bold;
     }
-    border-bottom: $baseEm solid $borderColor;
   }
   &-questions {
+    margin:($padding) 0;
     textarea{
       width: 90%;
       height: 15vh;
@@ -84,29 +99,4 @@
     }
 
   }
-}
-@mixin editor--md(){
-  .editor{
-    transform: scale(1.005);
-    transition: transform 0.5s;
-    &-addquestion{
-      &-items{
-      &>button{
-        margin-right: $baseEm;
-        }
-      }
-    }
-    &-bottom{
-      flex-wrap: wrap;
-      &-left{
-        flex-wrap: wrap;
-        margin-bottom:($padding/2);
-      }
-    }
-
-  }
-}
-
-@mixin editor-sd(){
-
 }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import InputWithEdit from './InputWithEdit'
 import classnames from "classnames";
 class InputItem extends Component {
   state = {};
@@ -86,4 +87,4 @@ InputItem.propTypes = {
   isAnswerMode: React.PropTypes.bool.isRequired
 };
 
-export default InputItem;
+export default InputWithEdit;

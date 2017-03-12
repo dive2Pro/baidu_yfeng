@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from "react";
+import React from "react";
 
 import InputWithEditView from "../InputItem/InputWithEdit";
 import CheckOrRadioSelectView from "../InputItem/CheckOrRadioSelectView";
@@ -7,7 +7,7 @@ import Question from "../Question/index";
 import { Radio, Checkbox, Icon } from "antd";
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
-class ChoiceQuestion extends Component {
+class ChoiceQuestion extends React.Component {
   handleDestory = id => {
     const { setDestory, deleteOption, thisQuestion } = this.props;
     setDestory(id);
@@ -34,9 +34,9 @@ class ChoiceQuestion extends Component {
 
     const Radios = (
       <RadioGroup onChange={this.onHandleRadioGroupChange}>
-        {thisQuestion.optionsId.map((id, index) => {
+        {thisQuestion.optionsId.map(id => {
           return (
-            <Radio style={radioStyle} value={id}>
+            <Radio key={id} style={radioStyle} value={id}>
               {message[id]}
             </Radio>
           );
@@ -56,6 +56,9 @@ class ChoiceQuestion extends Component {
       </div>
     );
   };
+  onOpetions = quesId => (optionId, actType) => {
+    this.props.opeOptions(quesId, optionId, actType);
+  };
   render() {
     const {
       thisQuestion,
@@ -66,14 +69,14 @@ class ChoiceQuestion extends Component {
       onHandleChange
     } = this.props;
     const {
-      type
+      type,
+      id: quesId
     } = thisQuestion;
 
-    const inputType = type === topicTypes.SINGLE_TYPE ? "radio" : "checkbox";
     return isAnswerMode
       ? this.renderRadios()
       : <div>
-          {thisQuestion.optionsId.map((id, index) => {
+          {thisQuestion.optionsId.map(id => {
             return (
               <div className="question-items-item">
                 <CheckOrRadioSelectView
@@ -86,6 +89,7 @@ class ChoiceQuestion extends Component {
                   isAnswerMode={isAnswerMode}
                   placeHold={message[id]}
                   onHandleInput={onHandleInput}
+                  onOpeOptions={this.onOpetions(quesId)}
                 />
               </div>
             );
@@ -98,14 +102,14 @@ class ChoiceQuestion extends Component {
   }
 }
 ChoiceQuestion.propTypes = {
-  id: PropTypes.string, // 是否必填
-  require: PropTypes.bool,
+  id: React.PropTypes.string, // 是否必填
+  require: React.PropTypes.bool,
   // 类型
-  type: PropTypes.string, // 题目信息
-  question: PropTypes.object,
-  message: PropTypes.object,
-  saveMessageFunc: PropTypes.func,
-  index: PropTypes.number,
+  type: React.PropTypes.string, // 题目信息
+  question: React.PropTypes.object,
+  message: React.PropTypes.object,
+  saveMessageFunc: React.PropTypes.func,
+  index: React.PropTypes.number,
   addOption: React.PropTypes.func,
   deleteOption: React.PropTypes.func
 };

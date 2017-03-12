@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3181afef-3d42-4c57-89dc-b42bd992baa3" name="Default" comment="">
+    <list default="true" id="3181afef-3d42-4c57-89dc-b42bd992baa3" name="Default" comment="refactor(Editor):with ant further">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/ExamList/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/ExamList/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/ExamShow/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/ExamShow/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Header/ScrollHoc.js" afterPath="$PROJECT_DIR$/task50/src/components/Header/ScrollHoc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/styles/components/Question/index.scss" afterPath="$PROJECT_DIR$/task50/styles/components/Question/index.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -834,24 +829,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="baidu_yfeng" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="baidu_yfeng" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="task50" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -946,7 +923,7 @@
       <workItem from="1489220897838" duration="28604000" />
       <workItem from="1489262410409" duration="628000" />
       <workItem from="1489263058801" duration="7731000" />
-      <workItem from="1489292048144" duration="7391000" />
+      <workItem from="1489292048144" duration="7453000" />
     </task>
     <task id="LOCAL-00001" summary="feat(examlist):delete">
       <created>1488544303125</created>
@@ -1172,11 +1149,18 @@
       <option name="project" value="LOCAL" />
       <updated>1489301377881</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="refactor(Editor):with ant further">
+      <created>1489302498637</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1489302498637</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215818000" />
+    <option name="totallyTimeSpent" value="215880000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

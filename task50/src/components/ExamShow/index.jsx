@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 const defaultExamId = "e1";
 import * as actions from "../../actions/index";
 import ChoiceChart from "../ChoiceChart/index";
+import Button from '../Button'
 class ExamShow extends Component {
   geneContent = () => {
     const { answer, exam, message, question, newExamId, router } = this.props;
@@ -63,9 +64,10 @@ class ExamShow extends Component {
             {this.geneContent()}
           </div>
           <div className="showBottom">
-            <button className="showBottom-button" onClick={this.handleGoBack}>
+            <Button className="showBottom-button"
+                    onhandleClick={this.handleGoBack}>
               返回
-            </button>
+            </Button>
           </div>
         </div>
       : <div />;

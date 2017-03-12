@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3181afef-3d42-4c57-89dc-b42bd992baa3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/hyc.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/hyc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/actions/index.js" afterPath="$PROJECT_DIR$/task50/src/actions/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/actions/question.js" afterPath="$PROJECT_DIR$/task50/src/actions/question.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Button.js" afterPath="$PROJECT_DIR$/task50/src/components/Button.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Editor/title.jsx" afterPath="$PROJECT_DIR$/task50/src/components/Editor/title.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/InputItem/InputWithEdit.js" afterPath="$PROJECT_DIR$/task50/src/components/InputItem/InputWithEdit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/InputItem/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/InputItem/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Question/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/Question/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/constants/utils.js" afterPath="$PROJECT_DIR$/task50/src/constants/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/styles/components/Editor/index.scss" afterPath="$PROJECT_DIR$/task50/styles/components/Editor/index.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/ExamList/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/ExamList/index.jsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/ExamShow/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/ExamShow/index.jsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Header/ScrollHoc.js" afterPath="$PROJECT_DIR$/task50/src/components/Header/ScrollHoc.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/styles/components/Question/index.scss" afterPath="$PROJECT_DIR$/task50/styles/components/Question/index.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -43,8 +35,8 @@
       <file leaf-file-name="Button.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task50/src/components/Button.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="264">
+              <caret line="13" column="59" lean-forward="false" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="59" />
               <folding>
                 <element signature="e#37#78#0" expanded="true" />
               </folding>
@@ -53,34 +45,60 @@
         </entry>
       </file>
       <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx">
+        <entry file="file://$PROJECT_DIR$/task50/src/components/Editor/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="86" column="30" lean-forward="false" selection-start-line="86" selection-start-column="30" selection-end-line="86" selection-end-column="30" />
+            <state relative-caret-position="306">
+              <caret line="396" column="4" lean-forward="true" selection-start-line="396" selection-start-column="4" selection-end-line="396" selection-end-column="4" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="e#712#758#0" expanded="true" />
+                <marker date="1489301694632" expanded="false" signature="4942:7458" ph="&lt;div/&gt;" />
+                <marker date="1489301694632" expanded="false" signature="4986:5692" ph="&lt;ConfirmModal/&gt;" />
+                <marker date="1489301694632" expanded="false" signature="5187:5666" ph="&lt;div/&gt;" />
+                <marker date="1489301694632" expanded="false" signature="5703:6406" ph="&lt;ConfirmModal/&gt;" />
+                <marker date="1489301694632" expanded="false" signature="5902:6379" ph="&lt;div/&gt;" />
+                <marker date="1489301694632" expanded="false" signature="6417:6814" ph="&lt;ConfirmModal/&gt;" />
+                <marker date="1489301694632" expanded="false" signature="6614:6788" ph="&lt;div/&gt;" />
+                <marker date="1489301694632" expanded="false" signature="6825:7302" ph="&lt;ConfirmModal/&gt;" />
+                <marker date="1489301694632" expanded="false" signature="7313:7443" ph="&lt;ConfirmModal/&gt;" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/Editor/index.jsx">
+      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/task50/src/components/ExamList/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="361" column="16" lean-forward="true" selection-start-line="361" selection-start-column="16" selection-end-line="361" selection-end-column="16" />
+            <state relative-caret-position="254">
+              <caret line="67" column="32" lean-forward="true" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/task50/src/components/ExamShow/index.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="71" column="14" lean-forward="true" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#712#758#0" expanded="true" />
-                <marker date="1489301345912" expanded="false" signature="4942:7458" ph="&lt;div/&gt;" />
-                <marker date="1489301345912" expanded="false" signature="4986:5692" ph="&lt;ConfirmModal/&gt;" />
-                <marker date="1489301345912" expanded="false" signature="5187:5666" ph="&lt;div/&gt;" />
-                <marker date="1489301345912" expanded="false" signature="5703:6406" ph="&lt;ConfirmModal/&gt;" />
-                <marker date="1489301345912" expanded="false" signature="5902:6379" ph="&lt;div/&gt;" />
-                <marker date="1489301345912" expanded="false" signature="6417:6814" ph="&lt;ConfirmModal/&gt;" />
-                <marker date="1489301345912" expanded="false" signature="6614:6788" ph="&lt;div/&gt;" />
-                <marker date="1489301345912" expanded="false" signature="6825:7302" ph="&lt;ConfirmModal/&gt;" />
-                <marker date="1489301345912" expanded="false" signature="7313:7443" ph="&lt;ConfirmModal/&gt;" />
+                <element signature="e#153#200#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.scss" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/task50/styles/components/Question/index.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="21" column="16" lean-forward="true" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+              <folding>
+                <element signature="e#243#357#0" expanded="false" />
+                <element signature="e#506#804#0" expanded="false" />
+                <element signature="e#957#1452#0" expanded="false" />
+                <element signature="e#1464#1779#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -96,20 +114,6 @@
                 <element signature="e#598#665#0" expanded="false" />
                 <element signature="e#1378#1802#0" expanded="false" />
                 <element signature="e#1820#2001#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/InputItem/index.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#52#0" expanded="true" />
-                <element signature="n#InputItem#0" expanded="false" />
-                <element signature="e#2097#2316#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -136,22 +140,6 @@
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <element signature="e#545#1054#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/styles/components/Question/index.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="38" column="5" lean-forward="false" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-              <folding>
-                <element signature="e#26#492#0" expanded="false" />
-                <element signature="e#240#354#0" expanded="false" />
-                <element signature="e#503#801#0" expanded="false" />
-                <element signature="e#927#1422#0" expanded="false" />
-                <element signature="e#1434#1749#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -239,7 +227,6 @@
         <option value="$PROJECT_DIR$/task50/src/reducers/message/index.js" />
         <option value="$PROJECT_DIR$/task50/src/reducers/message/index.test.js" />
         <option value="$PROJECT_DIR$/task50/src/store/initialState.js" />
-        <option value="$PROJECT_DIR$/task50/src/components/ExamShow/index.jsx" />
         <option value="$PROJECT_DIR$/task50/src/reducers/question/index.js" />
         <option value="$PROJECT_DIR$/task50/src/actions/answer.test.js" />
         <option value="$PROJECT_DIR$/task50/src/actions/exam.js" />
@@ -252,7 +239,6 @@
         <option value="$PROJECT_DIR$/task50/node_modules/store/src/store-engine.js" />
         <option value="$PROJECT_DIR$/task50/src/store/index.js" />
         <option value="$PROJECT_DIR$/task50/src/store/localStore.js" />
-        <option value="$PROJECT_DIR$/task50/src/components/Header/ScrollHoc.js" />
         <option value="$PROJECT_DIR$/task50/config/webpack.config.prod.js" />
         <option value="$PROJECT_DIR$/task50/src/index.js" />
         <option value="$PROJECT_DIR$/task50/src/components/Header/index.jsx" />
@@ -267,7 +253,6 @@
         <option value="$PROJECT_DIR$/task50/styles/customs/main.scss" />
         <option value="$PROJECT_DIR$/task50/styles/customs/media-queries.scss" />
         <option value="$PROJECT_DIR$/task50/styles/components/ExamList/index.scss" />
-        <option value="$PROJECT_DIR$/task50/src/components/ExamList/index.jsx" />
         <option value="$PROJECT_DIR$/task50/styles/components/SingleChoice/index.scss" />
         <option value="$PROJECT_DIR$/task50/styles/customs/variables.scss" />
         <option value="$PROJECT_DIR$/task50/src/components/InputItem/CheckOrRadioSelectView.js" />
@@ -284,9 +269,12 @@
         <option value="$PROJECT_DIR$/task50/src/components/Button.js" />
         <option value="$PROJECT_DIR$/task50/src/components/Editor/title.jsx" />
         <option value="$PROJECT_DIR$/task50/styles/components/Editor/index.scss" />
-        <option value="$PROJECT_DIR$/task50/styles/components/Question/index.scss" />
         <option value="$PROJECT_DIR$/task50/src/components/Question/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/src/components/Header/ScrollHoc.js" />
         <option value="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/src/components/ExamShow/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/src/components/ExamList/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/styles/components/Question/index.scss" />
       </list>
     </option>
   </component>
@@ -302,9 +290,9 @@
     <handled-path value="$PROJECT_DIR$/task50/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="52" />
-    <option name="width" value="909" />
-    <option name="height" value="1028" />
+    <option name="y" value="24" />
+    <option name="width" value="1920" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -702,6 +690,84 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Header" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ExamShow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ExamList" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baidu_yfeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task50" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Editor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -880,7 +946,7 @@
       <workItem from="1489220897838" duration="28604000" />
       <workItem from="1489262410409" duration="628000" />
       <workItem from="1489263058801" duration="7731000" />
-      <workItem from="1489292048144" duration="6262000" />
+      <workItem from="1489292048144" duration="7391000" />
     </task>
     <task id="LOCAL-00001" summary="feat(examlist):delete">
       <created>1488544303125</created>
@@ -1099,11 +1165,18 @@
       <option name="project" value="LOCAL" />
       <updated>1489255349448</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="refactor(Editor):with ant further">
+      <created>1489301377881</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1489301377881</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="214689000" />
+    <option name="totallyTimeSpent" value="215818000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1115,13 +1188,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="52" width="909" height="1028" extended-state="4" />
+    <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23702031" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11070111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27096775" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2703549" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1183,7 +1256,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat(react-motion):  animation" />
     <MESSAGE value="feat(scss):  ExamList" />
     <MESSAGE value="feat(modal): deleteModal" />
     <MESSAGE value="feat(modal): deleteModal -&gt; ConfirmModal" />
@@ -1208,7 +1280,8 @@
     <MESSAGE value="refactor(Header):with ant" />
     <MESSAGE value="refactor(ExamLIst):with ant" />
     <MESSAGE value="refactor(Editor):with ant" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(Editor):with ant" />
+    <MESSAGE value="refactor(Editor):with ant further" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(Editor):with ant further" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1217,13 +1290,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/task50/src/store/thunk.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/reducers/exam/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="819">
@@ -1263,13 +1329,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="387">
           <caret line="152" column="7" lean-forward="true" selection-start-line="152" selection-start-column="7" selection-end-line="152" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/Header/ScrollHoc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="18" column="28" lean-forward="false" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1369,13 +1428,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/ExamList/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="103" column="8" lean-forward="true" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -1570,47 +1622,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/Button.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <element signature="e#37#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/components/Editor/title.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="696">
           <caret line="29" column="17" lean-forward="true" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/Question/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="129" column="20" lean-forward="true" selection-start-line="129" selection-start-column="20" selection-end-line="129" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#545#1054#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/styles/components/Question/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="38" column="5" lean-forward="false" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-          <folding>
-            <element signature="e#26#492#0" expanded="false" />
-            <element signature="e#240#354#0" expanded="false" />
-            <element signature="e#503#801#0" expanded="false" />
-            <element signature="e#927#1422#0" expanded="false" />
-            <element signature="e#1434#1749#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1636,22 +1653,83 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/Header/ScrollHoc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/Question/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="129" column="20" lean-forward="true" selection-start-line="129" selection-start-column="20" selection-end-line="129" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#545#1054#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/components/Editor/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="361" column="16" lean-forward="true" selection-start-line="361" selection-start-column="16" selection-end-line="361" selection-end-column="16" />
+        <state relative-caret-position="306">
+          <caret line="396" column="4" lean-forward="true" selection-start-line="396" selection-start-column="4" selection-end-line="396" selection-end-column="4" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="e#712#758#0" expanded="true" />
-            <marker date="1489301345912" expanded="false" signature="4942:7458" ph="&lt;div/&gt;" />
-            <marker date="1489301345912" expanded="false" signature="4986:5692" ph="&lt;ConfirmModal/&gt;" />
-            <marker date="1489301345912" expanded="false" signature="5187:5666" ph="&lt;div/&gt;" />
-            <marker date="1489301345912" expanded="false" signature="5703:6406" ph="&lt;ConfirmModal/&gt;" />
-            <marker date="1489301345912" expanded="false" signature="5902:6379" ph="&lt;div/&gt;" />
-            <marker date="1489301345912" expanded="false" signature="6417:6814" ph="&lt;ConfirmModal/&gt;" />
-            <marker date="1489301345912" expanded="false" signature="6614:6788" ph="&lt;div/&gt;" />
-            <marker date="1489301345912" expanded="false" signature="6825:7302" ph="&lt;ConfirmModal/&gt;" />
-            <marker date="1489301345912" expanded="false" signature="7313:7443" ph="&lt;ConfirmModal/&gt;" />
+            <marker date="1489301694632" expanded="false" signature="4942:7458" ph="&lt;div/&gt;" />
+            <marker date="1489301694632" expanded="false" signature="4986:5692" ph="&lt;ConfirmModal/&gt;" />
+            <marker date="1489301694632" expanded="false" signature="5187:5666" ph="&lt;div/&gt;" />
+            <marker date="1489301694632" expanded="false" signature="5703:6406" ph="&lt;ConfirmModal/&gt;" />
+            <marker date="1489301694632" expanded="false" signature="5902:6379" ph="&lt;div/&gt;" />
+            <marker date="1489301694632" expanded="false" signature="6417:6814" ph="&lt;ConfirmModal/&gt;" />
+            <marker date="1489301694632" expanded="false" signature="6614:6788" ph="&lt;div/&gt;" />
+            <marker date="1489301694632" expanded="false" signature="6825:7302" ph="&lt;ConfirmModal/&gt;" />
+            <marker date="1489301694632" expanded="false" signature="7313:7443" ph="&lt;ConfirmModal/&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/Button.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="13" column="59" lean-forward="false" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="59" />
+          <folding>
+            <element signature="e#37#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/ExamShow/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="71" column="14" lean-forward="true" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#153#200#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/ExamList/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="67" column="32" lean-forward="true" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/styles/components/Question/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="21" column="16" lean-forward="true" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+          <folding>
+            <element signature="e#243#357#0" expanded="false" />
+            <element signature="e#506#804#0" expanded="false" />
+            <element signature="e#957#1452#0" expanded="false" />
+            <element signature="e#1464#1779#0" expanded="false" />
           </folding>
         </state>
       </provider>

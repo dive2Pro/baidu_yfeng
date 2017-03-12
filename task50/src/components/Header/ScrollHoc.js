@@ -6,7 +6,6 @@ export default function ScrollHoc(Component) {
   class Scroll extends React.Component {
     state = {};
     handleScroll = e => {
-      console.info(window, e);
       if (window.pageYOffset > 30) {
         this.setState({ overScroll40: true });
       } else {

@@ -62,8 +62,15 @@ class ExamList extends Component {
     console.log("selectedRowKeys changed: ", selectedRowKeys);
     this.setState({ selectedRowKeys });
   };
+  handleSelects = () => {
+    const { toggleFunc } = this.props;
+    if (this.state.selectedRowKeys.length > 0) {
+      toggleFunc(CONFIRM_MODAL);
+    }
+  };
+
   rendernExamList = () => {
-    const { exam, message: allMessages, toggleFunc } = this.props;
+    const { exam, message: allMessages } = this.props;
     const data = [];
     Object.keys(exam)
       .filter(key => exam[key].examState !== EXAM_DELETED)
@@ -87,7 +94,14 @@ class ExamList extends Component {
         width: "22%",
         key: "title",
         render: (text, item) => {
-          return <Link to={`answer/${item.key}`}><span>{text}</span></Link>;
+          return (
+            <Link
+              style={{ color: "#222", fontSize: "1.2em" }}
+              to={`answer/${item.key}`}
+            >
+              <span>{text}</span>
+            </Link>
+          );
         }
       },
       {
@@ -139,10 +153,11 @@ class ExamList extends Component {
       onChange: this.onSelectChange
     };
     const footer = () => {
-      return <Button onClick={() => toggleFunc(CONFIRM_MODAL)}>删除选择</Button>;
+      return <Button onClick={this.handleSelects}>删除选择</Button>;
     };
     return (
       <Table
+        ref={table => this.table = table}
         footer={footer}
         rowSelection={rowSelection}
         dataSource={data}

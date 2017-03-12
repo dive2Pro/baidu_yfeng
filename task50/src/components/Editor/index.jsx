@@ -303,7 +303,7 @@ class Editor extends Component {
   geneAnswerBottom = () => {
     return (
       <div className="editor-answer-bottom">
-        <button onClick={this.handleSubmit}>提交</button>
+        <Button onhandleClick={this.handleSubmit}>提交</Button>
       </div>
     );
   };
@@ -399,7 +399,7 @@ class Editor extends Component {
 
 const mapStateToProps = (state, routerState) => {
   const newExamId = routerState.params.examId;
-  const answerMode = routerState.location.pathname.indexOf("/answer") === 0;
+  const answerMode = routerState.location.pathname.indexOf("answer") > -1;
   answerMode && console.log("answerMode = " + answerMode, routerState);
   return {
     toggle: state.toggle,

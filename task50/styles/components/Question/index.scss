@@ -3,7 +3,7 @@
       & label {
         margin-left: ($padding/2);
       }
-      font-size: $bigIcon;
+      font-size: $mediumIcon;
       display: flex;
       align-items: center;
       position: relative;
@@ -44,6 +44,7 @@
     }
 
     &-items{
+      margin:($padding/4);
       margin-left: $padding;
       &-item{
         display: flex;
@@ -81,7 +82,6 @@
            transform: scale(1.4);
          }
       }
-
     }
   }
   ._inputitem_edit{

@@ -1,59 +1,29 @@
 import React, { Component } from "react";
 import Question from "../Question/index";
-
+import { Input } from "antd";
 class TextQuestion extends Component {
   state = {};
-  handleSubmit = () => {
-    const { save, setDestory, thisQuestion } = this.props;
-    const val = this.inp.value.trim();
-    const { contentId } = thisQuestion;
-    if (val) {
-      save(contentId, val);
-    } else {
-      setDestory(contentId);
-    }
-  };
-
   handleChange = event => {
+    const value = event.target.value;
     this.setState({
-      temp_value: event.target.value
+      temp_value: value
     });
+    const { onHandleInput, thisQuestion } = this.props;
+    onHandleInput({ id: thisQuestion.contentId, value });
   };
-  componentDidMount() {
-    // 生成一个contentId
-    const { thisQuestion, setContentIdFunc } = this.props;
-    setContentIdFunc(thisQuestion.id);
-  }
-  componentWillUnmount() {
-    const { thisQuestion, saveQuestionFunc } = this.props;
 
-    if (thisQuestion.contentId) {
-      // 删除contentId , 用户回答信息放在 answerInfo 中
-      delete thisQuestion.contentId;
-      saveQuestionFunc(thisQuestion);
-    }
-  }
   render() {
     const {
       thisQuestion,
-      message,
-      setEdit,
-      editId
+      message
     } = this.props;
-
     const contentId = thisQuestion.contentId;
-    const editing = editId && editId === contentId;
-
     return (
       <div>
-        <textarea
-          rows="10"
-          cols="80"
-          onBlur={this.handleSubmit}
-          onFocus={() => setEdit(contentId)}
+        <Input
+          type="textarea"
           onChange={this.handleChange}
-          value={editing ? this.state.temp_value : message[contentId]}
-          ref={o => this.inp = o}
+          value={this.state.temp_value || message[contentId]}
         />
       </div>
     );

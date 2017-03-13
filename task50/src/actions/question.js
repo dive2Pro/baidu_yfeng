@@ -81,12 +81,6 @@ export function saveTempQuestion(questionId) {
     id: questionId
   };
 }
-export function saveTempQuestionTitleId(TitleId) {
-  return {
-    type: actionTypes.SAVE_TEMP_QUESTION_TITLE,
-    id: TitleId
-  };
-}
 export function clearTempQuestion() {
   return {
     type: actionTypes.CLEAR_TEMP_QUESTION
@@ -124,4 +118,24 @@ export const deleteOption = (questionId, optionId) => (dispatch, getState) => {
   const position = optionsId.indexOf(optionId);
   optionsId.splice(position, 1);
   dispatch(changeQuestionOptionsAct(questionId, optionsId));
+};
+
+export const opeOptions = (questionId, optionId, actType) => (
+  dispatch,
+  getState
+) => {
+  console.log("opeOptions", actType, questionId, optionId);
+  const question = getState().question[questionId];
+  const optionsId = question.optionsId;
+
+  let sortedOptionsId = [];
+  switch (actType) {
+    //delete
+    case -2:
+      sortedOptionsId = utils.deleteElementFromArray(optionsId, optionId);
+      break;
+    default:
+      sortedOptionsId = utils.moveElementInArray(optionsId, optionId, actType);
+  }
+  dispatch(changeQuestionOptionsAct(questionId, sortedOptionsId));
 };

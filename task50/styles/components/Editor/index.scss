@@ -6,17 +6,38 @@
   &-title {
     text-align: center;
     position: relative;
+    border-bottom: $baseEm solid $borderColor;
+    padding: $padding/2;
     &-goback{
       position: absolute;
       z-index: 2;
+      left:0;
+    }
+    ._inputitem_edit{
+      justify-content: center;
+      align-items: center;
+      font-size: $padding;
+      .ant-dropdown-link{
+        font-size: $smallIcon;
+      }
+      input[type='text']{
+        text-align: center;
+        z-index: 100;
+      }
     }
     label{
       font-size: 1.2rem!important;
       font-weight: bold;
     }
-    border-bottom: $baseEm solid $borderColor;
   }
-  &-questions {}
+  &-questions {
+    margin:($padding) 0;
+    textarea{
+      width: 90%;
+      height: 15vh;
+    }
+
+  }
   &-addquestion {
     overflow: hidden;
     margin-top:($padding);
@@ -35,7 +56,6 @@
     &-items {
       background: $backgroundContent;
       display: flex;
-
       &>button{
         margin-right: ($padding*2);
       }
@@ -44,7 +64,6 @@
       background: $background;
       height: 100%;
       display: flex;
-      &.active {}
     }
   }
   &-bottom {
@@ -60,7 +79,6 @@
         margin-right: $padding;
       }
     }
-
     input[type='text']{
       padding:($padding/4) ($padding);
     }

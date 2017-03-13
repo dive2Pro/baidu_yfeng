@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-
 import ExamList from "./components/ExamList/index";
 import NoMatch from "./components/NoMatch/index";
 import { Provider } from "react-redux";

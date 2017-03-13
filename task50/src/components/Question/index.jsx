@@ -1,5 +1,5 @@
 import React, { PropTypes } from "react";
-import InputItem from "../InputItem/index";
+import InputWithEditView from "../InputItem/index";
 import { questionActs } from "../../constants/questionActType";
 import classnames from "classnames";
 import { connect } from "react-redux";
@@ -9,7 +9,9 @@ import {
   opeExamQuestions,
   saveQuestion,
   addOption,
-  deleteOption
+  deleteOption,
+  saveMessage,
+  opeOptions
 } from "../../actions/index";
 export default function(Component) {
   class Question extends React.Component {
@@ -35,6 +37,14 @@ export default function(Component) {
       this.setState({
         editId: null
       });
+    };
+    onHandleInput = ({ id, value }) => {
+      console.info("onHandleInput " + id + "  value = " + value);
+      if (!!value) {
+        this.save(id, value);
+      } else {
+        this.setDestory(id);
+      }
     };
 
     setEdit = id => {
@@ -62,7 +72,8 @@ export default function(Component) {
         isAnswerMode,
         onToggle,
         onAnswerText,
-        title
+        title,
+        onHandleChange
       } = this.props;
 
       const {
@@ -71,30 +82,20 @@ export default function(Component) {
         require
       } = thisQuestion;
 
-      const {
-        editId
-      } = this.state;
-
       const requireClazz = classnames("question-title-require", {
         visible: requireable
       });
-      const requireInputClazz = classnames({
-        checked: require
-      });
+
       return (
         <div className="question">
           <div className="question-title">
             <div>Q{index + 1}</div>
-            <InputItem
-              onToggle={this.onToggle}
-              unCheckable={true}
+            <InputWithEditView
+              onHandleInput={this.onHandleInput}
               id={titleId}
-              msg={title}
-              editing={editId && titleId === editId}
+              placeHold={title}
               isAnswerMode={isAnswerMode}
-              save={this.save}
-              setDestory={this.setDestory}
-              setEdit={this.setEdit}
+              isTitle
             />
             {!isAnswerMode &&
               <div className={requireClazz}>
@@ -109,13 +110,11 @@ export default function(Component) {
           </div>
           <div className="question-items">
             <Component
-              editId={editId}
               onToggle={onToggle}
               onAnswerText={onAnswerText}
+              onHandleInput={this.onHandleInput}
+              onHandleChange={onHandleChange}
               {...this.props}
-              save={this.save}
-              setEdit={this.setEdit}
-              setDestory={this.setDestory}
             />
           </div>
           {!isAnswerMode &&
@@ -128,7 +127,8 @@ export default function(Component) {
                   content = act;
                 }
                 return (
-                  <div
+                  <a
+                    href="#"
                     key={i}
                     onClick={() =>
                       opeExamQuestionsFunc(
@@ -139,7 +139,7 @@ export default function(Component) {
                     className="question-act-item"
                   >
                     {content}
-                  </div>
+                  </a>
                 );
               })}
             </div>}
@@ -151,8 +151,10 @@ export default function(Component) {
     setContentIdFunc: bindActionCreators(setContentId, dispatch),
     opeExamQuestionsFunc: bindActionCreators(opeExamQuestions, dispatch),
     saveQuestionFunc: bindActionCreators(saveQuestion, dispatch),
-    addOptionFunc: bindActionCreators(addOption, dispatch),
-    deleteOptionFunc: bindActionCreators(deleteOption, dispatch)
+    saveMessageFunc: bindActionCreators(saveMessage, dispatch),
+    addOption: bindActionCreators(addOption, dispatch),
+    deleteOption: bindActionCreators(deleteOption, dispatch),
+    opeOptions: bindActionCreators(opeOptions, dispatch)
   });
   return connect(null, mapDispatchToProps)(Question);
 }

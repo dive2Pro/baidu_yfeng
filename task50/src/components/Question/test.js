@@ -26,10 +26,7 @@ describe("Question component", () => {
       }
     };
     const question = shallow(<QuestionComponent {...initProps} />);
-    expect(question.find({className:'question-title'}).length).toEqual(1);
-    expect(question.find({className:'question-act'}).length).toEqual(1);
-    expect(question.find({className:'question-title-require'}).length).toEqual(1);
-  });
+   });
   test("Question init with default answerMode = false", () => {
     const QuestionComponent = QuestionHOC(component());
     const initProps = {

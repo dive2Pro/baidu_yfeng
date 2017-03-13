@@ -9,8 +9,8 @@ button{
   outline:none;
   border:1px solid #999;
   padding:($padding/6) ($padding/2);
-
 }
+
 button:hover{
   z-index: 99;
   box-shadow:  $solidBackgroundShadow;

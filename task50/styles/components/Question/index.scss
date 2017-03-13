@@ -3,10 +3,12 @@
       & label {
         margin-left: ($padding/2);
       }
-      font-size: $bigIcon;
+      font-size: $mediumIcon;
       display: flex;
       align-items: center;
-      justify-content: center;
+      position: relative;
+      justify-content: flex-start;
+
       &-require {
         visibility: hidden;
         display: flex;
@@ -36,13 +38,38 @@
       }
     }
     &:hover {
-      background: $backgroundSecondary;
       .question-act {
         opacity: 1;
       }
     }
+
     &-items{
+      margin:($padding/4);
       margin-left: $padding;
+      &-item{
+        display: flex;
+        font-size: ($padding);
+        align-items: center;
+        ._checkboxgroup{
+          display: flex;
+          flex-direction: column;
+        }
+        .ant-checkbox-group{
+          display: flex;
+          flex-direction: column;
+          span{
+            font-size: $mediumIcon;
+          }
+        }
+        ._inputitem_edit {
+          display: flex;
+          flex: 1;
+          label {
+            font-size: $smallIcon;
+          }
+        }
+
+      }
       &-add{
         font-size: 1.5em;
         display: inline-block;
@@ -55,6 +82,12 @@
            transform: scale(1.4);
          }
       }
-
+    }
+  }
+  ._inputitem_edit{
+    display: flex;
+    flex: 1;
+    label{
+      font-size: $smallIcon;
     }
   }

@@ -14,7 +14,6 @@ import {
   ADD_QUESTION,
   CURRENT_EXAM,
   CONFIRM_MODAL,
-  ANSWER_MODE,
   WARNING_MODAL
 } from "../../constants/toggleTypes";
 import TextQuestion from "../TextQuestion/index";
@@ -22,12 +21,14 @@ import EditorTitle from "./title";
 // import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
 import { spring, Motion } from "react-motion";
 import ConfirmModal from "../Modal/ConfirmModal";
-import { deleteElementFromArray } from "../../constants/utils";
-const DatePicker = require("react-datepicker");
+import Button from "../Button";
+import { Icon, DatePicker } from "antd";
+
 const moment = require("moment");
-require("react-datepicker/dist/react-datepicker.css");
 
 class Editor extends Component {
+  state = {};
+
   componentDidMount() {
     const {
       setToggleIdFunc,
@@ -35,13 +36,10 @@ class Editor extends Component {
       changeExamTimeFunc,
       newExamId,
       router,
-      toggleFunc,
-      isAnswerMode,
       saveTempExamFunc,
       geneExamFunc
     } = this.props;
 
-    if (isAnswerMode) toggleFunc(ANSWER_MODE);
     if (exam[newExamId]) {
       this.setState(
         {
@@ -76,47 +74,18 @@ class Editor extends Component {
     setToggleIdFunc(CURRENT_EXAM, null);
     resetToggledFunc(ADD_QUESTION);
   }
-
-  state = {};
-
-  /**
-   *
-   * @param question
-   */
-  onToggle = question =>
-    /**
-     *
-     * @param id optionsId
-     * @param index  optionsIds position
-     * @param checked
-     *
-     */
-    (id, index, checked) => {
-      const { toggle } = this.props;
-      const currentExamId = toggle[CURRENT_EXAM];
-      this.setState(prevState => {
-        let selectOptions = (prevState[currentExamId] &&
-          prevState[currentExamId][question.id]) || [];
-        switch (question.type) {
-          case topicTypes.SINGLE_TYPE:
-            selectOptions = [id];
-            break;
-          case topicTypes.MULTI_TYPE:
-            if (!checked) {
-              selectOptions = deleteElementFromArray(selectOptions, id);
-            } else {
-              selectOptions.push(id);
-            }
-            break;
+  onToggle = question => ids => {
+    const { toggle } = this.props;
+    const currentExamId = toggle[CURRENT_EXAM];
+    this.setState(prevState => {
+      return {
+        [currentExamId]: {
+          ...prevState[currentExamId],
+          [question.id]: ids
         }
-        return {
-          [currentExamId]: {
-            ...prevState[currentExamId],
-            [question.id]: selectOptions
-          }
-        };
-      });
-    };
+      };
+    });
+  };
 
   handleDateChange = date => {
     this.setState({
@@ -134,7 +103,8 @@ class Editor extends Component {
       question,
       exam,
       toggle,
-      message
+      message,
+      isAnswerMode
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const currentExam = exam[currentExamId];
@@ -142,26 +112,27 @@ class Editor extends Component {
       return <div>...</div>;
     }
     const quesIds = currentExam ? currentExam.questionsId : [];
-    const isAnswerMode = toggle[ANSWER_MODE];
     return quesIds &&
       quesIds.map((q, i) => {
         const ques = question[q];
-        const title = "";
+        const title = message[ques.titleId];
         switch (ques.type) {
           case topicTypes.SINGLE_TYPE:
           case topicTypes.MULTI_TYPE:
             return (
-              <ChoiceQuestion
-                index={i}
-                key={q}
-                isLast={i === quesIds.length - 1}
-                thisQuestion={ques}
-                currentExamId={currentExamId}
-                isAnswerMode={isAnswerMode}
-                onToggle={this.onToggle(ques)}
-                title={title}
-                message={message}
-              />
+              <div>
+                <ChoiceQuestion
+                  index={i}
+                  key={q}
+                  isLast={i === quesIds.length - 1}
+                  thisQuestion={ques}
+                  currentExamId={currentExamId}
+                  isAnswerMode={isAnswerMode}
+                  onHandleChange={this.onToggle(ques)}
+                  message={message}
+                  title={title}
+                />
+              </div>
             );
           case topicTypes.TEXT_TYPE:
             return (
@@ -196,17 +167,22 @@ class Editor extends Component {
       exam,
       isAnswerMode,
       router,
-      temp
+      temp,
+      saveMessageFunc,
+      message
     } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
     const currentExam = exam[currentExamId];
+    if (!currentExam) return <div>...</div>;
     return (
       <div className="editor">
         <EditorTitle
-          isAnswerMode={toggle[ANSWER_MODE]}
-          {...this.props}
           currentExam={currentExam}
           handleGoback={() => router.go(-1)}
+          isAnswerMode={isAnswerMode}
+          titleId={currentExam.titleId}
+          title={message[currentExam.titleId]}
+          saveMessageFunc={saveMessageFunc}
         />
         <div className="editor-questions">
           {this.geneQuestionsView()}
@@ -305,7 +281,7 @@ class Editor extends Component {
     const title = this["modal-" + type].value;
     const countView = this["modal-" + type + "count"];
     let count = countView && countView.value;
-    if (Math.isNaN(count)) {
+    if (Number.isNaN(count)) {
       count = 3;
     } else if (parseInt(count) > 10) {
       count = 10;
@@ -327,7 +303,7 @@ class Editor extends Component {
   geneAnswerBottom = () => {
     return (
       <div className="editor-answer-bottom">
-        <button onClick={this.handleSubmit}>提交</button>
+        <Button onhandleClick={this.handleSubmit}>提交</Button>
       </div>
     );
   };
@@ -335,8 +311,7 @@ class Editor extends Component {
     const {
       toggle,
       saveExamFunc,
-      toggleFunc,
-      router
+      toggleFunc
     } = this.props;
     const memeIcons = ["⭕", "⬜", "📝"];
     const topicArr = topicTypes.arr;
@@ -364,23 +339,26 @@ class Editor extends Component {
               >
                 {Object.keys(topicArr).map((type, index) => {
                   return (
-                    <button
+                    <Button
                       key={index}
-                      onClick={() => this.handleToggleFunc(type)}
+                      onhandleClick={() => this.handleToggleFunc(type)}
                     >
                       {memeIcons[index] + "  " + topicArr[type]}
-                    </button>
+                    </Button>
                   );
                 })}
               </div>
             )}
           </Motion>
           <div
+            href="#"
             key="editor-AddQuestion"
             className="editor-addquestion-add"
             onClick={() => toggleFunc(ADD_QUESTION)}
           >
-            <h2>＋　添加问题</h2>
+            <Icon style={{ fontSize: "20px" }} type="plus-circle-o" />
+            {"    "}
+            添加问题
           </div>
         </div>
         <div className="editor-bottom">
@@ -388,26 +366,30 @@ class Editor extends Component {
             <span>问卷截止日期:</span>
             <DatePicker
               dateFormat="YYYY-MM-DD"
-              selected={this.state.startDate}
+              value={this.state.startDate}
+              defaultValue={this.state.startDate}
               onChange={this.handleDateChange}
-              minDate={moment()}
+              disabledDate={t => {
+                return t && t.valueOf() < Date.now();
+              }}
+              allowClear={false}
             />
           </div>
           <div>
-            <button
-              onClick={() => {
+            <Button
+              onhandleClick={() => {
                 saveExamFunc(currentExamId, examStateTypes.UN_RELEASE);
               }}
             >
               保存问卷
-            </button>
-            <button
-              onClick={() => {
+            </Button>
+            <Button
+              onhandleClick={() => {
                 toggleFunc(CONFIRM_MODAL);
               }}
             >
               发布问卷
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -417,13 +399,15 @@ class Editor extends Component {
 
 const mapStateToProps = (state, routerState) => {
   const newExamId = routerState.params.examId;
+  const answerMode = routerState.location.pathname.indexOf("answer") > -1;
+  answerMode && console.log("answerMode = " + answerMode, routerState);
   return {
     toggle: state.toggle,
     message: state.message[newExamId],
     question: state.question,
     exam: state.exam,
     newExamId: newExamId,
-    isAnswerMode: routerState.location.pathname.indexOf("/answer") === 0,
+    isAnswerMode: answerMode,
     router: routerState.router,
     temp: state.temp
   };
@@ -433,6 +417,7 @@ const mapDispatchToProps = dispatch => {
     toggleFunc: bindActionCreators(actions.toggle, dispatch),
     addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch),
     saveExamFunc: bindActionCreators(actions.saveExam, dispatch),
+    saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch),
     setToggleIdFunc: bindActionCreators(actions.setToggleId, dispatch),
     changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
     geneExamFunc: bindActionCreators(actions.geneExam, dispatch),

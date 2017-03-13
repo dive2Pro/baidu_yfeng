@@ -7,7 +7,8 @@ import {
   saveTempQuestion,
   clearTempQuestion,
   addOption,
-  deleteOption
+  deleteOption,
+  opeOptions
 } from "./question";
 import { saveMessage } from "./message";
 import { saveAnswer,handleSubmit } from "./answer";
@@ -23,6 +24,7 @@ import {
   clearTempExam
 } from "./exam";
 export {
+  opeOptions,
   saveMessage,
   toggle,
   addQuestion,

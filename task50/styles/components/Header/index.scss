@@ -1,12 +1,20 @@
 .header {
-  background: $headerColor;
-  padding: ($padding/2)($padding*3);
   height: ($padding *2);
   display: flex;
-  justify-items: center;
+  transition: all 0.5s;
+  position: fixed;
+  width: 100%;
+  border-radius: 6px;
+  z-index: 99;
+  box-shadow: $solidBackgroundShadow;
   a{
     display: block;
     color: white;
     font-size: 1rem;
+  }
+}
+
+@mixin header--md(){
+  .overScroll40{
   }
 }

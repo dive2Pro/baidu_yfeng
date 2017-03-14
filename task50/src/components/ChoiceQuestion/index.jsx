@@ -11,9 +11,7 @@ const CheckboxGroup = Checkbox.Group;
 import {observer} from 'mobx-react'
 @observer
 class ChoiceQuestion extends React.Component {
-  handleDestory = id => {
-    const { thisQuestion } = this.props;
-  };
+
   onHandleRadioGroupChange = e => {
     const id = e.target.value;
   };

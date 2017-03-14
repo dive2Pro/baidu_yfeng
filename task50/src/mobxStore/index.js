@@ -3,13 +3,10 @@
  */
 import * as examStateTypes from "../constants/examStateType";
 import { computed, action, observable, observer, reaction } from "mobx";
-import {
-  guid,
-  deleteElementFromArray,
-  moveElementInArray
-} from "../constants/utils";
-import { NEW_GENE } from "../constants/examStateType";
+import { guid } from "../constants/utils";
+import { NEW_GENE, UN_RELEASE, RELEASED } from "../constants/examStateType";
 import * as optionActs from "../constants/optionActType";
+
 const initialData = [
   {
     examState: examStateTypes.UN_RELEASE,
@@ -112,10 +109,14 @@ class Exam {
   @action setEditing(editing) {
     this.isEditing = editing;
   }
-
+  temperToBackExam() {
+    if (this.isEditing) {
+      this.updateWithTempExam(this, this.tempExam);
+    }
+  }
   updateWithTempExam(target, source) {
     target.title = source.title;
-    target.questions = new Map(source.questions);
+    target.questions = [...source.questions];
     target.examState = source.examState;
     target.time = source.time;
   }
@@ -155,7 +156,7 @@ class Exam {
     switch (parseInt(actType)) {
       case 0:
         const newQuestion = new Question(this);
-        newQuestion.updateFromJson(question)
+        newQuestion.updateFromJson(question);
         this.questions.push(newQuestion);
         console.log(newQuestion);
         break;
@@ -173,6 +174,7 @@ class Exam {
   @computed get questionsCount() {
     return this.questions.size;
   }
+
   @action addQuestion(questionInfo) {
     const question = new Question(this);
     console.log(questionInfo);
@@ -185,6 +187,7 @@ class Exam {
   }
   @action changeExamState(examState) {
     this.examState = examState;
+    this.updateWithTempExam(this.tempExam, this);
   }
 
   deleteExam() {
@@ -259,7 +262,6 @@ class Question {
   @action updateFromJson(
     { title = "请输入", count, options, isRequire = false, type = "" }
   ) {
-    console.log(title, count);
     this.title = title || "请输入";
     this.isRequire = isRequire;
     this.type = type;

@@ -3,7 +3,6 @@ import ChoiceQuestion from "../ChoiceQuestion/index";
 import * as topicTypes from "../../constants/topicType";
 import * as examStateTypes from "../../constants/examStateType";
 import {
-  ADD_QUESTION,
   CURRENT_EXAM,
   CONFIRM_MODAL,
   WARNING_MODAL
@@ -29,42 +28,26 @@ class Editor extends Component {
 
   _isAnswerMode = false;
 
-  componentDidMount() {
-    // const {
-    //   setToggleIdFunc,
-    //   exam,
-    //   changeExamTimeFunc,
-    //   newExamId,
-    //   router,
-    //   saveTempExamFunc,
-    //   geneExamFunc
-    // } = this.props;
-    // console.info(router);
-    // if (exam[newExamId]) {
-    //   this.setState(
-    //     {
-    //       startDate: moment(exam[newExamId].time || {})
-    //     },
-    //     () => {
-    //       changeExamTimeFunc(
-    //         newExamId,
-    //         this.state.startDate.format("YYYY-MM-DD")
-    //       );
-    //     }
-    //   );
-    //   setToggleIdFunc(CURRENT_EXAM, newExamId);
-    // } else if (newExamId === "new") {
-    //   geneExamFunc();
-    //   this.setState({
-    //     startDate: moment()
-    //   });
-    // } else {
-    //   router.push("/list");
-    // }
-    // saveTempExamFunc();
+  componentWillMount() {
+    const { router, ExamStore } = this.props;
+    const { params: { examId }, location: { pathname } } = router;
+    this._currentExam = ExamStore.getExam(examId);
+    this._isAnswerMode = pathname.indexOf("answer") >= 0;
   }
 
-  componentWillUnmount() {}
+  componentDidMount() {
+    const { router } = this.props;
+    if (!this._currentExam) router.push("/list");
+    if (!this._isAnswerMode) {
+      this._currentExam.setEditing(true);
+    }
+  }
+
+  componentWillUnmount() {
+    if (!this._isAnswerMode) {
+      this._currentExam.temperToBackExam();
+    }
+  }
   onToggle = question => ids => {
     const { toggle } = this.props;
     const currentExamId = toggle[CURRENT_EXAM];
@@ -89,12 +72,13 @@ class Editor extends Component {
     changeExamTimeFunc(toggle[CURRENT_EXAM], date.format("Y-M-D"));
   };
 
-  geneQuestionsView() {
+  geneQuestionsView = () => {
     const isAnswerMode = this._isAnswerMode;
     const currentExam = this._currentExam;
     const { questions } = currentExam;
-    return questions && questions.map((ques, i) => {
-        const isLast = i === questions.length - 1
+    return questions &&
+      questions.map((ques, i) => {
+        const isLast = i === questions.length - 1;
         switch (ques.type) {
           case topicTypes.SINGLE_TYPE:
           case topicTypes.MULTI_TYPE:
@@ -125,47 +109,23 @@ class Editor extends Component {
             return "";
         }
       });
-  }
+  };
+
   handleToggleFunc = type => {
     const {
       toggleFunc
     } = this.props;
     toggleFunc(type);
   };
-  componentWillMount() {
-    const { router, ExamStore } = this.props;
-    const { params: { examId }, location: { pathname } } = router;
-    this._currentExam = ExamStore.getExam(examId);
-    this._isAnswerMode = pathname.indexOf("answer") >= 0;
-  }
+
   toggleEditing = () => {
     this._currentExam.setEditing(!this._currentExam.isEditing);
   };
 
-  render() {
-    const { router } = this.props;
-    const currentExam = this._currentExam;
-    if (!currentExam) return <div>...</div>;
-    const isAnswerMode = this._isAnswerMode;
-    return (
-      <div className="editor">
-        <EditorTitle
-          currentExam={currentExam}
-          handleGoback={() => router.go(-1)}
-          isAnswerMode={isAnswerMode}
-        />
-        <div className="editor-questions">
-          {this.geneQuestionsView()}
-        </div>
-        {!isAnswerMode ? this.geneEditorBottom() : this.geneAnswerBottom()}
-        {this.renderModals()}
-
-      </div>
-    );
-  }
   handleModalCancel = type => {
     this._showModal.remove(type);
   };
+
   renderModals = () => {
     console.log("renderModals", this._showModal);
     const showModal = this._showModal;
@@ -372,7 +332,7 @@ class Editor extends Component {
             <Button
               onhandleClick={() => {
                 {
-                  /*toggleFunc(CONFIRM_MODAL);*/
+                  this._showModal.push(CONFIRM_MODAL);
                 }
               }}
             >
@@ -383,11 +343,26 @@ class Editor extends Component {
       </div>
     );
   };
-}
-
-class ModalContainer extends React.Component {
   render() {
-    return <div>asd</div>;
+    const { router } = this.props;
+    const currentExam = this._currentExam;
+    if (!currentExam) return <div>...</div>;
+    const isAnswerMode = this._isAnswerMode;
+    return (
+      <div className="editor">
+        <EditorTitle
+          currentExam={currentExam}
+          handleGoback={() => router.go(-1)}
+          isAnswerMode={isAnswerMode}
+        />
+        <div className="editor-questions">
+          {this.geneQuestionsView()}
+        </div>
+        {!isAnswerMode ? this.geneEditorBottom() : this.geneAnswerBottom()}
+        {this.renderModals()}
+
+      </div>
+    );
   }
 }
 

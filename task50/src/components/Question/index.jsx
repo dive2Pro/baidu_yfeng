@@ -56,11 +56,14 @@ export default function(Component) {
             />
             {!isAnswerMode &&
               <div className={requireClazz}>
-                <input type="checkbox" id={id + " - label"} checked={require} />
-                <label
-                  htmlFor={id + " - label"}
-                  onClick={() => thisQuestion.setQuestionRequire(!isRequire)}
-                >
+                <input
+                  onChange={e =>
+                    thisQuestion.setQuestionRequire(!isRequire)}
+                  type="checkbox"
+                  id={id + " - label"}
+                  checked={isRequire}
+                />
+                <label htmlFor={id + " - label"}>
                   此题是否必选
                 </label>
               </div>}

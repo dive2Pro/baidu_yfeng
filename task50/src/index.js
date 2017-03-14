@@ -3,22 +3,14 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import ExamList from "./components/ExamList/index";
 import NoMatch from "./components/NoMatch/index";
-import { Provider } from "react-redux";
-import store, { reduxHistory } from "./store/index";
+import { Provider } from "mobx-react";
+import { browserHistory } from "react-router";
 import { Router, Route, IndexRoute } from "react-router";
 import EditorContainer from "./components/Editor/index";
 import ExamShowContainer from "./components/ExamShow/index";
-import { toggle, resetToggled } from "./actions/index";
-import { ANSWER_MODE } from "./constants/toggleTypes";
 require("../styles/index.scss");
-// 监视location的跳转,设置是否可编辑问题
-reduxHistory.listen(location => {
-  const isAnswerMode = location.pathname.indexOf("/answer") === 0;
-  isAnswerMode
-    ? store.dispatch(toggle(ANSWER_MODE))
-    : store.dispatch(resetToggled(ANSWER_MODE));
-});
-
+import ExamStore from "./mobxStore/index";
+const store = new ExamStore();
 const routers = (
   <Router component={App}>
     <IndexRoute component={ExamList} />
@@ -32,8 +24,8 @@ const routers = (
 );
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={reduxHistory}>
+  <Provider ExamStore={store}>
+    <Router history={browserHistory}>
       {routers}
     </Router>
   </Provider>,
@@ -42,7 +34,7 @@ ReactDOM.render(
 
 if (module.hot) {
   module.hot.accept("./App", () => {
-    var NextApp = require("./App").default;
+    const NextApp = require("./App").default;
     ReactDOM.render(<NextApp />, document.getElementById("root"));
   });
 }

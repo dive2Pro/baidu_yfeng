@@ -86,7 +86,12 @@ export default function(Component) {
                   <a
                     href="#"
                     key={i}
-                    onClick={() => {}}
+                    onClick={() => {
+                      thisQuestion.changeQuestion({
+                        index,
+                        actType: questionActs[act]
+                      });
+                    }}
                     className="question-act-item"
                   >
                     {content}

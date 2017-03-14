@@ -93,7 +93,8 @@ class Editor extends Component {
     const isAnswerMode = this._isAnswerMode;
     const currentExam = this._currentExam;
     const { questions } = currentExam;
-    return questions && questions.values().map((ques, i) => {
+    return questions && questions.map((ques, i) => {
+        const isLast = i === questions.length - 1
         switch (ques.type) {
           case topicTypes.SINGLE_TYPE:
           case topicTypes.MULTI_TYPE:
@@ -102,7 +103,7 @@ class Editor extends Component {
                 <ChoiceQuestion
                   index={i}
                   key={ques.id}
-                  isLast={i === questions.size - 1}
+                  isLast={isLast}
                   thisQuestion={ques}
                   isAnswerMode={isAnswerMode}
                   onHandleChange={this.onToggle(ques)}
@@ -114,7 +115,7 @@ class Editor extends Component {
               <TextQuestion
                 index={i}
                 key={ques.id}
-                isLast={i === questions.size - 1}
+                isLast={isLast}
                 thisQuestion={ques}
                 requireable
                 isAnswerMode={isAnswerMode}

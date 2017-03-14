@@ -85,7 +85,7 @@ class Exam {
   id = null;
   store = null;
   @observable title = "请修改";
-  @observable questions = Map;
+  @observable questions = [];
   @observable examState = NEW_GENE;
   @observable time = null;
   @observable isEditing = false;
@@ -108,10 +108,6 @@ class Exam {
         }
       }
     );
-    this.questions = new Map();
-    this.questions.set("q1", { id: "q1", title: "I am Q1" });
-    this.questions.set("q2", { id: "q2", title: "I am Q2" });
-    this.questions.set("q3", { id: "q3", title: "I am Q3" });
   }
   @action setEditing(editing) {
     this.isEditing = editing;
@@ -151,15 +147,24 @@ class Exam {
     console.log("this  title = " + this.title);
   }
 
-  @action changeQuestion({ quesId, actType }) {
+  /**
+   * export const questionActs = { '上移': -1, '下移': 1, '复用': 0, '删除': 2 };
+   */
+  @action changeQuestion({ index, actType }) {
+    const question = this.questions[index];
     switch (parseInt(actType)) {
       case 0:
+        const newQuestion = new Question(this);
+        newQuestion.updateFromJson(question)
+        this.questions.push(newQuestion);
+        console.log(newQuestion);
         break;
       case 1:
-        break;
       case -1:
+        changePositionInArray(this.questions, index, +actType);
         break;
       case 2:
+        this.deleteQuestion(index);
         break;
       default:
         return this.questions;
@@ -172,11 +177,11 @@ class Exam {
     const question = new Question(this);
     console.log(questionInfo);
     question.updateFromJson(questionInfo);
-    this.questions.set(question.id, question);
+    this.questions.push(question);
   }
 
-  @action deleteQuestion(quesId) {
-    this.questions.delete(quesId);
+  @action deleteQuestion(index) {
+    this.questions.splice(index, 1);
   }
   @action changeExamState(examState) {
     this.examState = examState;
@@ -197,7 +202,14 @@ class Exam {
     };
   }
 }
-
+function changePositionInArray(arr, index, actPosition) {
+  if (!arr[index + actPosition]) {
+    return false;
+  }
+  const temp = arr[index];
+  arr[index] = arr[index + actPosition];
+  arr[index + actPosition] = temp;
+}
 class Question {
   @observable title = "请输入";
   id;
@@ -219,31 +231,24 @@ class Question {
     this.content = content;
   }
 
+  changeQuestion(info) {
+    this.exam.changeQuestion(info);
+  }
+
   /**
    * @param index
    * @param actType
    */
   changeOptionPosition(index, actType) {
-    const temp = this.options[index];
     switch (+actType) {
       case optionActs.LOWER:
-        if (!this.options[index + 1]) {
-          return;
-        }
-        this.options[index] = this.options[index + 1];
-        this.options[index + 1] = temp;
-        break;
       case optionActs.UPPER:
-        if (!this.options[index - 1]) {
-          return;
-        }
-        this.options[index] = this.options[index - 1];
-        this.options[index - 1] = temp;
+        changePositionInArray(this.options, index, +actType);
         break;
     }
   }
-  deleteQuestion() {
-    this.exam.deleteQuestion(this.id);
+  deleteQuestion(index) {
+    this.exam.deleteQuestion(index);
   }
   @action setQuestionRequire(isRequire) {
     this.isRequire = isRequire;
@@ -263,7 +268,7 @@ class Question {
         options.forEach(opt => {
           let option = this.options.find(o => o.id === opt.id);
           if (!option) {
-            option = new Option(this, option.id);
+            option = new Option(this);
             this.options.push(option);
           }
           option.updateFromJson(opt);

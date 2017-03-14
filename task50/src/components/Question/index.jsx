@@ -13,8 +13,9 @@ import {
   saveMessage,
   opeOptions
 } from "../../actions/index";
+import { observer } from "mobx-react";
 export default function(Component) {
-  class Question extends React.Component {
+  @observer class Question extends React.Component {
     state = {};
     static propTypes = {
       thisQuestion: React.PropTypes.object,
@@ -65,21 +66,15 @@ export default function(Component) {
         thisQuestion,
         index,
         isLast,
-        opeExamQuestionsFunc,
-        currentExamId,
-        requireable,
-        setRequireFunc,
         isAnswerMode,
         onToggle,
-        onAnswerText,
-        title,
-        onHandleChange
+        requireable
       } = this.props;
 
       const {
-        titleId,
+        title,
         id,
-        require
+        isRequire
       } = thisQuestion;
 
       const requireClazz = classnames("question-title-require", {
@@ -92,7 +87,7 @@ export default function(Component) {
             <div>Q{index + 1}</div>
             <InputWithEditView
               onHandleInput={this.onHandleInput}
-              id={titleId}
+              id={id}
               placeHold={title}
               isAnswerMode={isAnswerMode}
               isTitle
@@ -102,7 +97,7 @@ export default function(Component) {
                 <input type="checkbox" id={id + " - label"} checked={require} />
                 <label
                   htmlFor={id + " - label"}
-                  onClick={() => setRequireFunc(id, !require)}
+                  onClick={() => thisQuestion.setQuestionRequire(!isRequire)}
                 >
                   此题是否必选
                 </label>
@@ -111,9 +106,9 @@ export default function(Component) {
           <div className="question-items">
             <Component
               onToggle={onToggle}
-              onAnswerText={onAnswerText}
+              onAnswerText={() => {}}
               onHandleInput={this.onHandleInput}
-              onHandleChange={onHandleChange}
+              onHandleChange={() => {}}
               {...this.props}
             />
           </div>
@@ -130,12 +125,7 @@ export default function(Component) {
                   <a
                     href="#"
                     key={i}
-                    onClick={() =>
-                      opeExamQuestionsFunc(
-                        currentExamId,
-                        thisQuestion,
-                        questionActs[act]
-                      )}
+                    onClick={() => {}}
                     className="question-act-item"
                   >
                     {content}
@@ -147,14 +137,6 @@ export default function(Component) {
       );
     }
   }
-  const mapDispatchToProps = dispatch => ({
-    setContentIdFunc: bindActionCreators(setContentId, dispatch),
-    opeExamQuestionsFunc: bindActionCreators(opeExamQuestions, dispatch),
-    saveQuestionFunc: bindActionCreators(saveQuestion, dispatch),
-    saveMessageFunc: bindActionCreators(saveMessage, dispatch),
-    addOption: bindActionCreators(addOption, dispatch),
-    deleteOption: bindActionCreators(deleteOption, dispatch),
-    opeOptions: bindActionCreators(opeOptions, dispatch)
-  });
-  return connect(null, mapDispatchToProps)(Question);
+
+  return Question;
 }

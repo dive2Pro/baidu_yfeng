@@ -9,7 +9,6 @@ import {
 import { Link } from "react-router";
 import ConfirmModal from "../Modal/ConfirmModal";
 import { Table, Popconfirm, Button } from "antd";
-import { CONFIRM_MODAL } from "../../constants/toggleTypes";
 import { inject, observer } from "mobx-react";
 import { observable } from "mobx";
 const CreateExamButton = ({ classname, onClick, text = "新建问卷" }) => {

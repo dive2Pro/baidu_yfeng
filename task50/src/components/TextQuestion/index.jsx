@@ -5,25 +5,20 @@ class TextQuestion extends Component {
   state = {};
   handleChange = event => {
     const value = event.target.value;
-    this.setState({
-      temp_value: value
-    });
-    const { onHandleInput, thisQuestion } = this.props;
-    onHandleInput({ id: thisQuestion.contentId, value });
+    this.props.thisQuestion.updateContent(value)
   };
 
   render() {
     const {
-      thisQuestion,
-      message
+      thisQuestion
     } = this.props;
-    const contentId = thisQuestion.contentId;
+    const content = thisQuestion.content;
     return (
       <div>
         <Input
           type="textarea"
           onChange={this.handleChange}
-          value={this.state.temp_value || message[contentId]}
+          value={this.state.temp_value || content}
         />
       </div>
     );

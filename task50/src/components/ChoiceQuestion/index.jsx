@@ -9,14 +9,10 @@ const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
 class ChoiceQuestion extends React.Component {
   handleDestory = id => {
-    const { setDestory, deleteOption, thisQuestion } = this.props;
-    setDestory(id);
-    deleteOption(thisQuestion.id, id);
+    const { thisQuestion } = this.props;
   };
   onHandleRadioGroupChange = e => {
     const id = e.target.value;
-    const { onHandleChange } = this.props;
-    onHandleChange([id]);
   };
   renderRadios = () => {
     const radioStyle = {
@@ -24,20 +20,22 @@ class ChoiceQuestion extends React.Component {
       height: "30px",
       lineHeight: "30px"
     };
-    const { thisQuestion, message, onHandleChange } = this.props;
+    const { thisQuestion, onHandleChange } = this.props;
     // const inputType = type === topicTypes.SINGLE_TYPE ? "radio" : "checkbox";
-    const plainOptions = thisQuestion.optionsId.map(id => ({
-      value: id,
-      label: message[id]
+    const optionsValues = thisQuestion.options.values();
+    const plainOptions = optionsValues.map(option => ({
+      value: option.id,
+      label: option.title
     }));
     const isRadio = thisQuestion.type === topicTypes.SINGLE_TYPE;
 
     const Radios = (
       <RadioGroup onChange={this.onHandleRadioGroupChange}>
-        {thisQuestion.optionsId.map(id => {
+        {optionsValues.map(option => {
+          const { id, title } = option;
           return (
             <Radio key={id} style={radioStyle} value={id}>
-              {message[id]}
+              {title}
             </Radio>
           );
         })}
@@ -62,9 +60,7 @@ class ChoiceQuestion extends React.Component {
   render() {
     const {
       thisQuestion,
-      message,
       isAnswerMode,
-      addOption,
       onHandleInput,
       onHandleChange
     } = this.props;
@@ -76,7 +72,8 @@ class ChoiceQuestion extends React.Component {
     return isAnswerMode
       ? this.renderRadios()
       : <div>
-          {thisQuestion.optionsId.map(id => {
+          {thisQuestion.options.values().map(option => {
+            const { id, title } = option;
             return (
               <div className="question-items-item">
                 <CheckOrRadioSelectView
@@ -87,7 +84,7 @@ class ChoiceQuestion extends React.Component {
                 <InputWithEditView
                   id={id}
                   isAnswerMode={isAnswerMode}
-                  placeHold={message[id]}
+                  placeHold={title}
                   onHandleInput={onHandleInput}
                   onOpeOptions={this.onOpetions(quesId)}
                 />
@@ -96,7 +93,7 @@ class ChoiceQuestion extends React.Component {
           })}
           <div>
             {!isAnswerMode &&
-              <Icon type="plus" onClick={() => addOption(thisQuestion.id)} />}
+              <Icon type="plus" onClick={() => thisQuestion.id} />}
           </div>
         </div>;
   }

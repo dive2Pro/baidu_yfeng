@@ -3,7 +3,6 @@ import { Modal as AntModal } from "antd";
 
 const ConfirmModal = ({ ...restProps }) => {
   const { children, onHandleOk, onHandleCancel, visible } = restProps;
-  console.log(visible);
   return (
     <AntModal
       active={true}

@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3181afef-3d42-4c57-89dc-b42bd992baa3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/task50/src/constants/optionActType.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/config/webpack.config.dev.js" afterPath="$PROJECT_DIR$/task50/config/webpack.config.dev.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/package.json" afterPath="$PROJECT_DIR$/task50/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/App.js" afterPath="$PROJECT_DIR$/task50/src/App.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Editor/title.jsx" afterPath="$PROJECT_DIR$/task50/src/components/Editor/title.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/ExamList/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/ExamList/index.jsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/InputItem/InputWithEdit.js" afterPath="$PROJECT_DIR$/task50/src/components/InputItem/InputWithEdit.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js" afterPath="$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/Question/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/Question/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx" afterPath="$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/index.js" afterPath="$PROJECT_DIR$/task50/src/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task50/src/mobxStore/index.js" afterPath="$PROJECT_DIR$/task50/src/mobxStore/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -38,125 +33,117 @@
     <fileColor scope="Changed Files" color="Green" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Button.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/Button.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="15" column="18" lean-forward="true" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-44">
-              <caret line="52" column="15" lean-forward="true" selection-start-line="52" selection-start-column="15" selection-end-line="52" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConfirmModal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="4" column="55" lean-forward="false" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/Editor/index.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="30" column="11" lean-forward="false" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#491#537#0" expanded="true" />
-                <marker date="1489505562786" expanded="false" signature="1072:1885" ph="{...}" />
-                <marker date="1489505562786" expanded="false" signature="1947:2205" ph="{...}" />
-                <marker date="1489505562786" expanded="false" signature="3559:3635" ph="{...}" />
-                <marker date="1489505562786" expanded="false" signature="10138:10580" ph="&lt;div/&gt;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/mobxStore/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="166" column="40" lean-forward="true" selection-start-line="166" selection-start-column="40" selection-end-line="166" selection-end-column="40" />
-              <folding>
-                <element signature="e#38#99#0" expanded="true" />
-                <element signature="n#!!block;n#updateFromJson#0;n#Exam#0" expanded="false" />
-                <element signature="n#!!block;n#setQuestionRequire#0;n#Question#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/ExamList/index.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/components/Question/index.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="112" column="14" lean-forward="false" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="toggleTypes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/constants/toggleTypes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="topicType.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/src/constants/topicType.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="webpack.config.dev.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/task50/config/webpack.config.dev.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="70" column="4" lean-forward="false" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
-              <folding>
-                <element signature="e#4593#7098#0" expanded="false" />
-                <element signature="e#7169#7386#0" expanded="false" />
-                <element signature="e#7399#8786#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="actionType.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/task50/src/constants/actionType.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="26">
+                  <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1">
+                  <caret line="68" column="4" lean-forward="false" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
+                  <folding>
+                    <element signature="e#0#26#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/task50/src/mobxStore/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="606">
+                  <caret line="236" column="31" lean-forward="false" selection-start-line="236" selection-start-column="31" selection-end-line="236" selection-end-column="31" />
+                  <folding>
+                    <element signature="e#38#99#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="InputWithEdit.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/task50/src/components/InputItem/InputWithEdit.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="396">
+                  <caret line="20" column="55" lean-forward="false" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+                  <folding>
+                    <element signature="e#38#89#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="optionActType.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/task50/src/constants/optionActType.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="132">
+                  <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#0#37#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.jsx" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/task50/src/components/Question/index.jsx">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="506">
+                  <caret line="23" column="54" lean-forward="false" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+                  <folding>
+                    <element signature="e#0#41#0" expanded="true" />
+                    <element signature="e#990#3008#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="questionActType.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/task50/src/constants/questionActType.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="22">
+                  <caret line="1" column="0" lean-forward="true" selection-start-line="0" selection-start-column="28" selection-end-line="1" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="topicType.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/task50/src/constants/topicType.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="88">
+                  <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/task50/src/mobxStore/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="66">
+                  <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -169,12 +156,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>storage</find>
-      <find>_storage</find>
-      <find>_privateStoreProps</find>
-      <find>_namespacePrefix</find>
-      <find>renderCreateNewExam</find>
-      <find>message</find>
       <find>key</find>
       <find>externals</find>
       <find>rendernExamList</find>
@@ -199,6 +180,12 @@
       <find>observable</find>
       <find>observer</find>
       <find>topicTypes</find>
+      <find>this</find>
+      <find>handleConfirmGeneQuestion</find>
+      <find>confirm</find>
+      <find>options</find>
+      <find>editId</find>
+      <find>onToggle</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -213,7 +200,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/task50/src/actions/answer.test.js" />
         <option value="$PROJECT_DIR$/task50/src/actions/exam.js" />
         <option value="$PROJECT_DIR$/task50/src/constants/toggleTypes.js" />
         <option value="$PROJECT_DIR$/task50/src/constants/actionType.js" />
@@ -244,7 +230,6 @@
         <option value="$PROJECT_DIR$/task50/src/actions/index.js" />
         <option value="$PROJECT_DIR$/task50/src/actions/question.js" />
         <option value="$PROJECT_DIR$/task50/src/constants/utils.js" />
-        <option value="$PROJECT_DIR$/task50/src/components/InputItem/InputWithEdit.js" />
         <option value="$PROJECT_DIR$/task50/src/components/Button.js" />
         <option value="$PROJECT_DIR$/task50/styles/components/Editor/index.scss" />
         <option value="$PROJECT_DIR$/task50/src/components/Header/ScrollHoc.js" />
@@ -256,14 +241,16 @@
         <option value="$PROJECT_DIR$/task50/src/index.js" />
         <option value="$PROJECT_DIR$/task50/src/components/Editor/title.jsx" />
         <option value="$PROJECT_DIR$/task50/src/App.js" />
-        <option value="$PROJECT_DIR$/task50/src/components/Question/index.jsx" />
         <option value="$PROJECT_DIR$/task50/src/components/TextQuestion/index.jsx" />
-        <option value="$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx" />
         <option value="$PROJECT_DIR$/task50/config/webpack.config.dev.js" />
-        <option value="$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js" />
-        <option value="$PROJECT_DIR$/task50/src/mobxStore/index.js" />
         <option value="$PROJECT_DIR$/task50/src/components/ExamList/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js" />
+        <option value="$PROJECT_DIR$/task50/src/constants/optionActType.js" />
+        <option value="$PROJECT_DIR$/task50/src/components/Question/index.jsx" />
         <option value="$PROJECT_DIR$/task50/src/components/Editor/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/src/components/InputItem/InputWithEdit.js" />
+        <option value="$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx" />
+        <option value="$PROJECT_DIR$/task50/src/mobxStore/index.js" />
       </list>
     </option>
   </component>
@@ -491,33 +478,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ExamList" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="baidu_yfeng" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="baidu_yfeng" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="task50" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Editor" />
+              <option name="myItemId" value="Modal" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -661,7 +622,7 @@
       <workItem from="1489375711073" duration="14000" />
       <workItem from="1489468362129" duration="9363000" />
       <workItem from="1489478787703" duration="3207000" />
-      <workItem from="1489486639259" duration="12861000" />
+      <workItem from="1489486639259" duration="21030000" />
     </task>
     <task id="LOCAL-00001" summary="feat(examlist):delete">
       <created>1488544303125</created>
@@ -908,11 +869,18 @@
       <option name="project" value="LOCAL" />
       <updated>1489469294479</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="refactor(mobx):with  editor">
+      <created>1489505651504</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1489505651504</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="243641000" />
+    <option name="totallyTimeSpent" value="251810000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -928,7 +896,7 @@
     <editor active="false" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12177122" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15814444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26931107" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -992,7 +960,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat(modal): deleteModal" />
     <MESSAGE value="feat(modal): deleteModal -&gt; ConfirmModal" />
     <MESSAGE value="fix(editor):title  css&#10;" />
     <MESSAGE value="feat(answer):action,reducer&#10;feat(editor):submit answer&#10;" />
@@ -1017,7 +984,8 @@
     <MESSAGE value="refactor(Editor):with ant" />
     <MESSAGE value="refactor(Editor):with ant further" />
     <MESSAGE value="refactor(mobx):with package.json" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(mobx):with package.json" />
+    <MESSAGE value="refactor(mobx):with  editor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(mobx):with  editor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1026,21 +994,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/task50/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="16" column="9" lean-forward="true" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/node_modules/antd/lib/modal/Modal.d.ts" />
-    <entry file="file://$PROJECT_DIR$/task50/styles/customs/main.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="50" column="9" lean-forward="false" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/styles/components/ExamList/index.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1066,13 +1019,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="668">
           <caret line="128" column="16" lean-forward="false" selection-start-line="128" selection-start-column="16" selection-end-line="128" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/constants/actionType.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1270,14 +1216,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/InputItem/InputWithEdit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1080">
-          <caret line="24" column="4" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/node_modules/mobx-react/index.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
@@ -1301,7 +1239,7 @@
         <state relative-caret-position="0">
           <caret line="15" column="19" lean-forward="false" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1311,7 +1249,7 @@
         <state relative-caret-position="0">
           <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1340,24 +1278,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/Question/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="112" column="14" lean-forward="false" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-44">
-          <caret line="52" column="15" lean-forward="true" selection-start-line="52" selection-start-column="15" selection-end-line="52" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task50/config/webpack.config.dev.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
@@ -1366,18 +1286,6 @@
             <element signature="e#4593#7098#0" expanded="false" />
             <element signature="e#7169#7386#0" expanded="false" />
             <element signature="e#7399#8786#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/mobxStore/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="166" column="40" lean-forward="true" selection-start-line="166" selection-start-column="40" selection-end-line="166" selection-end-column="40" />
-          <folding>
-            <element signature="e#38#99#0" expanded="true" />
-            <element signature="n#!!block;n#updateFromJson#0;n#Exam#0" expanded="false" />
-            <element signature="n#!!block;n#setQuestionRequire#0;n#Question#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1398,6 +1306,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/constants/topicType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/components/ExamList/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -1408,31 +1324,94 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/components/Modal/ConfirmModal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="4" column="55" lean-forward="false" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="55" />
+        <state relative-caret-position="242">
+          <caret line="12" column="18" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/task50/src/constants/topicType.js">
+    <entry file="file://$PROJECT_DIR$/task50/src/constants/actionType.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="26">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/constants/examStateType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="17" lean-forward="true" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/Question/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="23" column="54" lean-forward="false" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#990#3008#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/constants/questionActType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="0" selection-start-column="28" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/task50/src/components/Editor/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="30" column="11" lean-forward="false" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+        <state relative-caret-position="198">
+          <caret line="264" column="30" lean-forward="false" selection-start-line="264" selection-start-column="30" selection-end-line="264" selection-end-column="30" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="e#491#537#0" expanded="true" />
-            <marker date="1489505562786" expanded="false" signature="1072:1885" ph="{...}" />
-            <marker date="1489505562786" expanded="false" signature="1947:2205" ph="{...}" />
-            <marker date="1489505562786" expanded="false" signature="3559:3635" ph="{...}" />
-            <marker date="1489505562786" expanded="false" signature="10138:10580" ph="&lt;div/&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/constants/optionActType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#37#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/InputItem/InputWithEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="20" column="55" lean-forward="false" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+          <folding>
+            <element signature="e#38#89#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/components/ChoiceQuestion/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1">
+          <caret line="68" column="4" lean-forward="false" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/task50/src/mobxStore/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="236" column="31" lean-forward="false" selection-start-line="236" selection-start-column="31" selection-end-line="236" selection-end-column="31" />
+          <folding>
+            <element signature="e#38#99#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -3,8 +3,13 @@
  */
 import * as examStateTypes from "../constants/examStateType";
 import { computed, action, observable, observer, reaction } from "mobx";
-import { guid, deleteElementFromArray } from "../constants/utils";
+import {
+  guid,
+  deleteElementFromArray,
+  moveElementInArray
+} from "../constants/utils";
 import { NEW_GENE } from "../constants/examStateType";
+import * as optionActs from "../constants/optionActType";
 const initialData = [
   {
     examState: examStateTypes.UN_RELEASE,
@@ -165,7 +170,8 @@ class Exam {
   }
   @action addQuestion(questionInfo) {
     const question = new Question(this);
-    question.updateFromJson(...questionInfo);
+    console.log(questionInfo);
+    question.updateFromJson(questionInfo);
     this.questions.set(question.id, question);
   }
 
@@ -193,9 +199,9 @@ class Exam {
 }
 
 class Question {
-  @observable title;
-  @observable id;
-  @observable options;
+  @observable title = "请输入";
+  id;
+  @observable options = [];
   @observable content;
   @observable isRequire = false;
   @observable type = "";
@@ -203,17 +209,37 @@ class Question {
   constructor(exam, id = guid()) {
     this.exam = exam;
     this.id = id;
-    this.options = new Map();
   }
-  @action deleteOption(id) {
-    this.options.delete(id);
+  @action deleteOption(index) {
+    // deleteElementFromArray(this.options,)
+    this.options.splice(index, 1);
   }
 
   @action updateContent(content) {
     this.content = content;
   }
-  changeOptionPosition(id, actType) {
+
+  /**
+   * @param index
+   * @param actType
+   */
+  changeOptionPosition(index, actType) {
+    const temp = this.options[index];
     switch (+actType) {
+      case optionActs.LOWER:
+        if (!this.options[index + 1]) {
+          return;
+        }
+        this.options[index] = this.options[index + 1];
+        this.options[index + 1] = temp;
+        break;
+      case optionActs.UPPER:
+        if (!this.options[index - 1]) {
+          return;
+        }
+        this.options[index] = this.options[index - 1];
+        this.options[index - 1] = temp;
+        break;
     }
   }
   deleteQuestion() {
@@ -222,44 +248,50 @@ class Question {
   @action setQuestionRequire(isRequire) {
     this.isRequire = isRequire;
   }
-  updateFromJson({ title = "请输入", options, isRequire = false, type = "" }) {
+  setQuestionTitle(title) {
     this.title = title;
+  }
+  @action updateFromJson(
+    { title = "请输入", count, options, isRequire = false, type = "" }
+  ) {
+    console.log(title, count);
+    this.title = title || "请输入";
     this.isRequire = isRequire;
     this.type = type;
-    options &&
-      options.forEach(opt => {
-        let option = this.options.find(o => o.id === opt.id);
-        if (!option) {
-          option = new Option(this, option.id);
-          this.options.set(option.id, option);
-        }
-        option.updateFromJson(opt);
+    if (!count) {
+      options &&
+        options.forEach(opt => {
+          let option = this.options.find(o => o.id === opt.id);
+          if (!option) {
+            option = new Option(this, option.id);
+            this.options.push(option);
+          }
+          option.updateFromJson(opt);
+        });
+    } else {
+      new Array(count).fill(null).forEach(() => {
+        const option = new Option(this);
+        this.options.push(option);
       });
+    }
   }
 }
 
 class Option {
-  @observable title;
+  @observable title = "请输入";
   @observable id;
   question = null;
 
   constructor(question, id = guid()) {
-    this.id = id;
     this.question = question;
+    this.id = id;
   }
   updateFromJson({ title }) {
     this.title = title;
   }
+
   @action setOptionTitle(title) {
     this.title = title;
-  }
-
-  deleteFromQuestion() {
-    this.question.deleteOption(this.id);
-  }
-
-  changeOptionPosition(actType) {
-    this.question.changeOptionPosition(this.id, actType);
   }
 }
 export default new ExamListStore();

@@ -5,8 +5,11 @@ import CheckOrRadioSelectView from "../InputItem/CheckOrRadioSelectView";
 import * as topicTypes from "../../constants/topicType";
 import Question from "../Question/index";
 import { Radio, Checkbox, Icon } from "antd";
+import { DELETE } from "../../constants/optionActType";
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
+import {observer} from 'mobx-react'
+@observer
 class ChoiceQuestion extends React.Component {
   handleDestory = id => {
     const { thisQuestion } = this.props;
@@ -54,28 +57,38 @@ class ChoiceQuestion extends React.Component {
       </div>
     );
   };
-  onOpetions = quesId => (optionId, actType) => {
-    this.props.opeOptions(quesId, optionId, actType);
+  onOpetions = quesId => (index, actType) => {
+    const q = this.props.thisQuestion;
+    if (actType == DELETE) {
+      q.deleteOption(index);
+    } else {
+      q.changeOptionPosition(index,actType);
+    }
+  };
+  onHandleInput = ({ id, value,index }) => {
+    console.info("onHandleInput " + id + "  value = " + value);
+    const option = this.props.thisQuestion.options[index];
+    option.setOptionTitle(value);
   };
   render() {
     const {
       thisQuestion,
       isAnswerMode,
-      onHandleInput,
       onHandleChange
     } = this.props;
     const {
       type,
-      id: quesId
+      id: quesId,
+      options
     } = thisQuestion;
-
+    console.log(options, type);
     return isAnswerMode
       ? this.renderRadios()
       : <div>
-          {thisQuestion.options.values().map(option => {
+          {options.map((option,index) => {
             const { id, title } = option;
             return (
-              <div className="question-items-item">
+              <div key={id} className="question-items-item">
                 <CheckOrRadioSelectView
                   onHandleChange={onHandleChange}
                   id={id}
@@ -83,9 +96,10 @@ class ChoiceQuestion extends React.Component {
                 />
                 <InputWithEditView
                   id={id}
+                  index={index}
                   isAnswerMode={isAnswerMode}
                   placeHold={title}
-                  onHandleInput={onHandleInput}
+                  onHandleInput={this.onHandleInput}
                   onOpeOptions={this.onOpetions(quesId)}
                 />
               </div>

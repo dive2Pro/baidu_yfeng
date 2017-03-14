@@ -6,7 +6,7 @@ const ConfirmModal = ({ ...restProps }) => {
   return (
     <AntModal
       active={true}
-      visible={visible}
+      visible={!!visible}
       cancelText="取消"
       okText="确定"
       onOk={e => {

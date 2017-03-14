@@ -16,7 +16,7 @@ import ConfirmModal from "../Modal/ConfirmModal";
 import Button from "../Button";
 import { Icon, DatePicker } from "antd";
 import { inject, observer } from "mobx-react";
-import { observable } from "mobx";
+import { observable, autorun } from "mobx";
 const moment = require("moment");
 
 @inject("ExamStore")
@@ -25,11 +25,8 @@ class Editor extends Component {
   state = {};
   @observable _currentExam = null;
   @observable _showAddItemsView = false;
-  @observable _showModal = {};
-  constructor() {
-    super();
-    this._showModal = {};
-  }
+  @observable _showModal = [];
+
   _isAnswerMode = false;
 
   componentDidMount() {
@@ -158,15 +155,6 @@ class Editor extends Component {
         />
         <div className="editor-questions">
           {this.geneQuestionsView()}
-          {currentExam.questionsCount}
-          {currentExam.questions.values().map(value => {
-            return (
-              <p key={value.id} onClick={() => this._currentExam.addQuestion()}>
-                {value.title}
-              </p>
-            );
-          })}
-          <button onClick={this.toggleEditing}>Toggle</button>
         </div>
         {!isAnswerMode ? this.geneEditorBottom() : this.geneAnswerBottom()}
         {this.renderModals()}
@@ -174,17 +162,21 @@ class Editor extends Component {
       </div>
     );
   }
-
+  handleModalCancel = type => {
+    this._showModal.remove(type);
+  };
   renderModals = () => {
-    console.log(this._showModal);
+    console.log("renderModals", this._showModal);
     const showModal = this._showModal;
     return (
       <div className="modal-container">
         <ConfirmModal
-          visible={showModal[topicTypes.SINGLE_TYPE]}
-          confirmFunc={() => {
+          visible={~showModal.indexOf(topicTypes.SINGLE_TYPE)}
+          onHandleOk={() => {
+            console.log("----- confirmFunc");
             this.handleConfirmGeneQuestion(topicTypes.SINGLE_TYPE);
           }}
+          onHandleCancel={() => this.handleModalCancel(topicTypes.SINGLE_TYPE)}
         >
           <div>
             <p>
@@ -203,10 +195,11 @@ class Editor extends Component {
           </div>
         </ConfirmModal>
         <ConfirmModal
-          visible={showModal[topicTypes.MULTI_TYPE]}
-          confirmFunc={() => {
+          visible={~showModal.indexOf(topicTypes.MULTI_TYPE)}
+          onHandleOk={() => {
             this.handleConfirmGeneQuestion(topicTypes.MULTI_TYPE);
           }}
+          onHandleCancel={() => this.handleModalCancel(topicTypes.MULTI_TYPE)}
         >
           <div>
             <p>
@@ -226,10 +219,11 @@ class Editor extends Component {
 
         </ConfirmModal>
         <ConfirmModal
-          visible={showModal[topicTypes.TEXT_TYPE]}
-          confirmFunc={() => {
+          visible={~showModal.indexOf(topicTypes.TEXT_TYPE)}
+          onHandleOk={() => {
             this.handleConfirmGeneQuestion(topicTypes.TEXT_TYPE);
           }}
+          onHandleCancel={() => this.handleModalCancel(topicTypes.TEXT_TYPE)}
         >
           <div>
             <input
@@ -239,11 +233,13 @@ class Editor extends Component {
           </div>
         </ConfirmModal>
         <ConfirmModal
-          visible={showModal[CONFIRM_MODAL]}
-          confirmFunc={() => {
+          visible={~showModal.indexOf(CONFIRM_MODAL)}
+          onHandleOk={() => {
             this._currentExam.changeExamState(examStateTypes.RELEASED);
+            this.handleModalCancel(CONFIRM_MODAL);
             this.props.router.go(-1);
           }}
+          onHandleCancel={() => this.handleModalCancel(CONFIRM_MODAL)}
         >
           <div>
             <p>
@@ -266,7 +262,7 @@ class Editor extends Component {
   handleConfirmGeneQuestion = type => {
     const title = this["modal-" + type].value;
     const countView = this["modal-" + type + "count"];
-    let count = countView && countView.value;
+    let count = countView && +countView.value;
     if (Number.isNaN(count)) {
       count = 3;
     } else if (parseInt(count) > 10) {
@@ -274,9 +270,10 @@ class Editor extends Component {
     } else if (parseInt(count) < 1) {
       count = 3;
     }
-    this._showModal[type] = false;
+    console.log(title, count, "-------\n");
+    this.handleModalCancel(type);
     // this.props.addQuestionFunc(title, topicTypes.SINGLE_TYPE, count);
-    this._currentExam.addQuestion({ title, count, isRequire: true });
+    this._currentExam.addQuestion({ title, count, isRequire: true, type });
   };
   handleSubmit = () => {
     const {
@@ -325,8 +322,7 @@ class Editor extends Component {
                     <Button
                       key={index}
                       onhandleClick={() => {
-                        this._showModal[type] = true;
-                        console.log(this._showModal[type]);
+                        this._showModal.push(type);
                       }}
                     >
                       {memeIcons[index] + "  " + topicArr[type]}
@@ -386,6 +382,12 @@ class Editor extends Component {
       </div>
     );
   };
+}
+
+class ModalContainer extends React.Component {
+  render() {
+    return <div>asd</div>;
+  }
 }
 
 export default Editor;

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Question from "../Question/index";
 import { Input } from "antd";
+import {observer} from 'mobx-react'
+@observer
 class TextQuestion extends Component {
   state = {};
   handleChange = event => {
@@ -18,7 +20,7 @@ class TextQuestion extends Component {
         <Input
           type="textarea"
           onChange={this.handleChange}
-          value={this.state.temp_value || content}
+          value={content}
         />
       </div>
     );

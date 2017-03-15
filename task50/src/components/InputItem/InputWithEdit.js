@@ -36,7 +36,6 @@ export default class InputWithEdit extends React.Component {
   };
 
   handleChangeInputMode = () => {
-    const {} = this.props;
     this.setState(preState => {
       return { inputVisible: !preState.inputVisible };
     });

@@ -8,12 +8,14 @@ import { Radio, Checkbox, Icon } from "antd";
 import { DELETE } from "../../constants/optionActType";
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
-import {observer} from 'mobx-react'
-@observer
-class ChoiceQuestion extends React.Component {
-
-  onHandleRadioGroupChange = e => {
-    const id = e.target.value;
+import { observer } from "mobx-react";
+@observer class ChoiceQuestion extends React.Component {
+  onHandleGroupChange = e => {
+    const { thisQuestion } = this.props;
+    if (!Array.isArray(e)) {
+      e = [e.target.value];
+    }
+    thisQuestion.setSelectOption(e);
   };
   renderRadios = () => {
     const radioStyle = {
@@ -21,21 +23,21 @@ class ChoiceQuestion extends React.Component {
       height: "30px",
       lineHeight: "30px"
     };
-    const { thisQuestion, onHandleChange } = this.props;
+    const { thisQuestion } = this.props;
     // const inputType = type === topicTypes.SINGLE_TYPE ? "radio" : "checkbox";
-    const optionsValues = thisQuestion.options.values();
-    const plainOptions = optionsValues.map(option => ({
-      value: option.id,
+    const optionsValues = thisQuestion.options;
+    const plainOptions = optionsValues.map((option, index) => ({
+      value: index,
       label: option.title
     }));
     const isRadio = thisQuestion.type === topicTypes.SINGLE_TYPE;
 
     const Radios = (
-      <RadioGroup onChange={this.onHandleRadioGroupChange}>
-        {optionsValues.map(option => {
+      <RadioGroup onChange={this.onHandleGroupChange}>
+        {optionsValues.map((option, index) => {
           const { id, title } = option;
           return (
-            <Radio key={id} style={radioStyle} value={id}>
+            <Radio key={id} style={radioStyle} value={index}>
               {title}
             </Radio>
           );
@@ -48,7 +50,7 @@ class ChoiceQuestion extends React.Component {
         {isRadio
           ? Radios
           : <CheckboxGroup
-              onChange={onHandleChange}
+              onChange={this.onHandleGroupChange}
               options={plainOptions}
               style={radioStyle}
             />}
@@ -57,39 +59,37 @@ class ChoiceQuestion extends React.Component {
   };
   onOpetions = quesId => (index, actType) => {
     const q = this.props.thisQuestion;
-    if (actType == DELETE) {
+    if (actType === DELETE) {
       q.deleteOption(index);
     } else {
-      q.changeOptionPosition(index,actType);
+      q.changeOptionPosition(index, actType);
     }
   };
-  onHandleInput = ({ id, value,index }) => {
+  onHandleInput = ({ id, value, index }) => {
     console.info("onHandleInput " + id + "  value = " + value);
     const option = this.props.thisQuestion.options[index];
     option.setOptionTitle(value);
   };
+
   render() {
     const {
       thisQuestion,
-      isAnswerMode,
-      onHandleChange
+      isAnswerMode
     } = this.props;
     const {
       type,
       id: quesId,
       options
     } = thisQuestion;
-    console.log(options, type);
     return isAnswerMode
       ? this.renderRadios()
       : <div>
-          {options.map((option,index) => {
+          {options.map((option, index) => {
             const { id, title } = option;
             return (
               <div key={id} className="question-items-item">
                 <CheckOrRadioSelectView
-                  onHandleChange={onHandleChange}
-                  id={id}
+                  onHandleChange={this.onHandleChange}
                   checkbox={type === topicTypes.MULTI_TYPE}
                 />
                 <InputWithEditView
@@ -97,7 +97,7 @@ class ChoiceQuestion extends React.Component {
                   index={index}
                   isAnswerMode={isAnswerMode}
                   placeHold={title}
-                  onHandleInput={this.onHandleInput}
+                  onHandleInput={() => {}}
                   onOpeOptions={this.onOpetions(quesId)}
                 />
               </div>

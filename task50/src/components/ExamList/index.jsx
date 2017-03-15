@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as actions from "../../actions/index";
 import {
   COLOR_BY_STATE,
   EXAM_DELETED,
@@ -12,8 +9,8 @@ import {
 import { Link } from "react-router";
 import ConfirmModal from "../Modal/ConfirmModal";
 import { Table, Popconfirm, Button } from "antd";
-import { CONFIRM_MODAL } from "../../constants/toggleTypes";
-
+import { inject, observer } from "mobx-react";
+import { observable } from "mobx";
 const CreateExamButton = ({ classname, onClick, text = "新建问卷" }) => {
   return <button className={classname} onClick={onClick}>{text}</button>;
 };
@@ -23,9 +20,12 @@ const PublishStateText = ({ text, state }) => {
     <span style={COLOR_BY_STATE[state]}>{text || TEXT_BY_STATE[state]}</span>
   );
 };
+@inject("ExamStore")
+@observer
 class ExamList extends Component {
   state = { selectedRowKeys: [] };
-
+  @observable isModalOpen = false;
+  @observable _selectedRowKeys = [];
   renderCraeteNewExam = () => (
     <div className="newlist">
       <CreateExamButton
@@ -35,8 +35,7 @@ class ExamList extends Component {
     </div>
   );
   deleteExam = (...ids) => {
-    const { changeExamStateFunc } = this.props;
-    ids.forEach(id => changeExamStateFunc(id, EXAM_DELETED));
+    this.props.ExamStore.deleteExams(...ids);
   };
   createNewExam = () => {
     const { router } = this.props;
@@ -44,43 +43,32 @@ class ExamList extends Component {
   };
 
   handleDeleteConfirm = () => {
-    this.deleteExam(...this.state.selectedRowKeys);
+    this.deleteExam(...this._selectedRowKeys);
+    this._selectedRowKeys = [];
+    this.handleSwitchModal();
   };
 
-  flatDateToString = time => {
-    let timing = time;
-    if (time instanceof Date) {
-      timing = time.getFullYear() +
-        "-" +
-        (time.getMonth() + 1) +
-        "-" +
-        time.getDay();
-    }
-    return timing;
-  };
   onSelectChange = selectedRowKeys => {
-    console.log("selectedRowKeys changed: ", selectedRowKeys);
-    this.setState({ selectedRowKeys });
+    this._selectedRowKeys = selectedRowKeys;
   };
   handleSelects = () => {
-    const { toggleFunc } = this.props;
-    if (this.state.selectedRowKeys.length > 0) {
-      toggleFunc(CONFIRM_MODAL);
+    if (this._selectedRowKeys.length > 0) {
+      this.handleSwitchModal();
     }
   };
 
   rendernExamList = () => {
-    const { exam, message: allMessages } = this.props;
+    const { ExamStore } = this.props;
+    const exams = ExamStore.exams;
     const data = [];
-    Object.keys(exam)
-      .filter(key => exam[key].examState !== EXAM_DELETED)
-      .forEach(key => {
-        const examItem = exam[key];
-        const message = allMessages[examItem.id];
-        const { titleId, time, examState, id: examId } = examItem;
+    exams
+      .values()
+      .filter(val => val.examState !== EXAM_DELETED)
+      .forEach(examItem => {
+        const { title, time, examState, id: examId } = examItem;
         data.push({
           key: examId,
-          examTitle: message[titleId],
+          examTitle: title,
           time,
           status: examState,
           operation: { examId, examState }
@@ -149,7 +137,7 @@ class ExamList extends Component {
       }
     ];
     const rowSelection = {
-      selectedRowKeys: this.state.selectedRowKeys,
+      selectedRowKeys: this._selectedRowKeys,
       onChange: this.onSelectChange
     };
     const footer = () => {
@@ -165,19 +153,21 @@ class ExamList extends Component {
       />
     );
   };
+  handleSwitchModal = () => {
+    this.isModalOpen = !this.isModalOpen;
+  };
   render() {
-    const { exam } = this.props;
-    const haveExam = exam &&
-      Object.keys(exam).some(key => {
-        return exam[key].examState !== EXAM_DELETED;
-      });
+    const { ExamStore } = this.props;
 
     return (
       <div className="examlist">
-        {!haveExam ? this.renderCraeteNewExam() : this.rendernExamList()}
+        {ExamStore.isEmptyStore
+          ? this.renderCraeteNewExam()
+          : this.rendernExamList()}
         <ConfirmModal
-          actType={CONFIRM_MODAL}
-          confirmFunc={this.handleDeleteConfirm}
+          visible={this.isModalOpen}
+          onHandleOk={this.handleDeleteConfirm}
+          onHandleCancel={this.handleSwitchModal}
         >
           确定要删除选择的问卷?
         </ConfirmModal>
@@ -185,18 +175,5 @@ class ExamList extends Component {
     );
   }
 }
-const mapStateToProps = (state, routerState) => {
-  return {
-    exam: state.exam,
-    message: state.message,
-    toggle: state.toggle,
-    router: routerState.router
-  };
-};
-const mapDispatchToProps = dispatch => ({
-  setExamCheckedFunc: bindActionCreators(actions.setExamChecked, dispatch),
-  changeExamStateFunc: bindActionCreators(actions.changeExamState, dispatch),
-  geneExamFunc: bindActionCreators(actions.geneExam, dispatch),
-  toggleFunc: bindActionCreators(actions.toggle, dispatch)
-});
-export default connect(mapStateToProps, mapDispatchToProps)(ExamList);
+
+export default ExamList;

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Header from "./components/Header/index";
-import { connect } from "react-redux";
 import { Layout } from "antd";
 import "antd/dist/antd.min.css";
 const { Content: AntContent } = Layout;
+import DevTools from 'mobx-react-devtools'
+
 class App extends Component {
   render() {
     return (
@@ -12,15 +13,10 @@ class App extends Component {
         <AntContent id="app-content">
           {this.props.children}
         </AntContent>
+        <DevTools/>
       </Layout>
     );
   }
 }
 
-const mapStateToProps = (state, ownState) => {
-  return {
-    state,
-    children: ownState.children
-  };
-};
-export default connect(mapStateToProps)(App);
+export default App;

@@ -3,35 +3,35 @@
  */
 import { Icon, Input, Menu, Dropdown } from "antd";
 import React from "react";
-
+import * as actTypes from '../../constants/optionActType'
 export default class InputWithEdit extends React.Component {
   state = { inputVisible: false };
   static propTypes = {
     id: React.PropTypes.string.isRequired,
     placeHold: React.PropTypes.string.isRequired,
-    onHandleInput: React.PropTypes.func
+    onHandleInput: React.PropTypes.func,
+    onOpeOptions: React.PropTypes.func
   };
   handleInput = e => {
     this.setState({ temp_input: e.target.value });
   };
   handleInputEnter = e => {
-    const { id, onHandleInput } = this.props;
+    const { id, onHandleInput,index } = this.props;
     const v = e.target.value;
-    onHandleInput && onHandleInput({ id, value: v });
+    onHandleInput && onHandleInput({ id, value: v,index });
     this.setState({ temp_input: "" });
     this.setState(() => {
       return { inputVisible: false };
     });
   };
   handleOpeOptions = ({ key }) => {
-    console.log("key = ", key);
-    const { onOpeOptions, id } = this.props;
+    const { onOpeOptions,index } = this.props;
     switch (+key) {
       case 0:
         this.handleChangeInputMode();
         break;
       default:
-        onOpeOptions(id, key);
+        onOpeOptions(index, key);
     }
   };
 
@@ -54,10 +54,10 @@ export default class InputWithEdit extends React.Component {
     );
     const menus = (
       <Menu onClick={this.handleOpeOptions}>
-        <Menu.Item key={0}>修改</Menu.Item>
-        <Menu.Item key={-1}>上移</Menu.Item>
-        <Menu.Item key={1}>下移</Menu.Item>
-        <Menu.Item key={-2}>删除</Menu.Item>
+        <Menu.Item key={actTypes.MODIFY}>修改</Menu.Item>
+        <Menu.Item key={actTypes.UPPER}>上移</Menu.Item>
+        <Menu.Item key={actTypes.LOWER}>下移</Menu.Item>
+        <Menu.Item key={actTypes.DELETE}>删除</Menu.Item>
       </Menu>
     );
     return isTitle

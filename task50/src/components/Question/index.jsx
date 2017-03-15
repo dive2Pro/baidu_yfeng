@@ -2,19 +2,9 @@ import React, { PropTypes } from "react";
 import InputWithEditView from "../InputItem/index";
 import { questionActs } from "../../constants/questionActType";
 import classnames from "classnames";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import {
-  setContentId,
-  opeExamQuestions,
-  saveQuestion,
-  addOption,
-  deleteOption,
-  saveMessage,
-  opeOptions
-} from "../../actions/index";
+import { observer } from "mobx-react";
 export default function(Component) {
-  class Question extends React.Component {
+  @observer class Question extends React.Component {
     state = {};
     static propTypes = {
       thisQuestion: React.PropTypes.object,
@@ -30,56 +20,23 @@ export default function(Component) {
       onAnswerText: React.PropTypes.func,
       saveMessageFunc: React.PropTypes.func
     };
-
-    //TODO 将该问题的id集中在reducer中管理
-    save = (id, str) => {
-      this.props.saveMessageFunc({ [id]: str });
-      this.setState({
-        editId: null
-      });
-    };
     onHandleInput = ({ id, value }) => {
-      console.info("onHandleInput " + id + "  value = " + value);
-      if (!!value) {
-        this.save(id, value);
-      } else {
-        this.setDestory(id);
-      }
+      this.props.thisQuestion.setQuestionTitle(value);
     };
-
-    setEdit = id => {
-      this.setState(_ => ({
-        editId: id
-      }));
-    };
-
-    setDestory = id => {
-      this.props.saveMessageFunc({ [id]: "" });
-      this.setState({
-        editId: null
-      });
-    };
-
     render() {
       const {
         thisQuestion,
         index,
         isLast,
-        opeExamQuestionsFunc,
-        currentExamId,
-        requireable,
-        setRequireFunc,
         isAnswerMode,
         onToggle,
-        onAnswerText,
-        title,
-        onHandleChange
+        requireable
       } = this.props;
 
       const {
-        titleId,
+        title,
         id,
-        require
+        isRequire
       } = thisQuestion;
 
       const requireClazz = classnames("question-title-require", {
@@ -92,18 +49,21 @@ export default function(Component) {
             <div>Q{index + 1}</div>
             <InputWithEditView
               onHandleInput={this.onHandleInput}
-              id={titleId}
+              id={id}
               placeHold={title}
               isAnswerMode={isAnswerMode}
               isTitle
             />
             {!isAnswerMode &&
               <div className={requireClazz}>
-                <input type="checkbox" id={id + " - label"} checked={require} />
-                <label
-                  htmlFor={id + " - label"}
-                  onClick={() => setRequireFunc(id, !require)}
-                >
+                <input
+                  onChange={e =>
+                    thisQuestion.setQuestionRequire(!isRequire)}
+                  type="checkbox"
+                  id={id + " - label"}
+                  checked={isRequire}
+                />
+                <label htmlFor={id + " - label"}>
                   此题是否必选
                 </label>
               </div>}
@@ -111,9 +71,8 @@ export default function(Component) {
           <div className="question-items">
             <Component
               onToggle={onToggle}
-              onAnswerText={onAnswerText}
-              onHandleInput={this.onHandleInput}
-              onHandleChange={onHandleChange}
+              onAnswerText={() => {}}
+              onHandleChange={() => {}}
               {...this.props}
             />
           </div>
@@ -130,12 +89,12 @@ export default function(Component) {
                   <a
                     href="#"
                     key={i}
-                    onClick={() =>
-                      opeExamQuestionsFunc(
-                        currentExamId,
-                        thisQuestion,
-                        questionActs[act]
-                      )}
+                    onClick={() => {
+                      thisQuestion.changeQuestion({
+                        index,
+                        actType: questionActs[act]
+                      });
+                    }}
                     className="question-act-item"
                   >
                     {content}
@@ -147,14 +106,6 @@ export default function(Component) {
       );
     }
   }
-  const mapDispatchToProps = dispatch => ({
-    setContentIdFunc: bindActionCreators(setContentId, dispatch),
-    opeExamQuestionsFunc: bindActionCreators(opeExamQuestions, dispatch),
-    saveQuestionFunc: bindActionCreators(saveQuestion, dispatch),
-    saveMessageFunc: bindActionCreators(saveMessage, dispatch),
-    addOption: bindActionCreators(addOption, dispatch),
-    deleteOption: bindActionCreators(deleteOption, dispatch),
-    opeOptions: bindActionCreators(opeOptions, dispatch)
-  });
-  return connect(null, mapDispatchToProps)(Question);
+
+  return Question;
 }

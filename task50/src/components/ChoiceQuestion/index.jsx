@@ -5,18 +5,15 @@ import CheckOrRadioSelectView from "../InputItem/CheckOrRadioSelectView";
 import * as topicTypes from "../../constants/topicType";
 import Question from "../Question/index";
 import { Radio, Checkbox, Icon } from "antd";
+import { DELETE } from "../../constants/optionActType";
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
+import {observer} from 'mobx-react'
+@observer
 class ChoiceQuestion extends React.Component {
-  handleDestory = id => {
-    const { setDestory, deleteOption, thisQuestion } = this.props;
-    setDestory(id);
-    deleteOption(thisQuestion.id, id);
-  };
+
   onHandleRadioGroupChange = e => {
     const id = e.target.value;
-    const { onHandleChange } = this.props;
-    onHandleChange([id]);
   };
   renderRadios = () => {
     const radioStyle = {
@@ -24,20 +21,22 @@ class ChoiceQuestion extends React.Component {
       height: "30px",
       lineHeight: "30px"
     };
-    const { thisQuestion, message, onHandleChange } = this.props;
+    const { thisQuestion, onHandleChange } = this.props;
     // const inputType = type === topicTypes.SINGLE_TYPE ? "radio" : "checkbox";
-    const plainOptions = thisQuestion.optionsId.map(id => ({
-      value: id,
-      label: message[id]
+    const optionsValues = thisQuestion.options.values();
+    const plainOptions = optionsValues.map(option => ({
+      value: option.id,
+      label: option.title
     }));
     const isRadio = thisQuestion.type === topicTypes.SINGLE_TYPE;
 
     const Radios = (
       <RadioGroup onChange={this.onHandleRadioGroupChange}>
-        {thisQuestion.optionsId.map(id => {
+        {optionsValues.map(option => {
+          const { id, title } = option;
           return (
             <Radio key={id} style={radioStyle} value={id}>
-              {message[id]}
+              {title}
             </Radio>
           );
         })}
@@ -56,29 +55,38 @@ class ChoiceQuestion extends React.Component {
       </div>
     );
   };
-  onOpetions = quesId => (optionId, actType) => {
-    this.props.opeOptions(quesId, optionId, actType);
+  onOpetions = quesId => (index, actType) => {
+    const q = this.props.thisQuestion;
+    if (actType == DELETE) {
+      q.deleteOption(index);
+    } else {
+      q.changeOptionPosition(index,actType);
+    }
+  };
+  onHandleInput = ({ id, value,index }) => {
+    console.info("onHandleInput " + id + "  value = " + value);
+    const option = this.props.thisQuestion.options[index];
+    option.setOptionTitle(value);
   };
   render() {
     const {
       thisQuestion,
-      message,
       isAnswerMode,
-      addOption,
-      onHandleInput,
       onHandleChange
     } = this.props;
     const {
       type,
-      id: quesId
+      id: quesId,
+      options
     } = thisQuestion;
-
+    console.log(options, type);
     return isAnswerMode
       ? this.renderRadios()
       : <div>
-          {thisQuestion.optionsId.map(id => {
+          {options.map((option,index) => {
+            const { id, title } = option;
             return (
-              <div className="question-items-item">
+              <div key={id} className="question-items-item">
                 <CheckOrRadioSelectView
                   onHandleChange={onHandleChange}
                   id={id}
@@ -86,9 +94,10 @@ class ChoiceQuestion extends React.Component {
                 />
                 <InputWithEditView
                   id={id}
+                  index={index}
                   isAnswerMode={isAnswerMode}
-                  placeHold={message[id]}
-                  onHandleInput={onHandleInput}
+                  placeHold={title}
+                  onHandleInput={this.onHandleInput}
                   onOpeOptions={this.onOpetions(quesId)}
                 />
               </div>
@@ -96,7 +105,7 @@ class ChoiceQuestion extends React.Component {
           })}
           <div>
             {!isAnswerMode &&
-              <Icon type="plus" onClick={() => addOption(thisQuestion.id)} />}
+              <Icon type="plus" onClick={() => thisQuestion.id} />}
           </div>
         </div>;
   }

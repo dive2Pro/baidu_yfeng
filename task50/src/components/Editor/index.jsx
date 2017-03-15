@@ -1,17 +1,8 @@
 import React, { Component } from "react";
 import ChoiceQuestion from "../ChoiceQuestion/index";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as actions from "../../actions/index";
 import * as topicTypes from "../../constants/topicType";
 import * as examStateTypes from "../../constants/examStateType";
 import {
-  saveTempExam,
-  restoreTempExam,
-  handleSubmit
-} from "../../actions/answer";
-import {
-  ADD_QUESTION,
   CURRENT_EXAM,
   CONFIRM_MODAL,
   WARNING_MODAL
@@ -23,56 +14,39 @@ import { spring, Motion } from "react-motion";
 import ConfirmModal from "../Modal/ConfirmModal";
 import Button from "../Button";
 import { Icon, DatePicker } from "antd";
-
+import { inject, observer } from "mobx-react";
+import { observable, autorun } from "mobx";
 const moment = require("moment");
 
+@inject("ExamStore")
+@observer
 class Editor extends Component {
   state = {};
+  @observable _currentExam = null;
+  @observable _showAddItemsView = false;
+  @observable _showModal = [];
+
+  _isAnswerMode = false;
+
+  componentWillMount() {
+    const { router, ExamStore } = this.props;
+    const { params: { examId }, location: { pathname } } = router;
+    this._currentExam = ExamStore.getExam(examId);
+    this._isAnswerMode = pathname.indexOf("answer") >= 0;
+  }
 
   componentDidMount() {
-    const {
-      setToggleIdFunc,
-      exam,
-      changeExamTimeFunc,
-      newExamId,
-      router,
-      saveTempExamFunc,
-      geneExamFunc
-    } = this.props;
-
-    if (exam[newExamId]) {
-      this.setState(
-        {
-          startDate: moment(exam[newExamId].time || {})
-        },
-        () => {
-          changeExamTimeFunc(
-            newExamId,
-            this.state.startDate.format("YYYY-MM-DD")
-          );
-        }
-      );
-      setToggleIdFunc(CURRENT_EXAM, newExamId);
-    } else if (newExamId === "new") {
-      geneExamFunc();
-      this.setState({
-        startDate: moment()
-      });
-    } else {
-      router.push("/list");
+    const { router } = this.props;
+    if (!this._currentExam) router.push("/list");
+    if (!this._isAnswerMode) {
+      this._currentExam.setEditing(true);
     }
-    saveTempExamFunc();
   }
 
   componentWillUnmount() {
-    const {
-      setToggleIdFunc,
-      resetToggledFunc,
-      restoreTempExamFunc
-    } = this.props;
-    restoreTempExamFunc();
-    setToggleIdFunc(CURRENT_EXAM, null);
-    resetToggledFunc(ADD_QUESTION);
+    if (!this._isAnswerMode) {
+      this._currentExam.temperToBackExam();
+    }
   }
   onToggle = question => ids => {
     const { toggle } = this.props;
@@ -98,24 +72,13 @@ class Editor extends Component {
     changeExamTimeFunc(toggle[CURRENT_EXAM], date.format("Y-M-D"));
   };
 
-  geneQuestionsView() {
-    const {
-      question,
-      exam,
-      toggle,
-      message,
-      isAnswerMode
-    } = this.props;
-    const currentExamId = toggle[CURRENT_EXAM];
-    const currentExam = exam[currentExamId];
-    if (!currentExam) {
-      return <div>...</div>;
-    }
-    const quesIds = currentExam ? currentExam.questionsId : [];
-    return quesIds &&
-      quesIds.map((q, i) => {
-        const ques = question[q];
-        const title = message[ques.titleId];
+  geneQuestionsView = () => {
+    const isAnswerMode = this._isAnswerMode;
+    const currentExam = this._currentExam;
+    const { questions } = currentExam;
+    return questions &&
+      questions.map((ques, i) => {
+        const isLast = i === questions.length - 1;
         switch (ques.type) {
           case topicTypes.SINGLE_TYPE:
           case topicTypes.MULTI_TYPE:
@@ -123,14 +86,11 @@ class Editor extends Component {
               <div>
                 <ChoiceQuestion
                   index={i}
-                  key={q}
-                  isLast={i === quesIds.length - 1}
+                  key={ques.id}
+                  isLast={isLast}
                   thisQuestion={ques}
-                  currentExamId={currentExamId}
                   isAnswerMode={isAnswerMode}
                   onHandleChange={this.onToggle(ques)}
-                  message={message}
-                  title={title}
                 />
               </div>
             );
@@ -138,21 +98,19 @@ class Editor extends Component {
             return (
               <TextQuestion
                 index={i}
-                key={q}
-                isLast={i === quesIds.length - 1}
+                key={ques.id}
+                isLast={isLast}
                 thisQuestion={ques}
                 requireable
-                currentExamId={currentExamId}
                 isAnswerMode={isAnswerMode}
-                title={title}
-                message={message}
               />
             );
           default:
             return "";
         }
       });
-  }
+  };
+
   handleToggleFunc = type => {
     const {
       toggleFunc
@@ -160,127 +118,112 @@ class Editor extends Component {
     toggleFunc(type);
   };
 
-  render() {
-    const {
-      toggle,
-      saveExamFunc,
-      exam,
-      isAnswerMode,
-      router,
-      temp,
-      saveMessageFunc,
-      message
-    } = this.props;
-    const currentExamId = toggle[CURRENT_EXAM];
-    const currentExam = exam[currentExamId];
-    if (!currentExam) return <div>...</div>;
+  toggleEditing = () => {
+    this._currentExam.setEditing(!this._currentExam.isEditing);
+  };
+
+  handleModalCancel = type => {
+    this._showModal.remove(type);
+  };
+
+  renderModals = () => {
+    console.log("renderModals", this._showModal);
+    const showModal = this._showModal;
     return (
-      <div className="editor">
-        <EditorTitle
-          currentExam={currentExam}
-          handleGoback={() => router.go(-1)}
-          isAnswerMode={isAnswerMode}
-          titleId={currentExam.titleId}
-          title={message[currentExam.titleId]}
-          saveMessageFunc={saveMessageFunc}
-        />
-        <div className="editor-questions">
-          {this.geneQuestionsView()}
-        </div>
-        {!isAnswerMode ? this.geneEditorBottom() : this.geneAnswerBottom()}
-        <div className="modal-container">
-          <ConfirmModal
-            actType={topicTypes.SINGLE_TYPE}
-            confirmFunc={() => {
-              this.handleConfirmGeneQuestion(topicTypes.SINGLE_TYPE);
-            }}
-          >
-            <div>
-              <p>
-                <input
-                  placeholder="请输入问题题目（单选）"
-                  ref={r => this["modal-" + topicTypes.SINGLE_TYPE] = r}
-                />
-              </p>
-              <p>
-                <input
-                  type="text"
-                  placeholder="请输入问题个数(最多10个)"
-                  ref={r =>
-                    this["modal-" + topicTypes.SINGLE_TYPE + "count"] = r}
-                />
-              </p>
-            </div>
-          </ConfirmModal>
-          <ConfirmModal
-            actType={topicTypes.MULTI_TYPE}
-            confirmFunc={() => {
-              this.handleConfirmGeneQuestion(topicTypes.MULTI_TYPE);
-            }}
-          >
-            <div>
-              <p>
-                <input
-                  placeholder="请输入问题题目（多选）"
-                  ref={r => this["modal-" + topicTypes.MULTI_TYPE] = r}
-                />
-              </p>
-              <p>
-                <input
-                  type="text"
-                  placeholder="请输入问题个数(最多10个)"
-                  ref={r =>
-                    this["modal-" + topicTypes.MULTI_TYPE + "count"] = r}
-                />
-              </p>
-            </div>
-
-          </ConfirmModal>
-          <ConfirmModal
-            actType={topicTypes.TEXT_TYPE}
-            confirmFunc={() => {
-              this.handleConfirmGeneQuestion(topicTypes.TEXT_TYPE);
-            }}
-          >
-            <div>
+      <div className="modal-container">
+        <ConfirmModal
+          visible={~showModal.indexOf(topicTypes.SINGLE_TYPE)}
+          onHandleOk={() => {
+            console.log("----- confirmFunc");
+            this.handleConfirmGeneQuestion(topicTypes.SINGLE_TYPE);
+          }}
+          onHandleCancel={() => this.handleModalCancel(topicTypes.SINGLE_TYPE)}
+        >
+          <div>
+            <p>
               <input
-                placeholder="请输入问题题目（文字题）"
-                ref={r => this["modal-" + topicTypes.TEXT_TYPE] = r}
+                placeholder="请输入问题题目（单选）"
+                ref={r => this["modal-" + topicTypes.SINGLE_TYPE] = r}
               />
-            </div>
-          </ConfirmModal>
-          <ConfirmModal
-            confirmFunc={() => {
-              saveExamFunc(currentExamId, examStateTypes.RELEASED);
-              router.go(-1);
-            }}
-          >
-            <div>
-              <p>
-                是否发布问卷?
-              </p>
-              <p>
-                (此问卷截止日期为
-                {this.state.startDate &&
-                  this.state.startDate.format("YYYY-MM-DD")}
-                )
-              </p>
-            </div>
-          </ConfirmModal>
-          <ConfirmModal actType={WARNING_MODAL}>
-            <div>
-              {temp.warning}
-            </div>
-          </ConfirmModal>
-        </div>
+            </p>
+            <p>
+              <input
+                type="text"
+                placeholder="请输入问题个数(最多10个)"
+                ref={r => this["modal-" + topicTypes.SINGLE_TYPE + "count"] = r}
+              />
+            </p>
+          </div>
+        </ConfirmModal>
+        <ConfirmModal
+          visible={~showModal.indexOf(topicTypes.MULTI_TYPE)}
+          onHandleOk={() => {
+            this.handleConfirmGeneQuestion(topicTypes.MULTI_TYPE);
+          }}
+          onHandleCancel={() => this.handleModalCancel(topicTypes.MULTI_TYPE)}
+        >
+          <div>
+            <p>
+              <input
+                placeholder="请输入问题题目（多选）"
+                ref={r => this["modal-" + topicTypes.MULTI_TYPE] = r}
+              />
+            </p>
+            <p>
+              <input
+                type="text"
+                placeholder="请输入问题个数(最多10个)"
+                ref={r => this["modal-" + topicTypes.MULTI_TYPE + "count"] = r}
+              />
+            </p>
+          </div>
 
+        </ConfirmModal>
+        <ConfirmModal
+          visible={~showModal.indexOf(topicTypes.TEXT_TYPE)}
+          onHandleOk={() => {
+            this.handleConfirmGeneQuestion(topicTypes.TEXT_TYPE);
+          }}
+          onHandleCancel={() => this.handleModalCancel(topicTypes.TEXT_TYPE)}
+        >
+          <div>
+            <input
+              placeholder="请输入问题题目（文字题）"
+              ref={r => this["modal-" + topicTypes.TEXT_TYPE] = r}
+            />
+          </div>
+        </ConfirmModal>
+        <ConfirmModal
+          visible={~showModal.indexOf(CONFIRM_MODAL)}
+          onHandleOk={() => {
+            this._currentExam.changeExamState(examStateTypes.RELEASED);
+            this.handleModalCancel(CONFIRM_MODAL);
+            this.props.router.go(-1);
+          }}
+          onHandleCancel={() => this.handleModalCancel(CONFIRM_MODAL)}
+        >
+          <div>
+            <p>
+              是否发布问卷?
+            </p>
+            <p>
+              (此问卷截止日期为
+              {this.state.startDate &&
+                this.state.startDate.format("YYYY-MM-DD")}
+              )
+            </p>
+          </div>
+        </ConfirmModal>
+        <ConfirmModal visible={showModal[WARNING_MODAL]}>
+          <div />
+        </ConfirmModal>
       </div>
     );
-  }
+  };
   handleConfirmGeneQuestion = type => {
     const title = this["modal-" + type].value;
     const countView = this["modal-" + type + "count"];
-    let count = countView && countView.value;
+    let count = countView && +countView.value;
     if (Number.isNaN(count)) {
       count = 3;
     } else if (parseInt(count) > 10) {
@@ -288,7 +231,10 @@ class Editor extends Component {
     } else if (parseInt(count) < 1) {
       count = 3;
     }
-    this.props.addQuestionFunc(title, topicTypes.SINGLE_TYPE, count);
+    console.log(title, count, "-------\n");
+    this.handleModalCancel(type);
+    // this.props.addQuestionFunc(title, topicTypes.SINGLE_TYPE, count);
+    this._currentExam.addQuestion({ title, count, isRequire: true, type });
   };
   handleSubmit = () => {
     const {
@@ -299,7 +245,6 @@ class Editor extends Component {
     const questionAnswer = this.state[currentExamId];
     questionAnswer && handleSubmitFunc(currentExamId, questionAnswer);
   };
-
   geneAnswerBottom = () => {
     return (
       <div className="editor-answer-bottom">
@@ -308,15 +253,11 @@ class Editor extends Component {
     );
   };
   geneEditorBottom = () => {
-    const {
-      toggle,
-      saveExamFunc,
-      toggleFunc
-    } = this.props;
     const memeIcons = ["⭕", "⬜", "📝"];
     const topicArr = topicTypes.arr;
-    const itemsActive = toggle[ADD_QUESTION];
-    const currentExamId = toggle[CURRENT_EXAM];
+
+    const itemsActive = this._showAddItemsView;
+    const currentExam = this._currentExam;
 
     return (
       <div>
@@ -341,7 +282,9 @@ class Editor extends Component {
                   return (
                     <Button
                       key={index}
-                      onhandleClick={() => this.handleToggleFunc(type)}
+                      onhandleClick={() => {
+                        this._showModal.push(type);
+                      }}
                     >
                       {memeIcons[index] + "  " + topicArr[type]}
                     </Button>
@@ -354,10 +297,11 @@ class Editor extends Component {
             href="#"
             key="editor-AddQuestion"
             className="editor-addquestion-add"
-            onClick={() => toggleFunc(ADD_QUESTION)}
+            onClick={() => {
+              this._showAddItemsView = !this._showAddItemsView;
+            }}
           >
             <Icon style={{ fontSize: "20px" }} type="plus-circle-o" />
-            {"    "}
             添加问题
           </div>
         </div>
@@ -378,14 +322,18 @@ class Editor extends Component {
           <div>
             <Button
               onhandleClick={() => {
-                saveExamFunc(currentExamId, examStateTypes.UN_RELEASE);
+                {
+                  currentExam.changeExamState(examStateTypes.UN_RELEASE);
+                }
               }}
             >
               保存问卷
             </Button>
             <Button
               onhandleClick={() => {
-                toggleFunc(CONFIRM_MODAL);
+                {
+                  this._showModal.push(CONFIRM_MODAL);
+                }
               }}
             >
               发布问卷
@@ -395,36 +343,27 @@ class Editor extends Component {
       </div>
     );
   };
+  render() {
+    const { router } = this.props;
+    const currentExam = this._currentExam;
+    if (!currentExam) return <div>...</div>;
+    const isAnswerMode = this._isAnswerMode;
+    return (
+      <div className="editor">
+        <EditorTitle
+          currentExam={currentExam}
+          handleGoback={() => router.go(-1)}
+          isAnswerMode={isAnswerMode}
+        />
+        <div className="editor-questions">
+          {this.geneQuestionsView()}
+        </div>
+        {!isAnswerMode ? this.geneEditorBottom() : this.geneAnswerBottom()}
+        {this.renderModals()}
+
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = (state, routerState) => {
-  const newExamId = routerState.params.examId;
-  const answerMode = routerState.location.pathname.indexOf("answer") > -1;
-  answerMode && console.log("answerMode = " + answerMode, routerState);
-  return {
-    toggle: state.toggle,
-    message: state.message[newExamId],
-    question: state.question,
-    exam: state.exam,
-    newExamId: newExamId,
-    isAnswerMode: answerMode,
-    router: routerState.router,
-    temp: state.temp
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleFunc: bindActionCreators(actions.toggle, dispatch),
-    addQuestionFunc: bindActionCreators(actions.addQuestion, dispatch),
-    saveExamFunc: bindActionCreators(actions.saveExam, dispatch),
-    saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch),
-    setToggleIdFunc: bindActionCreators(actions.setToggleId, dispatch),
-    changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
-    geneExamFunc: bindActionCreators(actions.geneExam, dispatch),
-    saveTempExamFunc: bindActionCreators(saveTempExam, dispatch),
-    restoreTempExamFunc: bindActionCreators(restoreTempExam, dispatch),
-    handleSubmitFunc: bindActionCreators(handleSubmit, dispatch),
-    resetToggledFunc: bindActionCreators(actions.resetToggled, dispatch)
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Editor);
+export default Editor;

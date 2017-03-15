@@ -1,22 +1,18 @@
 import React, { Component } from "react";
-
 import { Modal as AntModal } from "antd";
-import { CONFIRM_MODAL } from "../../constants/toggleTypes";
-import { connect } from "react-redux";
-import { resetToggled } from "../../actions/toggle";
-const ConfirmModal = ({ toggle, ...restProps }) => {
-  const { children, confirmFunc, dispatch, actType } = restProps;
+
+const ConfirmModal = ({ ...restProps }) => {
+  const { children, onHandleOk, onHandleCancel, visible } = restProps;
   return (
     <AntModal
-      active={toggle[actType || CONFIRM_MODAL]}
-      visible={toggle[actType || CONFIRM_MODAL]}
+      active={true}
+      visible={!!visible}
       cancelText="取消"
       okText="确定"
       onOk={e => {
-        confirmFunc && confirmFunc(e);
-        dispatch(resetToggled(actType || CONFIRM_MODAL));
+        onHandleOk && onHandleOk(e);
       }}
-      onCancel={() => dispatch(resetToggled(actType || CONFIRM_MODAL))}
+      onCancel={e => onHandleCancel && onHandleCancel(e)}
       title="提示"
     >
       {children || "确定要删除此问卷?"}
@@ -24,10 +20,8 @@ const ConfirmModal = ({ toggle, ...restProps }) => {
   );
 };
 ConfirmModal.ProtoTypes = {
-  confirmFunc: React.PropTypes.func,
-  actType: React.PropTypes.string
+  onHandleOk: React.PropTypes.func,
+  onHandleCancel: React.PropTypes.func,
+  visible: React.PropTypes.bool.isRequired
 };
-export default connect((state, ownState) => ({
-  toggle: state.toggle,
-  ownState
-}))(ConfirmModal);
+export default ConfirmModal;

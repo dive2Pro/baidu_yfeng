@@ -1,5 +1,6 @@
 import React from "react";
 
+//noinspection JSUnresolvedVariable
 import InputWithEditView from "../InputItem/InputWithEdit";
 import CheckOrRadioSelectView from "../InputItem/CheckOrRadioSelectView";
 import * as topicTypes from "../../constants/topicType";
@@ -110,6 +111,7 @@ import { observer } from "mobx-react";
         </div>;
   }
 }
+//noinspection JSUnresolvedVariable
 ChoiceQuestion.propTypes = {
   id: React.PropTypes.string, // 是否必填
   require: React.PropTypes.bool,

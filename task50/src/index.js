@@ -8,6 +8,7 @@ import { browserHistory } from "react-router";
 import { Router, Route, IndexRoute } from "react-router";
 import EditorContainer from "./components/Editor/index";
 import ExamShowContainer from "./components/ExamShow/index";
+//noinspection JSUnresolvedFunction
 require("../styles/index.scss");
 import ExamStore from "./mobxStore/index";
 import AnswerStore from "./mobxStore/AnswerStore";

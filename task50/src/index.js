@@ -10,6 +10,7 @@ import EditorContainer from "./components/Editor/index";
 import ExamShowContainer from "./components/ExamShow/index";
 require("../styles/index.scss");
 import ExamStore from "./mobxStore/index";
+import AnswerStore from "./mobxStore/AnswerStore";
 const routers = (
   <Router component={App}>
     <IndexRoute component={ExamList} />
@@ -23,7 +24,7 @@ const routers = (
 );
 
 ReactDOM.render(
-  <Provider ExamStore={ExamStore}>
+  <Provider ExamStore={ExamStore} AnswerStore={AnswerStore}>
     <Router history={browserHistory}>
       {routers}
     </Router>

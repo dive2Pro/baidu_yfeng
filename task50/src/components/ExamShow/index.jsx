@@ -7,32 +7,22 @@ import {observer,inject} from 'mobx-react'
 @observer
 class ExamShow extends Component {
   geneContent = () => {
-    return <div>"lala"</div>;
-    const { answer, exam, message, question, newExamId, router } = this.props;
-    const currentAnswer = answer[newExamId];
-    if (!currentAnswer) {
+    const { AnswerStore } = this.props;
+    const examAnserInfo = AnswerStore.updateFromServer(this.examId);
+    if(!examAnserInfo){
       return <div>数据为空!</div>;
     }
-    const currentExam = exam[newExamId];
-    const currentAllQuestions = currentExam.questionsId;
-    const questionsAnswerInfo = currentAnswer.questions;
-    const answerInfo = {};
-    currentAllQuestions.forEach((q, i) => {
-      answerInfo[q] = questionsAnswerInfo[q] || 0;
-    });
-    const answerCount = currentAnswer.userIds.length;
+    const {id,count,title,questions} = examAnserInfo;
+    
+    const currentAllQuestions = questions;
+    const answerCount = count;
 
-    return currentAllQuestions.map((q, i) => {
-      const fullQuestionInfo = question[q];
-      const { type } = fullQuestionInfo;
-      const answerWithThisQuestion = questionsAnswerInfo[q];
+    return currentAllQuestions.map((question, i) => {
       return (
         <ChoiceChart
-          key={i}
+          key={question.id}
           index={i}
-          answer={answerWithThisQuestion}
-          question={fullQuestionInfo}
-          message={message}
+          question={question}
           answerCount={answerCount}
         />
       );
@@ -43,10 +33,10 @@ class ExamShow extends Component {
     router.go(-1);
   };
   
-  componentDidMount() {
+  componentWillMount() {
     const {router}=this.props;
     const newExamId = router.params.examId;
-
+    this.examId = newExamId;
     if (!newExamId) {
       router.push("/list");
     }

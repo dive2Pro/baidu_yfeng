@@ -369,4 +369,4 @@ class Option {
     return t;
   }
 }
-export default new ExamListStore(new AnswerStore());
+export default new ExamListStore(AnswerStore);

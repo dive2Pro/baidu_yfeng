@@ -8,47 +8,46 @@ import { fromCharCode } from "../../constants/utils";
 export default class ChoiceChart extends Component {
 
   render() {
-    const { question, message, answer, index, answerCount } = this.props;
-    const { type, titleId, optionsId } = question;
-    if (!answer) {
-      return <div>{message[titleId]} 暂时没有答题信息</div>;
-    }
-    let data = answer;
+    const { question, index, answerCount } = this.props;
+    const { type, title, options } = question;
+    
+    let data ={};
     let chartType = "pie";
+    
     if (type === SINGLE_TYPE) {
       const barData = {};
-      Object.keys(answer).forEach((key, i) => {
-        barData[fromCharCode(65 + i)] = answer[key];
+      question.options.forEach((option, i) => {
+        barData[fromCharCode(65 + i)] = option.count;
       });
       data = barData;
     } else if (type === MULTI_TYPE) {
       chartType = "bar";
       const barData = [];
-      Object.keys(answer).forEach((key, i) => {
-        barData.push({ xValue: fromCharCode(65 + i), yValue: answer[key] });
+      options.forEach((key, i) => {
+        barData.push({ xValue: fromCharCode(65 + i), yValue: key.count });
       });
 
       data = barData;
     } else if (type === TEXT_TYPE) {
-      const key = Object.keys(answer)[0];
+      const count = question.contentAnswerCount;
       data = {
-        有效回答: answer[key],
-        无效填写: answerCount - answer[key]
+        有效回答: count,
+        无效填写: answerCount - count
       };
     }
     return (
       <div className="choicechart">
         <div className="charttitle">
-          <h3>Q{index + 1} {message[titleId]}</h3>
+          <h3>Q{index + 1} {title}</h3>
         </div>
         <div className="chartshow">
           <div className="chartshow-message">
-            {optionsId &&
-              optionsId.map &&
-              optionsId.map((id, i) => {
+            {options &&
+              options.map((option, i) => {
+                const {title:ot,id:oid} = option;
                 return (
-                  <div key={id + i}>
-                    <h5>{fromCharCode(65 + i)} : {message[id]}</h5>
+                  <div key={oid + i}>
+                    <h5>{fromCharCode(65 + i)} : {ot}</h5>
                   </div>
                 );
               })}

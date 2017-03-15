@@ -4,10 +4,9 @@
 import { observable, computed } from "mobx";
 import { guid } from "../constants/utils";
 class AnswerStore {
-  @observable answerInfo = {};
-  constructor() {}
+  @observable answerInfo = {}; 
   updateFromServer(examId) {
-    return this.answerInfo(examId);
+    return this.answerInfo[examId];
     // .then(data=>data.toJson())
     // .then(json=>{
     //     /**
@@ -37,8 +36,11 @@ class AnswerStore {
       storeExam = {};
       storeExam.title = et;
       storeExam.id = eid;
+      storeExam.count =0;
       this.answerInfo[eid] = storeExam;
     }
+    storeExam.count++;
+
     let storeQuestions = storeExam.questions;
     if (!storeQuestions) {
       storeQuestions = [];
@@ -51,10 +53,8 @@ class AnswerStore {
         storeQ.title = qt;
         storeQ.type = type;
         storeQ.id=qid;
-        storeQ.count=0;
         storeQuestions.push(storeQ);
       }
-      storeQ.count++;
       if (type === "TEXT_TYPE" && content) {
         storeQ.contentAnswerCount = (storeQ.contentAnswerCount || 0) +
           (+(content.length > 0));
@@ -70,7 +70,7 @@ class AnswerStore {
             storOption.count=0;
             storeOptions.push(storOption);
           }
-          storOption.count += (storOption.count || 0) + (isChecked ? 1 : 0);
+          storOption.count = (storOption.count || 0) + (isChecked ? 1 : 0);
         });
         storeQ.options = storeOptions;
       }
@@ -80,4 +80,4 @@ class AnswerStore {
   }
 }
 
-export default AnswerStore;
+export default new AnswerStore;

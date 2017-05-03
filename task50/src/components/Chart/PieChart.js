@@ -54,14 +54,14 @@ export default class PieChart extends BaseChart {
   }
   create(data) {
     this.legendRectSize = 18;
-    this.legendSpacing = 4;
+    this.legendSpacing = 3;
     this.data = data;
     const numberOfItems = Object.keys(data).length;
     const { width, height } = this.props;
     const svgHeight = this.getHeight(numberOfItems);
     const radius = Math.min(width, height) / 2;
     const halfWidth = width / 2;
-    const halfHeight = height / 2;
+    const halfHeight = height / 2 + 10;
     const xDiff = 15, yDiff = 10;
     const r = radius - 10;
     this.arc = arc().outerRadius(r).innerRadius(this.innerRadius);

@@ -90,7 +90,6 @@ const ObservableRadios = observer(() => {});
       }
     };
   onHandleInput = ({ id, value, index }) => {
-    console.info('onHandleInput ' + id + '  value = ' + value);
     const option = this.props.thisQuestion.options[index];
     option.setOptionTitle(value);
   };
@@ -105,7 +104,6 @@ const ObservableRadios = observer(() => {});
       id: quesId,
       options
     } = thisQuestion;
-    console.log(options, type);
     return isAnswerMode
       ? this.renderRadios()
       : <div>

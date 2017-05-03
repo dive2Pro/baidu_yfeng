@@ -5,14 +5,20 @@ import * as examStateTypes from '../../constants/examStateType';
 import { CURRENT_EXAM, CONFIRM_MODAL, WARNING_MODAL } from '../../constants/toggleTypes';
 import TextQuestion from '../TextQuestion/index';
 import EditorTitle from './title';
-// import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
 import { spring, Motion } from 'react-motion';
 import ConfirmModal from '../Modal/ConfirmModal';
 import Button from '../Button';
-import { Icon, DatePicker } from 'antd';
+import { Icon, DatePicker, InputNumber, Input, notification, Modal } from 'antd';
 import { inject, observer } from 'mobx-react';
 import { observable, autorun } from 'mobx';
 const moment = require('moment');
+const confirm = Modal.confirm;
+const openSaveFinished = msg => {
+  notification.open({
+    message: '提醒',
+    description: msg
+  });
+};
 
 @inject('ExamStore')
 @observer
@@ -49,7 +55,20 @@ class Editor extends Component {
     id => {
       question.toggleOptionWithId(id);
     };
-
+  showConfirm = () => {
+    const { router } = this.props;
+    const that = this;
+    confirm({
+      title: '确定?',
+      content: '回答完毕,是否继续作答?',
+      onOk() {
+        that._currentExam.temperToBackExam();
+      },
+      onCancel() {
+        router.goBack();
+      }
+    });
+  };
   handleDateChange = date => {
     this.setState({
       startDate: date
@@ -114,58 +133,40 @@ class Editor extends Component {
   handleModalCancel = type => {
     this._showModal.remove(type);
   };
-
+  handleQuestionNumbers = type =>
+    count => {
+      this[type + 'numbers'] = count;
+    };
+  handleQuestionTitle = type =>
+    e => {
+      this[type + 'title'] = e.target.value;
+    };
   renderModals = () => {
-    console.log('renderModals', this._showModal);
     const showModal = this._showModal;
     return (
       <div className="modal-container">
-        <ConfirmModal
-          visible={~showModal.indexOf(topicTypes.SINGLE_TYPE)}
-          onHandleOk={() => {
-            console.log('----- confirmFunc');
-            this.handleConfirmGeneQuestion(topicTypes.SINGLE_TYPE);
-          }}
-          onHandleCancel={() => this.handleModalCancel(topicTypes.SINGLE_TYPE)}>
-          <div>
-            <p>
-              <input
-                placeholder="请输入问题题目（单选）"
-                ref={r => this['modal-' + topicTypes.SINGLE_TYPE] = r}
+        {[topicTypes.SINGLE_TYPE, topicTypes.MULTI_TYPE].map(type => (
+          <ConfirmModal
+            visible={~showModal.indexOf(type)}
+            onHandleOk={() => {
+              this.handleConfirmGeneQuestion(type);
+            }}
+            onHandleCancel={() => this.handleModalCancel(type)}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center'
+              }}>
+              <Input
+                size="large"
+                placeholder={`请输入问题题目（${type === topicTypes.SINGLE_TYPE ? '单选' : '多选'}）`}
+                onChange={this.handleQuestionTitle(type)}
               />
-            </p>
-            <p>
-              <input
-                type="text"
-                placeholder="请输入问题个数(最多10个)"
-                ref={r => this['modal-' + topicTypes.SINGLE_TYPE + 'count'] = r}
-              />
-            </p>
-          </div>
-        </ConfirmModal>
-        <ConfirmModal
-          visible={~showModal.indexOf(topicTypes.MULTI_TYPE)}
-          onHandleOk={() => {
-            this.handleConfirmGeneQuestion(topicTypes.MULTI_TYPE);
-          }}
-          onHandleCancel={() => this.handleModalCancel(topicTypes.MULTI_TYPE)}>
-          <div>
-            <p>
-              <input
-                placeholder="请输入问题题目（多选）"
-                ref={r => this['modal-' + topicTypes.MULTI_TYPE] = r}
-              />
-            </p>
-            <p>
-              <input
-                type="text"
-                placeholder="请输入问题个数(最多10个)"
-                ref={r => this['modal-' + topicTypes.MULTI_TYPE + 'count'] = r}
-              />
-            </p>
-          </div>
+              <InputNumber min={3} max={10} onChange={this.handleQuestionNumbers(type)} />
+            </div>
+          </ConfirmModal>
+        ))}
 
-        </ConfirmModal>
         <ConfirmModal
           visible={~showModal.indexOf(topicTypes.TEXT_TYPE)}
           onHandleOk={() => {
@@ -173,7 +174,7 @@ class Editor extends Component {
           }}
           onHandleCancel={() => this.handleModalCancel(topicTypes.TEXT_TYPE)}>
           <div>
-            <input
+            <Input
               placeholder="请输入问题题目（文字题）"
               ref={r => this['modal-' + topicTypes.TEXT_TYPE] = r}
             />
@@ -205,9 +206,10 @@ class Editor extends Component {
     );
   };
   handleConfirmGeneQuestion = type => {
-    const title = this['modal-' + type].value;
-    const countView = this['modal-' + type + 'count'];
-    let count = countView && +countView.value;
+    const title = this[type + 'title'] || '';
+    let count = this[type + 'numbers'] || 3;
+    this[type + 'numbers'] = null;
+    this[type + 'title'] = '';
     if (Number.isNaN(count)) {
       count = 3;
     } else if (parseInt(count) > 10) {
@@ -219,10 +221,13 @@ class Editor extends Component {
     // this.props.addQuestionFunc(title, topicTypes.SINGLE_TYPE, count);
     this._currentExam.addQuestion({ title, count, isRequire: true, type });
   };
+
   handleSubmit = () => {
     const currentExamId = this._currentExam.id;
     this._currentExam.saveToAnswer();
+    this.showConfirm('问卷回答完毕');
   };
+
   geneAnswerBottom = () => {
     return (
       <div className="editor-answer-bottom">
@@ -298,6 +303,7 @@ class Editor extends Component {
               onhandleClick={() => {
                 {
                   currentExam.changeExamState(examStateTypes.UN_RELEASE);
+                  openSaveFinished('问卷保存完毕');
                 }
               }}>
               保存问卷

@@ -30,7 +30,6 @@ class ExamShow extends Component {
   };
   componentWillMount() {
     const { router, AnswerStore } = this.props;
-    console.log(router);
     const newExamId = router.params.examId;
     this.newExamId = newExamId;
     AnswerStore.setCurrentAnswerId(newExamId);

@@ -16,7 +16,6 @@ export default class ChoiceChart extends Component {
       return <div>{title} 暂时没有答题信息</div>;
     }
     const { answerCount } = answer;
-    console.log(answer);
     let data = {};
     let chartType = 'pie';
     let isText = type === TEXT_TYPE;
@@ -36,10 +35,9 @@ export default class ChoiceChart extends Component {
       data = barData;
     } else if (isText) {
       data = {
-        有效回答: answer[qid],
-        无效填写: answerCount - answer[qid]
+        有效回答: answer.answerCount,
+        无效填写: answerCount - answer.answerCount
       };
-      console.log(data, answer);
     }
     return (
       <div className="choicechart">
@@ -62,7 +60,7 @@ export default class ChoiceChart extends Component {
           <Chart
             type={chartType}
             width={300}
-            height={isText ? 220 : 200}
+            height={isText ? 240 : 200}
             showTooltips={true}
             data={data}
             margin={{ top: 40, right: 40, bottom: 40, left: 40 }}

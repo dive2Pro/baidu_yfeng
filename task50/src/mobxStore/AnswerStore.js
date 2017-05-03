@@ -4,6 +4,9 @@ class Answers {
   answers = new observable.map();
   @observable currentAnswerId: '';
 
+  getAnswer = id => {
+    return this.answers.get(id);
+  };
   @action saveAnswer(exam) {
     const { id, questions } = exam;
     let ans = this.answers.get(id);
@@ -22,13 +25,16 @@ class Answers {
     questions.map(ques => {
       const q = toJS(ques);
       const { id: qid, options, type, content } = q;
-      const tempQ = ans[qid] || {};
+      ans[qid] = ans[qid] || {};
+      const tempQ = ans[qid];
 
       if (type === TEXT_TYPE) {
-        if (content !== '') {
-          tempQ[qid] = tempQ[qid] ? tempQ[qid] + 1 : 1;
+        if (content != null) {
+          const answerCount = tempQ.answerCount ? tempQ.answerCount + 1 : 1;
 
-          ans[qid] = tempQ;
+          ans[qid].answerCount = answerCount;
+        } else {
+          ans[qid].answerCount = 0;
         }
       } else {
         options.forEach(option => {

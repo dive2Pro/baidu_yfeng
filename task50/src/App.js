@@ -1,19 +1,21 @@
-import React, { Component } from "react";
-import Header from "./components/Header/index";
-import { Layout } from "antd";
-import "antd/dist/antd.min.css";
+import React, { Component } from 'react';
+import Header from './components/Header/index';
+import { Layout } from 'antd';
+import 'antd/dist/antd.min.css';
 const { Content: AntContent } = Layout;
-import DevTools from 'mobx-react-devtools'
+import DevTools from 'mobx-react-devtools';
 
 class App extends Component {
   render() {
     return (
       <Layout className="layout">
         <Header />
-        <AntContent id="app-content">
+        <AntContent
+          id="app-content"
+          style={{ width: '80vw', marginLeft: 'auto', marginRight: 'auto' }}>
           {this.props.children}
         </AntContent>
-        <DevTools/>
+        <DevTools />
       </Layout>
     );
   }

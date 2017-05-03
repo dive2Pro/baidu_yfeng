@@ -10,6 +10,12 @@ class Answers {
     if (!ans) {
       this.answers.set(id, {});
       ans = this.answers.get(id);
+      Object.defineProperty(ans, 'answerCount', {
+        enumerable: false,
+        value: 0,
+        writable: true,
+        configurable: true
+      });
     }
     ans.answerCount = ans.answerCount ? ans.answerCount + 1 : 1;
 
@@ -20,9 +26,9 @@ class Answers {
 
       if (type === TEXT_TYPE) {
         if (content !== '') {
-          const checkedCount = tempQ[qid] ? tempQ[qid] + 1 : 1;
+          tempQ[qid] = tempQ[qid] ? tempQ[qid] + 1 : 1;
 
-          ans[qid] = checkedCount;
+          ans[qid] = tempQ;
         }
       } else {
         options.forEach(option => {

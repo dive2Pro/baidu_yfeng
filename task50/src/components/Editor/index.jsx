@@ -1,24 +1,20 @@
-import React, { Component } from "react";
-import ChoiceQuestion from "../ChoiceQuestion/index";
-import * as topicTypes from "../../constants/topicType";
-import * as examStateTypes from "../../constants/examStateType";
-import {
-  CURRENT_EXAM,
-  CONFIRM_MODAL,
-  WARNING_MODAL
-} from "../../constants/toggleTypes";
-import TextQuestion from "../TextQuestion/index";
-import EditorTitle from "./title";
+import React, { Component } from 'react';
+import ChoiceQuestion from '../ChoiceQuestion/index';
+import * as topicTypes from '../../constants/topicType';
+import * as examStateTypes from '../../constants/examStateType';
+import { CURRENT_EXAM, CONFIRM_MODAL, WARNING_MODAL } from '../../constants/toggleTypes';
+import TextQuestion from '../TextQuestion/index';
+import EditorTitle from './title';
 // import ReactCSSTransitionGroup from "react/lib/ReactCSSTransitionGroup";
-import { spring, Motion } from "react-motion";
-import ConfirmModal from "../Modal/ConfirmModal";
-import Button from "../Button";
-import { Icon, DatePicker } from "antd";
-import { inject, observer } from "mobx-react";
-import { observable, autorun } from "mobx";
-const moment = require("moment");
+import { spring, Motion } from 'react-motion';
+import ConfirmModal from '../Modal/ConfirmModal';
+import Button from '../Button';
+import { Icon, DatePicker } from 'antd';
+import { inject, observer } from 'mobx-react';
+import { observable, autorun } from 'mobx';
+const moment = require('moment');
 
-@inject("ExamStore")
+@inject('ExamStore')
 @observer
 class Editor extends Component {
   state = {};
@@ -32,12 +28,12 @@ class Editor extends Component {
     const { router, ExamStore } = this.props;
     const { params: { examId }, location: { pathname } } = router;
     this._currentExam = ExamStore.getExam(examId);
-    this._isAnswerMode = pathname.indexOf("answer") >= 0;
+    this._isAnswerMode = pathname.indexOf('answer') >= 0;
   }
 
   componentDidMount() {
     const { router } = this.props;
-    if (!this._currentExam) router.push("/list");
+    if (!this._currentExam) router.push('/list');
     if (!this._isAnswerMode) {
       this._currentExam.setEditing(true);
     }
@@ -48,18 +44,11 @@ class Editor extends Component {
       this._currentExam.temperToBackExam();
     }
   }
-  onToggle = question => ids => {
-    const { toggle } = this.props;
-    const currentExamId = toggle[CURRENT_EXAM];
-    this.setState(prevState => {
-      return {
-        [currentExamId]: {
-          ...prevState[currentExamId],
-          [question.id]: ids
-        }
-      };
-    });
-  };
+
+  onToggle = question =>
+    id => {
+      question.toggleOptionWithId(id);
+    };
 
   handleDateChange = date => {
     this.setState({
@@ -69,7 +58,7 @@ class Editor extends Component {
       changeExamTimeFunc,
       toggle
     } = this.props;
-    changeExamTimeFunc(toggle[CURRENT_EXAM], date.format("Y-M-D"));
+    changeExamTimeFunc(toggle[CURRENT_EXAM], date.format('Y-M-D'));
   };
 
   geneQuestionsView = () => {
@@ -106,7 +95,7 @@ class Editor extends Component {
               />
             );
           default:
-            return "";
+            return '';
         }
       });
   };
@@ -127,30 +116,29 @@ class Editor extends Component {
   };
 
   renderModals = () => {
-    console.log("renderModals", this._showModal);
+    console.log('renderModals', this._showModal);
     const showModal = this._showModal;
     return (
       <div className="modal-container">
         <ConfirmModal
           visible={~showModal.indexOf(topicTypes.SINGLE_TYPE)}
           onHandleOk={() => {
-            console.log("----- confirmFunc");
+            console.log('----- confirmFunc');
             this.handleConfirmGeneQuestion(topicTypes.SINGLE_TYPE);
           }}
-          onHandleCancel={() => this.handleModalCancel(topicTypes.SINGLE_TYPE)}
-        >
+          onHandleCancel={() => this.handleModalCancel(topicTypes.SINGLE_TYPE)}>
           <div>
             <p>
               <input
                 placeholder="请输入问题题目（单选）"
-                ref={r => this["modal-" + topicTypes.SINGLE_TYPE] = r}
+                ref={r => this['modal-' + topicTypes.SINGLE_TYPE] = r}
               />
             </p>
             <p>
               <input
                 type="text"
                 placeholder="请输入问题个数(最多10个)"
-                ref={r => this["modal-" + topicTypes.SINGLE_TYPE + "count"] = r}
+                ref={r => this['modal-' + topicTypes.SINGLE_TYPE + 'count'] = r}
               />
             </p>
           </div>
@@ -160,20 +148,19 @@ class Editor extends Component {
           onHandleOk={() => {
             this.handleConfirmGeneQuestion(topicTypes.MULTI_TYPE);
           }}
-          onHandleCancel={() => this.handleModalCancel(topicTypes.MULTI_TYPE)}
-        >
+          onHandleCancel={() => this.handleModalCancel(topicTypes.MULTI_TYPE)}>
           <div>
             <p>
               <input
                 placeholder="请输入问题题目（多选）"
-                ref={r => this["modal-" + topicTypes.MULTI_TYPE] = r}
+                ref={r => this['modal-' + topicTypes.MULTI_TYPE] = r}
               />
             </p>
             <p>
               <input
                 type="text"
                 placeholder="请输入问题个数(最多10个)"
-                ref={r => this["modal-" + topicTypes.MULTI_TYPE + "count"] = r}
+                ref={r => this['modal-' + topicTypes.MULTI_TYPE + 'count'] = r}
               />
             </p>
           </div>
@@ -184,12 +171,11 @@ class Editor extends Component {
           onHandleOk={() => {
             this.handleConfirmGeneQuestion(topicTypes.TEXT_TYPE);
           }}
-          onHandleCancel={() => this.handleModalCancel(topicTypes.TEXT_TYPE)}
-        >
+          onHandleCancel={() => this.handleModalCancel(topicTypes.TEXT_TYPE)}>
           <div>
             <input
               placeholder="请输入问题题目（文字题）"
-              ref={r => this["modal-" + topicTypes.TEXT_TYPE] = r}
+              ref={r => this['modal-' + topicTypes.TEXT_TYPE] = r}
             />
           </div>
         </ConfirmModal>
@@ -200,16 +186,14 @@ class Editor extends Component {
             this.handleModalCancel(CONFIRM_MODAL);
             this.props.router.go(-1);
           }}
-          onHandleCancel={() => this.handleModalCancel(CONFIRM_MODAL)}
-        >
+          onHandleCancel={() => this.handleModalCancel(CONFIRM_MODAL)}>
           <div>
             <p>
               是否发布问卷?
             </p>
             <p>
               (此问卷截止日期为
-              {this.state.startDate &&
-                this.state.startDate.format("YYYY-MM-DD")}
+              {this.state.startDate && this.state.startDate.format('YYYY-MM-DD')}
               )
             </p>
           </div>
@@ -221,8 +205,8 @@ class Editor extends Component {
     );
   };
   handleConfirmGeneQuestion = type => {
-    const title = this["modal-" + type].value;
-    const countView = this["modal-" + type + "count"];
+    const title = this['modal-' + type].value;
+    const countView = this['modal-' + type + 'count'];
     let count = countView && +countView.value;
     if (Number.isNaN(count)) {
       count = 3;
@@ -231,19 +215,13 @@ class Editor extends Component {
     } else if (parseInt(count) < 1) {
       count = 3;
     }
-    console.log(title, count, "-------\n");
     this.handleModalCancel(type);
     // this.props.addQuestionFunc(title, topicTypes.SINGLE_TYPE, count);
     this._currentExam.addQuestion({ title, count, isRequire: true, type });
   };
   handleSubmit = () => {
-    const {
-      toggle,
-      handleSubmitFunc
-    } = this.props;
-    const currentExamId = toggle[CURRENT_EXAM];
-    const questionAnswer = this.state[currentExamId];
-    questionAnswer && handleSubmitFunc(currentExamId, questionAnswer);
+    const currentExamId = this._currentExam.id;
+    this._currentExam.saveToAnswer();
   };
   geneAnswerBottom = () => {
     return (
@@ -253,7 +231,7 @@ class Editor extends Component {
     );
   };
   geneEditorBottom = () => {
-    const memeIcons = ["⭕", "⬜", "📝"];
+    const memeIcons = ['⭕', '⬜', '📝'];
     const topicArr = topicTypes.arr;
 
     const itemsActive = this._showAddItemsView;
@@ -267,26 +245,23 @@ class Editor extends Component {
             style={{
               op: spring(itemsActive ? 1 : 0),
               display: spring(itemsActive ? 1 : 0)
-            }}
-          >
+            }}>
             {({ op, display }) => (
               <div
                 style={{
                   opacity: op,
                   flex: op,
-                  display: display ? "flex" : "none"
+                  display: display ? 'flex' : 'none'
                 }}
-                className="editor-addquestion-items"
-              >
+                className="editor-addquestion-items">
                 {Object.keys(topicArr).map((type, index) => {
                   return (
                     <Button
                       key={index}
                       onhandleClick={() => {
                         this._showModal.push(type);
-                      }}
-                    >
-                      {memeIcons[index] + "  " + topicArr[type]}
+                      }}>
+                      {memeIcons[index] + '  ' + topicArr[type]}
                     </Button>
                   );
                 })}
@@ -299,9 +274,8 @@ class Editor extends Component {
             className="editor-addquestion-add"
             onClick={() => {
               this._showAddItemsView = !this._showAddItemsView;
-            }}
-          >
-            <Icon style={{ fontSize: "20px" }} type="plus-circle-o" />
+            }}>
+            <Icon style={{ fontSize: '20px' }} type="plus-circle-o" />
             添加问题
           </div>
         </div>
@@ -325,8 +299,7 @@ class Editor extends Component {
                 {
                   currentExam.changeExamState(examStateTypes.UN_RELEASE);
                 }
-              }}
-            >
+              }}>
               保存问卷
             </Button>
             <Button
@@ -334,8 +307,7 @@ class Editor extends Component {
                 {
                   this._showModal.push(CONFIRM_MODAL);
                 }
-              }}
-            >
+              }}>
               发布问卷
             </Button>
           </div>

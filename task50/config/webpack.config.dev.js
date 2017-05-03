@@ -7,8 +7,6 @@ var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeMod
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
 
-
-
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 var publicPath = '/';
@@ -63,8 +61,8 @@ module.exports = {
     publicPath: publicPath
   },
   externals: {
-    'jsdom': 'window',
-    'cheerio': 'window',
+    jsdom: 'window',
+    cheerio: 'window',
     'react/lib/ExecutionEnvironment': true,
     'react/addons': true,
     'react/lib/ReactContext': 'window'
@@ -87,17 +85,17 @@ module.exports = {
       'react-native': 'react-native-web'
     }
   },
-  
+
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
-    preLoaders: [
+    /* preLoaders: [
       {
         test: /\.(js|jsx)$/,
         loader: 'eslint',
         include: paths.appSrc,
       }
-    ],
+    ],*/
     loaders: [
       // ** ADDING/UPDATING LOADERS **
       // The "url" loader handles all assets unless explicitly excluded.
@@ -108,14 +106,7 @@ module.exports = {
       // "url" loader embeds assets smaller than specified size as data URLs to avoid requests.
       // Otherwise, it acts like the "file" loader.
       {
-        exclude: [
-          /\.html$/,
-          /\.(js|jsx)$/,
-          /\.css$/,
-          /\.json$/,
-          /\.svg$/,
-          /\.scss$/
-        ],
+        exclude: [/\.html$/, /\.(js|jsx)$/, /\.css$/, /\.json$/, /\.svg$/, /\.scss$/],
         loader: 'url',
         query: {
           limit: 10000,
@@ -128,7 +119,6 @@ module.exports = {
         include: paths.appSrc,
         loader: 'babel',
         query: {
-          
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
           // directory for faster rebuilds.
@@ -161,13 +151,13 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: 'style!css?importLoaders=1!postcss!sass',
-        fallbackLoader:"style"
+        fallbackLoader: 'style'
       }
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list.
     ]
   },
-  
+
   // We use PostCSS for autoprefixing only.
   postcss: function() {
     return [
@@ -176,9 +166,9 @@ module.exports = {
           '>1%',
           'last 4 versions',
           'Firefox ESR',
-          'not ie < 9', // React doesn't support IE8 anyway
+          'not ie < 9' // React doesn't support IE8 anyway
         ]
-      }),
+      })
     ];
   },
   plugins: [
@@ -190,7 +180,7 @@ module.exports = {
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
-      template: paths.appHtml,
+      template: paths.appHtml
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.

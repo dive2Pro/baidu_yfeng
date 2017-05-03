@@ -1,8 +1,8 @@
-import React, { PropTypes } from "react";
-import InputWithEditView from "../InputItem/index";
-import { questionActs } from "../../constants/questionActType";
-import classnames from "classnames";
-import { observer } from "mobx-react";
+import React, { PropTypes } from 'react';
+import InputWithEditView from '../InputItem/index';
+import { questionActs } from '../../constants/questionActType';
+import classnames from 'classnames';
+import { observer } from 'mobx-react';
 export default function(Component) {
   @observer class Question extends React.Component {
     state = {};
@@ -39,7 +39,7 @@ export default function(Component) {
         isRequire
       } = thisQuestion;
 
-      const requireClazz = classnames("question-title-require", {
+      const requireClazz = classnames('question-title-require', {
         visible: requireable
       });
 
@@ -57,13 +57,12 @@ export default function(Component) {
             {!isAnswerMode &&
               <div className={requireClazz}>
                 <input
-                  onChange={e =>
-                    thisQuestion.setQuestionRequire(!isRequire)}
+                  onChange={e => thisQuestion.setQuestionRequire(!isRequire)}
                   type="checkbox"
-                  id={id + " - label"}
+                  id={id + ' - label'}
                   checked={isRequire}
                 />
-                <label htmlFor={id + " - label"}>
+                <label htmlFor={id + ' - label'}>
                   此题是否必选
                 </label>
               </div>}
@@ -81,7 +80,7 @@ export default function(Component) {
               {Object.keys(questionActs).map((act, i) => {
                 let content;
                 if ((index === 0 && i === 0) || (isLast && i === 1)) {
-                  return "";
+                  return '';
                 } else {
                   content = act;
                 }
@@ -95,8 +94,7 @@ export default function(Component) {
                         actType: questionActs[act]
                       });
                     }}
-                    className="question-act-item"
-                  >
+                    className="question-act-item">
                     {content}
                   </a>
                 );

@@ -1,16 +1,19 @@
-import React, { Component } from "react";
-import Question from "../Question/index";
-import { Input } from "antd";
-class TextQuestion extends Component {
+import React, { Component } from 'react';
+import Question from '../Question/index';
+import { Input } from 'antd';
+import { observer } from 'mobx-react';
+@observer class TextQuestion extends Component {
   state = {};
   handleChange = event => {
     const value = event.target.value;
-    this.props.thisQuestion.updateContent(value)
+    const { isAnswerMode, thisQuestion } = this.props;
+    isAnswerMode ? thisQuestion.updateContent(value) : this.setState({ temp_value: value });
   };
 
   render() {
     const {
-      thisQuestion
+      thisQuestion,
+      isAnswerMode
     } = this.props;
     const content = thisQuestion.content;
     return (
@@ -18,7 +21,7 @@ class TextQuestion extends Component {
         <Input
           type="textarea"
           onChange={this.handleChange}
-          value={this.state.temp_value || content}
+          value={isAnswerMode ? content : this.state.temp_value}
         />
       </div>
     );

@@ -1,15 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import ExamList from "./components/ExamList/index";
-import NoMatch from "./components/NoMatch/index";
-import { Provider } from "mobx-react";
-import { browserHistory } from "react-router";
-import { Router, Route, IndexRoute } from "react-router";
-import EditorContainer from "./components/Editor/index";
-import ExamShowContainer from "./components/ExamShow/index";
-require("../styles/index.scss");
-import ExamStore from "./mobxStore/index";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import ExamList from './components/ExamList/index';
+import NoMatch from './components/NoMatch/index';
+import { Provider } from 'mobx-react';
+import { browserHistory } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
+import EditorContainer from './components/Editor/index';
+import ExamShowContainer from './components/ExamShow/index';
+require('../styles/index.scss');
+import ExamStore from './mobxStore/index';
+import AnswerStore from './mobxStore/AnswerStore';
 const routers = (
   <Router component={App}>
     <IndexRoute component={ExamList} />
@@ -23,17 +24,17 @@ const routers = (
 );
 
 ReactDOM.render(
-  <Provider ExamStore={ExamStore}>
+  <Provider ExamStore={ExamStore} AnswerStore={AnswerStore}>
     <Router history={browserHistory}>
       {routers}
     </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 if (module.hot) {
-  module.hot.accept("./App", () => {
-    const NextApp = require("./App").default;
-    ReactDOM.render(<NextApp />, document.getElementById("root"));
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default;
+    ReactDOM.render(<NextApp />, document.getElementById('root'));
   });
 }

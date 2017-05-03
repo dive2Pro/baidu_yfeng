@@ -1,32 +1,65 @@
-import React from "react";
+import React from 'react';
 
-import InputWithEditView from "../InputItem/InputWithEdit";
-import CheckOrRadioSelectView from "../InputItem/CheckOrRadioSelectView";
-import * as topicTypes from "../../constants/topicType";
-import Question from "../Question/index";
-import { Radio, Checkbox, Icon } from "antd";
-import { DELETE } from "../../constants/optionActType";
+import InputWithEditView from '../InputItem/InputWithEdit';
+import CheckOrRadioSelectView from '../InputItem/CheckOrRadioSelectView';
+import * as topicTypes from '../../constants/topicType';
+import Question from '../Question/index';
+import { Radio, Checkbox, Icon } from 'antd';
+import { DELETE } from '../../constants/optionActType';
 const RadioGroup = Radio.Group;
-const CheckboxGroup = Checkbox.Group;
-import {observer} from 'mobx-react'
-@observer
-class ChoiceQuestion extends React.Component {
+import { observer } from 'mobx-react';
 
+const ObservableRadios = observer(() => {});
+@observer class ObservableCheckGroup extends React.PureComponent {
+  state = { value: [] };
+  toggleOption = option => {
+    option.toggleChecked();
+  };
+  render() {
+    const { thisQuestion, onHandleChange } = this.props;
+    const state = this.state;
+    const style = {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      lineHeight: '25px'
+    };
+    return (
+      <div style={style} className="question-items-item">
+        {thisQuestion.options.map(option => {
+          return (
+            <Checkbox
+              key={option.id}
+              value={option.title}
+              checked={option.checked}
+              onChange={() => this.toggleOption(option)}>
+              {option.title}
+            </Checkbox>
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+@observer class ChoiceQuestion extends React.Component {
   onHandleRadioGroupChange = e => {
-    const id = e.target.value;
+    const option = e.target.value;
+    const { thisQuestion } = this.props;
+    thisQuestion.toggleChecked(option);
   };
   renderRadios = () => {
     const radioStyle = {
-      display: "block",
-      height: "30px",
-      lineHeight: "30px"
+      display: 'block',
+      height: '30px',
+      lineHeight: '30px'
     };
     const { thisQuestion, onHandleChange } = this.props;
     // const inputType = type === topicTypes.SINGLE_TYPE ? "radio" : "checkbox";
-    const optionsValues = thisQuestion.options.values();
+    const optionsValues = thisQuestion.options.slice();
     const plainOptions = optionsValues.map(option => ({
-      value: option.id,
-      label: option.title
+      value: option.value,
+      label: option.title,
+      key: option.id
     }));
     const isRadio = thisQuestion.type === topicTypes.SINGLE_TYPE;
 
@@ -35,7 +68,7 @@ class ChoiceQuestion extends React.Component {
         {optionsValues.map(option => {
           const { id, title } = option;
           return (
-            <Radio key={id} style={radioStyle} value={id}>
+            <Radio key={id} style={radioStyle} value={option}>
               {title}
             </Radio>
           );
@@ -43,28 +76,21 @@ class ChoiceQuestion extends React.Component {
       </RadioGroup>
     );
 
-    return (
-      <div className="question-items-item">
-        {isRadio
-          ? Radios
-          : <CheckboxGroup
-              onChange={onHandleChange}
-              options={plainOptions}
-              style={radioStyle}
-            />}
-      </div>
-    );
+    return isRadio
+      ? <div className="question-items-item">{Radios} </div>
+      : <ObservableCheckGroup {...this.props} checkStyle={radioStyle} />;
   };
-  onOpetions = quesId => (index, actType) => {
-    const q = this.props.thisQuestion;
-    if (actType == DELETE) {
-      q.deleteOption(index);
-    } else {
-      q.changeOptionPosition(index,actType);
-    }
-  };
-  onHandleInput = ({ id, value,index }) => {
-    console.info("onHandleInput " + id + "  value = " + value);
+  onOpetions = quesId =>
+    (index, actType) => {
+      const q = this.props.thisQuestion;
+      if (actType == DELETE) {
+        q.deleteOption(index);
+      } else {
+        q.changeOptionPosition(index, actType);
+      }
+    };
+  onHandleInput = ({ id, value, index }) => {
+    console.info('onHandleInput ' + id + '  value = ' + value);
     const option = this.props.thisQuestion.options[index];
     option.setOptionTitle(value);
   };
@@ -83,7 +109,7 @@ class ChoiceQuestion extends React.Component {
     return isAnswerMode
       ? this.renderRadios()
       : <div>
-          {options.map((option,index) => {
+          {options.map((option, index) => {
             const { id, title } = option;
             return (
               <div key={id} className="question-items-item">
@@ -104,8 +130,7 @@ class ChoiceQuestion extends React.Component {
             );
           })}
           <div>
-            {!isAnswerMode &&
-              <Icon type="plus" onClick={() => thisQuestion.id} />}
+            {!isAnswerMode && <Icon type="plus" onClick={() => thisQuestion.id} />}
           </div>
         </div>;
   }

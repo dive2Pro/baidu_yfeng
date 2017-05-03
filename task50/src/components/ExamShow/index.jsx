@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-const defaultExamId = "e1";
-import * as actions from "../../actions/index";
-import ChoiceChart from "../ChoiceChart/index";
-import Button from '../Button'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../actions/index';
+import ChoiceChart from '../ChoiceChart/index';
+import Button from '../Button';
 class ExamShow extends Component {
   geneContent = () => {
     const { answer, exam, message, question, newExamId, router } = this.props;
@@ -44,7 +43,7 @@ class ExamShow extends Component {
   componentDidMount() {
     const { newExamId, router, exam } = this.props;
     if (!newExamId || !exam[newExamId]) {
-      router.push("/list");
+      router.push('/list');
     }
   }
   render() {
@@ -64,8 +63,7 @@ class ExamShow extends Component {
             {this.geneContent()}
           </div>
           <div className="showBottom">
-            <Button className="showBottom-button"
-                    onhandleClick={this.handleGoBack}>
+            <Button className="showBottom-button" onhandleClick={this.handleGoBack}>
               返回
             </Button>
           </div>
@@ -94,10 +92,7 @@ const mapDispatchToProps = dispatch => {
     saveMessageFunc: bindActionCreators(actions.saveMessage, dispatch),
     saveExamFunc: bindActionCreators(actions.saveExam, dispatch),
     setToggleIdFunc: bindActionCreators(actions.setToggleId, dispatch),
-    opeExamQuestionsFunc: bindActionCreators(
-      actions.opeExamQuestions,
-      dispatch
-    ),
+    opeExamQuestionsFunc: bindActionCreators(actions.opeExamQuestions, dispatch),
     setRequireFunc: bindActionCreators(actions.setRequire, dispatch),
     changeExamStateFunc: bindActionCreators(actions.changeExamState, dispatch),
     changeExamTimeFunc: bindActionCreators(actions.changeExamTime, dispatch),
